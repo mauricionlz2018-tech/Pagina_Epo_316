@@ -56,7 +56,7 @@ export default function ContactPage() {
                     <p className="text-muted-foreground">
                       Escuela Preparatoria Oficial Núm. 316
                       <br />
-                      Estado de México, México
+                      San José del Rincón, Estado de México, México
                     </p>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-bold mb-1">Teléfono</h3>
                     <p className="text-muted-foreground">+52 (555) 123-4567</p>
-                    <p className="text-muted-foreground text-sm mt-1">Lunes a Viernes, 8:00 AM - 5:00 PM</p>
+                    <p className="text-muted-foreground text-sm mt-1">Lunes a Viernes, 8:00 AM - 3:00 PM</p>
                   </div>
                 </div>
 
@@ -86,14 +86,10 @@ export default function ContactPage() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span>Lunes a Viernes:</span>
-                    <span>8:00 AM - 5:00 PM</span>
+                    <span>8:00 AM - 3:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Sábado:</span>
-                    <span>9:00 AM - 1:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Domingo:</span>
+                    <span>Sabado y Domingo:</span>
                     <span>Cerrado</span>
                   </div>
                 </div>

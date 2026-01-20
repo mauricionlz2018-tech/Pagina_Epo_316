@@ -65,12 +65,8 @@ export default function InfraestructuraPage() {
                 <p className="text-muted-foreground">Cancha profesional con infraestructura para torneos internos y entrenamiento de equipos representativos.</p>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">Cancha de Voleibol</h3>
-                <p className="text-muted-foreground">Cancha reglamentaria con pisos de protección para práctica de voleibol y otras actividades deportivas.</p>
-              </div>
-              <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Cancha de Fútbol</h3>
-                <p className="text-muted-foreground">Campo deportivo con césped artificial para fútbol asociación y fútbol rápido.</p>
+                <p className="text-muted-foreground">Campo deportivo para fútbol y otras actividades recreativas.</p>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Áreas Verdes</h3>

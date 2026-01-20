@@ -28,17 +28,15 @@ export default function OrientacionPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <div className="w-20 h-20 bg-primary rounded-full mb-4 flex items-center justify-center text-white text-2xl">👩‍🏫</div>
-                <h3 className="font-bold text-lg mb-2">Lic. María García López</h3>
+                <h3 className="font-bold text-lg mb-2">Lic. Rosa Garía Trejo</h3>
                 <p className="text-muted-foreground text-sm mb-3">Orientadora Educativa</p>
                 <p className="text-muted-foreground text-sm">Especializada en orientación académica y vocacional, con 10 años de experiencia en educación.</p>
-                <p className="text-primary text-sm mt-3"><strong>Ext.</strong> 101</p>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <div className="w-20 h-20 bg-primary rounded-full mb-4 flex items-center justify-center text-white text-2xl">👩‍🏫</div>
-                <h3 className="font-bold text-lg mb-2">Lic. Sofía Ramírez Cruz</h3>
+                <h3 className="font-bold text-lg mb-2">Lic. Yanet Nuñez Alcantara</h3>
                 <p className="text-muted-foreground text-sm mb-3">Orientadora Psicosocial</p>
                 <p className="text-muted-foreground text-sm">Enfocada en bienestar estudiantil, relaciones interpersonales y desarrollo emocional.</p>
-                <p className="text-primary text-sm mt-3"><strong>Ext.</strong> 102</p>
               </div>
             </div>
           </div>
@@ -73,21 +71,143 @@ export default function OrientacionPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">Bibliotecas Digitales Gratuitas</h3>
-                <ul className="space-y-2 text-muted-foreground text-sm">
-                  <li>• <strong>UNAM Global:</strong> Biblioteca digital de la UNAM</li>
-                  <li>• <strong>Biblioteca del IPN:</strong> Recursos académicos del Instituto Politécnico Nacional</li>
-                  <li>• <strong>Dominio Público:</strong> Libros y materiales en dominio público</li>
-                  <li>• <strong>Google Scholar:</strong> Búsqueda de artículos académicos</li>
+                <h3 className="font-bold text-lg mb-3">📚 Bibliotecas Digitales</h3>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li>
+                    <a href="https://www.dgbiblio.unam.mx/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • UNAM - Biblioteca Digital
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Acceso a bases de datos y libros de la UNAM</p>
+                  </li>
+                  <li>
+                    <a href="https://www.bidi.unam.mx/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • BIDI - Sistema de Bibliotecas UNAM
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Portal de bases de datos académicas UNAM</p>
+                  </li>
+                  <li>
+                    <a href="https://www.ipn.mx/assets/files/biblioteca/docs/ACCESO-BIBLIOTECA-IPN.pdf" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Biblioteca IPN
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Recursos académicos del Instituto Politécnico Nacional</p>
+                  </li>
+                  <li>
+                    <a href="https://www.gutenberg.org/ebooks/search/?query=spanish" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Project Gutenberg
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Libros de dominio público en español</p>
+                  </li>
+                  <li>
+                    <a href="https://scholar.google.com/scholar" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Google Scholar
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Búsqueda de artículos académicos y papers</p>
+                  </li>
                 </ul>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">Plataformas de Aprendizaje</h3>
-                <ul className="space-y-2 text-muted-foreground text-sm">
-                  <li>• <strong>Khan Academy:</strong> Cursos en múltiples temas</li>
-                  <li>• <strong>Coursera:</strong> Cursos universitarios en línea</li>
-                  <li>• <strong>Edx:</strong> Educación de calidad mundial</li>
-                  <li>• <strong>YouTube Educativo:</strong> Canales académicos</li>
+                <h3 className="font-bold text-lg mb-3">🎓 Plataformas de Aprendizaje</h3>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li>
+                    <a href="https://www.khanacademy.org/es" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Khan Academy
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Cursos gratuitos en español: matemáticas, ciencias, historia</p>
+                  </li>
+                  <li>
+                    <a href="https://www.coursera.org/es" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Coursera
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Cursos universitarios en línea de universidades top</p>
+                  </li>
+                  <li>
+                    <a href="https://www.edx.org/es" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • EdX
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Educación de MIT, Harvard y otras universidades</p>
+                  </li>
+                  <li>
+                    <a href="https://www.duolingo.com/es" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Duolingo
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Aprende idiomas de manera interactiva y divertida</p>
+                  </li>
+                  <li>
+                    <a href="https://www.youtube.com/results?search_query=educación+académica" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • YouTube Educativo
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Canales académicos en múltiples temas</p>
+                  </li>
+                </ul>
+              </div>
+              <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
+                <h3 className="font-bold text-lg mb-3">💻 Herramientas Digitales</h3>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li>
+                    <a href="https://www.overleaf.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Overleaf
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Editor online para documentos académicos LaTeX</p>
+                  </li>
+                  <li>
+                    <a href="https://www.wolframalpha.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Wolfram Alpha
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Motor de búsqueda computacional para matemáticas</p>
+                  </li>
+                  <li>
+                    <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Desmos
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Calculadora gráfica interactiva para matemáticas</p>
+                  </li>
+                  <li>
+                    <a href="https://www.canva.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • Canva
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Herramienta de diseño gráfico para presentaciones</p>
+                  </li>
+                  <li>
+                    <a href="https://www.deepl.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                      • DeepL
+                    </a>
+                    <p className="text-xs ml-4 mt-1">Traductor online con inteligencia artificial</p>
+                  </li>
+                </ul>
+              </div>
+              <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
+                <h3 className="font-bold text-lg mb-3">📖 Recursos por Materia</h3>
+                <ul className="space-y-3 text-muted-foreground text-sm">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">📐</span>
+                    <div>
+                      <p><strong>Matemáticas:</strong> Khan Academy, Wolfram Alpha, Desmos</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">🧪</span>
+                    <div>
+                      <p><strong>Ciencias:</strong> Coursera, Khan Academy, Google Scholar</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">🌍</span>
+                    <div>
+                      <p><strong>Idiomas:</strong> Duolingo, DeepL, YouTube Educativo</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">📚</span>
+                    <div>
+                      <p><strong>Historia:</strong> UNAM, Dominio Público, BIDI</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">✏️</span>
+                    <div>
+                      <p><strong>Literatura:</strong> Google Scholar, JSTOR, UNAM</p>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -98,12 +218,11 @@ export default function OrientacionPage() {
             <h3 className="font-bold text-lg mb-4">Horario de Atención</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-muted-foreground">
               <div>
-                <p><strong>Lunes a Jueves:</strong> 8:00 - 16:00 hrs</p>
-                <p><strong>Viernes:</strong> 8:00 - 15:00 hrs</p>
+                <p><strong>Lunes a Viernes:</strong> 8:00 AM - 3:00 PM</p>
               </div>
               <div>
                 <p><strong>Correo:</strong> orientacion@epo316.edu.mx</p>
-                <p><strong>Teléfono:</strong> (555) 1234-5678</p>
+                <p><strong>Teléfono:</strong> (+52) 557-415-6828</p>
               </div>
             </div>
           </div>

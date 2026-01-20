@@ -62,7 +62,7 @@ export default function AboutPage() {
                 <p className="text-muted-foreground">Buscamos constantemente nuevas formas de mejorar la educación.</p>
               </div>
             </div>
-          </div>
+          </div>  
         </div>
       </section>
 

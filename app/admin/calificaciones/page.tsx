@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { Trash2, Edit2, Plus, X, MessageCircle } from 'lucide-react';
+import { Trash2, Edit2, Plus, X, MessageCircle, Download } from 'lucide-react';
+import { BeletaGenerator } from '@/components/boleta-generator';
 
 // Materias por grado
 const MATERIAS_POR_GRADO: Record<string, string[]> = {
@@ -23,6 +24,7 @@ export default function CalificacionesPage() {
   const [filtroEstudiante, setFiltroEstudiante] = useState<string>('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [boletaEstudianteId, setBoletaEstudianteId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     grado: '',
     estudiante_id: '',
@@ -165,9 +167,40 @@ export default function CalificacionesPage() {
     }
   };
 
+  const generarDatosBoletaParaEstudiante = (estudianteId: string) => {
+    const estudiante = estudiantes.find(e => e.id.toString() === estudianteId);
+    if (!estudiante) return null;
+
+    const calificacionesEstudiante = calificaciones.filter(c => c.estudiante_id.toString() === estudianteId);
+    
+    return {
+      nombre_estudiante: estudiante.nombre,
+      grado: estudiante.grado,
+      semestre: calificacionesEstudiante[0]?.semestre || '1',
+      ciclo_escolar: calificacionesEstudiante[0]?.ciclo_escolar || '2025-2026',
+      calificaciones: calificacionesEstudiante.map(c => ({
+        materia: c.materia,
+        calificacion: parseFloat(c.calificacion),
+      })),
+    };
+  };
+
   const caliFiltradas = filtroEstudiante
     ? calificaciones.filter((c) => c.estudiante_id.toString() === filtroEstudiante)
     : calificaciones;
+
+  // Agrupar por estudiante para mostrar boleta
+  const estudiantesConCalificaciones = Array.from(
+    new Set(caliFiltradas.map((c) => c.estudiante_id))
+  ).map((id) => {
+    const cals = caliFiltradas.filter((c) => c.estudiante_id === id);
+    const estudiante = estudiantes.find((e) => e.id === id);
+    return {
+      estudiante_id: id,
+      nombre: estudiante?.nombre,
+      calificaciones: cals,
+    };
+  });
 
   // Estudiantes filtrados por semestre
   const estudiantesPorSemestre = filtroGrado
@@ -207,6 +240,24 @@ export default function CalificacionesPage() {
           Actualizar
         </Button>
       </div>
+
+      {/* Modal de Boleta */}
+      {boletaEstudianteId && (
+        <Card className="p-6 bg-blue-50 border-blue-200">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold">Boleta del Estudiante</h2>
+            <button
+              onClick={() => setBoletaEstudianteId(null)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          {generarDatosBoletaParaEstudiante(boletaEstudianteId) && (
+            <BeletaGenerator data={generarDatosBoletaParaEstudiante(boletaEstudianteId)!} />
+          )}
+        </Card>
+      )}
 
       {/* Mensajes */}
       {error && (
@@ -394,7 +445,78 @@ export default function CalificacionesPage() {
             <div className="p-8 text-center text-gray-500">
               No hay calificaciones registradas
             </div>
+          ) : filtroEstudiante ? (
+            // Mostrar en formato de boleta cuando está filtrado por estudiante
+            <div className="p-6">
+              <div className="mb-4 flex items-center gap-4">
+                <h3 className="text-lg font-bold">Calificaciones de {estudiantesConCalificaciones[0]?.nombre}</h3>
+                <Button
+                  onClick={() => setBoletaEstudianteId(filtroEstudiante)}
+                  className="gap-2 bg-green-600 hover:bg-green-700"
+                >
+                  <Download size={18} />
+                  Descargar Boleta
+                </Button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-200">
+                    <tr>
+                      <th className="px-6 py-3 text-left font-semibold">Materia</th>
+                      <th className="px-6 py-3 text-center font-semibold">Calificación</th>
+                      <th className="px-6 py-3 text-left font-semibold">Semestre</th>
+                      <th className="px-6 py-3 text-left font-semibold">Ciclo</th>
+                      <th className="px-6 py-3 text-left font-semibold">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {caliFiltradas.map((cal) => (
+                      <tr key={cal.id} className="border-t hover:bg-gray-50">
+                        <td className="px-6 py-3">{cal.materia}</td>
+                        <td className="px-6 py-3 text-center">
+                          <span
+                            className={`px-3 py-1 rounded font-bold ${
+                              cal.calificacion >= 8
+                                ? 'bg-green-100 text-green-700'
+                                : cal.calificacion >= 6
+                                ? 'bg-yellow-100 text-yellow-700'
+                                : 'bg-red-100 text-red-700'
+                            }`}
+                          >
+                            {cal.calificacion}
+                          </span>
+                        </td>
+                        <td className="px-6 py-3">Semestre {cal.semestre}</td>
+                        <td className="px-6 py-3">{cal.ciclo_escolar}</td>
+                        <td className="px-6 py-3 flex gap-2">
+                          <button
+                            onClick={() => enviarWhatsApp(cal)}
+                            className="text-green-600 hover:text-green-800"
+                            title="Enviar por WhatsApp"
+                          >
+                            <MessageCircle size={18} />
+                          </button>
+                          <button
+                            onClick={() => handleEdit(cal)}
+                            className="text-blue-600 hover:text-blue-800"
+                          >
+                            <Edit2 size={18} />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(cal.id)}
+                            className="text-red-600 hover:text-red-800"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           ) : (
+            // Mostrar tabla con resumen por estudiante
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-200">
@@ -428,6 +550,13 @@ export default function CalificacionesPage() {
                       <td className="px-6 py-3">Semestre {cal.semestre}</td>
                       <td className="px-6 py-3">{cal.ciclo_escolar}</td>
                       <td className="px-6 py-3 flex gap-2">
+                        <button
+                          onClick={() => setBoletaEstudianteId(cal.estudiante_id.toString())}
+                          className="text-purple-600 hover:text-purple-800"
+                          title="Ver Boleta"
+                        >
+                          <Download size={18} />
+                        </button>
                         <button
                           onClick={() => enviarWhatsApp(cal)}
                           className="text-green-600 hover:text-green-800"

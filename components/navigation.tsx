@@ -12,38 +12,31 @@ export default function Navigation() {
   const menuItems = [
     { label: 'Inicio', href: '/' },
     {
-      label: 'Acerca de Nosotros',
+      label: 'Institución',
       href: '#',
       submenu: [
-        { label: 'Misión', href: '/about?section=mision' },
-        { label: 'Visión', href: '/about?section=vision' },
-        { label: 'Valores', href: '/about?section=valores' },
-        { label: 'Perfil del Egresado', href: '/about?section=perfil' },
+        { label: 'Acerca de Nosotros', href: '/about?section=mision' },
+        { label: 'Infraestructura', href: '/infraestructura' },
+        { label: 'Noticias', href: '/news' },
       ],
     },
     {
       label: 'Académico',
       href: '#',
       submenu: [
-        { label: 'Colegio Institucional', href: '/academics?section=colegio' },
+        { label: 'Programas Académicos', href: '/academics?section=colegio' },
         { label: 'Plan de Trabajo', href: '/academics#plan' },
         { label: 'PAEC', href: '/academics#paec' },
+        { label: 'Requisitos de Admisión', href: '/academics#requisitos' },
       ],
     },
     {
-      label: 'Secretaría Escolar',
+      label: 'Servicios',
       href: '#',
       submenu: [
-        { label: 'Reglamentos', href: '/secretaria?section=reglamentos' },
-        { label: 'Calendario Escolar', href: '/secretaria?section=calendario' },
-      ],
-    },
-    {
-      label: 'Orientación',
-      href: '#',
-      submenu: [
-        { label: 'Orientadores', href: '/orientacion?section=orientadores' },
-        { label: 'Noticias', href: '/news' },
+        { label: 'Secretaría Escolar', href: '/secretaria' },
+        { label: 'Orientación', href: '/orientacion' },
+        { label: 'Biblioteca Digital', href: '/orientacion?section=biblioteca' },
         { label: 'Alerta Amber', href: '/alerta-amber' },
       ],
     },

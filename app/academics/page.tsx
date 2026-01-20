@@ -89,7 +89,7 @@ export default function AcademicsPage() {
           <h2 className="text-3xl font-bold mb-8 text-center">Plan de Trabajo Institucional</h2>
           <div className="bg-card border border-border rounded-xl p-8 space-y-6">
             <div>
-              <h3 className="font-bold text-lg mb-3">Objetivos 2024-2025</h3>
+              <h3 className="font-bold text-lg mb-3">Objetivos 2025-2026</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold">•</span>

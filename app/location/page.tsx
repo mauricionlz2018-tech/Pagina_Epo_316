@@ -22,7 +22,7 @@ export default function LocationPage() {
             {/* Map */}
             <div className="rounded-xl overflow-hidden border border-border shadow-lg">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.9183891234567!2d-99.12345!3d19.45678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cd8e1234567890%3A0x1234567890abcdef!2sEscuela%20Preparatoria%20Oficial%20316!5e0!3m2!1ses!2smx!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1883.5840761234567!2d-100.1666123!3d19.6825853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d2eca1b8f24487%3A0xfb2ac8c9e9fba719!2sEscuela%20Preparatoria%20Oficial%20N%C3%BAm.%20316!5e0!3m2!1ses!2smx!4v1704110000"
                 width="100%"
                 height="500"
                 style={{ border: 0 }}
@@ -131,7 +131,7 @@ export default function LocationPage() {
                   <p className="text-sm text-muted-foreground">
                     Busca "Escuela Preparatoria Oficial 316" en Google Maps<br />
                     para obtener indicaciones desde tu ubicación actual.<br />
-                    <a href="https://maps.google.com/?q=Escuela+Preparatoria+Oficial+316" 
+                    <a href="https://www.google.com.mx/maps/place/Escuela+Preparatoria+Oficial+N%C3%BAm.+316/@19.6813324,-100.1654832,953m/data=!3m1!1e3!4m6!3m5!1s0x85d2eca1b8f24487:0xfb2ac8c9e9fba719!8m2!3d19.6825853!4d-100.1666123!16s%2Fg%2F11gczwgw50" 
                        className="text-primary hover:underline"
                        target="_blank"
                        rel="noopener noreferrer">

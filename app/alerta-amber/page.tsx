@@ -36,8 +36,8 @@ export default function AlertaAmberPage() {
           <div className="flex items-center gap-4">
             <AlertTriangle size={40} />
             <div>
-              <h1 className="text-4xl font-bold">Alerta Amber</h1>
-              <p className="text-lg opacity-90 mt-2">Sistema de búsqueda de menores desaparecidos</p>
+              <h1 className="text-5xl font-bold text-black">Alerta Amber</h1>
+              <p className="text-lg opacity-90 mt-2 text-black">Sistema de búsqueda de menores desaparecidos</p>
             </div>
           </div>
         </div>

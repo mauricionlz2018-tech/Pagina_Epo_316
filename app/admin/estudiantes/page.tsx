@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { Trash2, Edit2, Plus, X } from 'lucide-react';
+import { Trash2, Edit2, Plus, X, Download } from 'lucide-react';
+import { BeletaGenerator } from '@/components/boleta-generator';
 
 interface Estudiante {
   id: number;
@@ -19,12 +20,14 @@ interface Estudiante {
 
 export default function EstudiantesPage() {
   const [estudiantes, setEstudiantes] = useState<Estudiante[]>([]);
+  const [calificaciones, setCalificaciones] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [filtroGrado, setFiltroGrado] = useState<string>('');
+  const [boletaEstudianteId, setBoletaEstudianteId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     nombre: '',
     correo: '',
@@ -43,15 +46,20 @@ export default function EstudiantesPage() {
     try {
       setLoading(true);
       setError('');
-      const res = await fetch('/api/admin/estudiantes');
+      const [resEst, resCal] = await Promise.all([
+        fetch('/api/admin/estudiantes'),
+        fetch('/api/admin/calificaciones'),
+      ]);
       
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status}`);
+      if (!resEst.ok) {
+        throw new Error(`Error: ${resEst.status}`);
       }
       
-      const data = await res.json();
-      console.log('Datos recibidos:', data);
-      setEstudiantes(Array.isArray(data.estudiantes) ? data.estudiantes : []);
+      const dataEst = await resEst.json();
+      const dataCal = await resCal.json();
+      console.log('Datos recibidos:', dataEst);
+      setEstudiantes(Array.isArray(dataEst.estudiantes) ? dataEst.estudiantes : []);
+      setCalificaciones(dataCal.calificaciones || []);
     } catch (error: any) {
       setError(`Error al cargar estudiantes: ${error.message}`);
       console.error('Error:', error);
@@ -100,6 +108,24 @@ export default function EstudiantesPage() {
       setError(error.message);
       console.error('Error:', error);
     }
+  };
+
+  const generarDatosBoletaParaEstudiante = (estudianteId: number) => {
+    const estudiante = estudiantes.find(e => e.id === estudianteId);
+    if (!estudiante) return null;
+
+    const calificacionesEstudiante = calificaciones.filter(c => c.estudiante_id === estudianteId);
+    
+    return {
+      nombre_estudiante: estudiante.nombre,
+      grado: estudiante.grado,
+      semestre: calificacionesEstudiante[0]?.semestre || '1',
+      ciclo_escolar: calificacionesEstudiante[0]?.ciclo_escolar || '2025-2026',
+      calificaciones: calificacionesEstudiante.map(c => ({
+        materia: c.materia,
+        calificacion: parseFloat(c.calificacion),
+      })),
+    };
   };
 
   const handleEdit = (estudiante: Estudiante) => {
@@ -167,6 +193,24 @@ export default function EstudiantesPage() {
           Actualizar
         </Button>
       </div>
+
+      {/* Modal de Boleta */}
+      {boletaEstudianteId && (
+        <Card className="p-6 bg-blue-50 border-blue-200">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold">Boleta del Estudiante</h2>
+            <button
+              onClick={() => setBoletaEstudianteId(null)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          {generarDatosBoletaParaEstudiante(boletaEstudianteId) && (
+            <BeletaGenerator data={generarDatosBoletaParaEstudiante(boletaEstudianteId)!} />
+          )}
+        </Card>
+      )}
 
       {/* Filtro por Grado */}
       <Card className="p-4 bg-white">
@@ -350,6 +394,13 @@ export default function EstudiantesPage() {
                         </span>
                       </td>
                       <td className="px-4 py-3 flex gap-2">
+                        <button
+                          onClick={() => setBoletaEstudianteId(est.id)}
+                          className="text-purple-600 hover:text-purple-800 p-2 hover:bg-purple-50 rounded transition"
+                          title="Descargar Boleta"
+                        >
+                          <Download size={18} />
+                        </button>
                         <button
                           onClick={() => handleEdit(est)}
                           className="text-blue-600 hover:text-blue-800 p-2 hover:bg-blue-50 rounded transition"
