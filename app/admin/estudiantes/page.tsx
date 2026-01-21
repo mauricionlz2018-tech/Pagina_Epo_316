@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Trash2, Edit2, Plus, X, Download } from 'lucide-react';
-import { BeletaGenerator } from '@/components/boleta-generator';
+import { BoletaGenerator } from '@/components/boleta-generator';
 
 interface Estudiante {
   id: number;
@@ -18,16 +19,26 @@ interface Estudiante {
   estado_inscripcion: string;
 }
 
+interface CalificacionDB {
+  id: number;
+  estudiante_id: number;
+  materia: string;
+  calificacion: number;
+  semestre: number;
+  ciclo_escolar: string;
+}
+
 export default function EstudiantesPage() {
   const [estudiantes, setEstudiantes] = useState<Estudiante[]>([]);
-  const [calificaciones, setCalificaciones] = useState<any[]>([]);
+  const [calificaciones, setCalificaciones] = useState<CalificacionDB[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [filtroGrado, setFiltroGrado] = useState<string>('');
-  const [boletaEstudianteId, setBoletaEstudianteId] = useState<number | null>(null);
+  const [boletaDialogOpen, setBoletaDialogOpen] = useState(false);
+  const [selectedEstudiante, setSelectedEstudiante] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     nombre: '',
     correo: '',
@@ -57,7 +68,6 @@ export default function EstudiantesPage() {
       
       const dataEst = await resEst.json();
       const dataCal = await resCal.json();
-      console.log('Datos recibidos:', dataEst);
       setEstudiantes(Array.isArray(dataEst.estudiantes) ? dataEst.estudiantes : []);
       setCalificaciones(dataCal.calificaciones || []);
     } catch (error: any) {
@@ -116,15 +126,70 @@ export default function EstudiantesPage() {
 
     const calificacionesEstudiante = calificaciones.filter(c => c.estudiante_id === estudianteId);
     
+    const materiasPorNombre: { [key: string]: any } = {};
+    
+    calificacionesEstudiante.forEach(cal => {
+      if (!materiasPorNombre[cal.materia]) {
+        materiasPorNombre[cal.materia] = {
+          materia: cal.materia,
+          calificacion_1: 0,
+          calificacion_2: 0,
+          calificacion_3: 0,
+          inasistencias_1: 0,
+          inasistencias_2: 0,
+          inasistencias_3: 0,
+        };
+      }
+      
+      // CONVERTIR A NÚMERO para evitar errores
+      const calificacionNum = parseFloat(String(cal.calificacion)) || 0;
+      const semestreNum = parseInt(String(cal.semestre)) || 0;
+      
+      if (semestreNum === 1) {
+        materiasPorNombre[cal.materia].calificacion_1 = calificacionNum;
+      } else if (semestreNum === 2) {
+        materiasPorNombre[cal.materia].calificacion_2 = calificacionNum;
+      } else if (semestreNum === 3) {
+        materiasPorNombre[cal.materia].calificacion_3 = calificacionNum;
+      }
+    });
+
+    const materiasConCalificaciones = Object.values(materiasPorNombre);
+
+    if (materiasConCalificaciones.length === 0) {
+      const materiasPredeterminadas = [
+        'TEMAS SELECTOS DE IGUALDAD',
+        'PRACTICA Y COLABORACION CIUDADANA',
+        'PROBABILIDAD Y ESTADÍSTICA',
+        'INGLÉS',
+        'PSICOLOGÍA',
+        'ACTIVIDADES ARTÍSTICAS Y CULTURALES',
+        'DERECHO Y SOCIEDAD',
+        'LA ENERGÍA Y LOS PROCESOS DE LA VIDA',
+        'SISTEMAS DE INFORMACIÓN',
+        'PROGRAMACIÓN',
+        'HABILIDADES SOCIOEMOCIONALES',
+        'CONCIENCIA HISTÓRICA'
+      ];
+
+      materiasConCalificaciones.push(...materiasPredeterminadas.map(materia => ({
+        materia,
+        calificacion_1: 0,
+        calificacion_2: 0,
+        calificacion_3: 0,
+        inasistencias_1: 0,
+        inasistencias_2: 0,
+        inasistencias_3: 0,
+      })));
+    }
+    
     return {
       nombre_estudiante: estudiante.nombre,
       grado: estudiante.grado,
-      semestre: calificacionesEstudiante[0]?.semestre || '1',
-      ciclo_escolar: calificacionesEstudiante[0]?.ciclo_escolar || '2025-2026',
-      calificaciones: calificacionesEstudiante.map(c => ({
-        materia: c.materia,
-        calificacion: parseFloat(c.calificacion),
-      })),
+      grupo: estudiante.grupo,
+      semestre: String(calificacionesEstudiante[0]?.semestre || '5'),
+      ciclo_escolar: calificacionesEstudiante[0]?.ciclo_escolar || '2024-2025',
+      calificaciones: materiasConCalificaciones,
     };
   };
 
@@ -162,9 +227,13 @@ export default function EstudiantesPage() {
     }
   };
 
+  const handleDescargarClick = (estId: number) => {
+    setSelectedEstudiante(estId);
+    setBoletaDialogOpen(true);
+  };
+
   return (
     <div className="space-y-6">
-      {/* Botones de Acción */}
       <div className="flex gap-3">
         <Button
           onClick={() => {
@@ -194,25 +263,29 @@ export default function EstudiantesPage() {
         </Button>
       </div>
 
-      {/* Modal de Boleta */}
-      {boletaEstudianteId && (
-        <Card className="p-6 bg-blue-50 border-blue-200">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold">Boleta del Estudiante</h2>
-            <button
-              onClick={() => setBoletaEstudianteId(null)}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              <X size={24} />
-            </button>
+      <Dialog open={boletaDialogOpen} onOpenChange={setBoletaDialogOpen}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle>Descargar Boleta del Estudiante</DialogTitle>
+          </DialogHeader>
+          <div className="max-h-[70vh] overflow-y-auto">
+            {selectedEstudiante && generarDatosBoletaParaEstudiante(selectedEstudiante) && (
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <h3 className="font-bold text-lg mb-2">Información del Estudiante</h3>
+                  <p><strong>Nombre:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.nombre_estudiante}</p>
+                  <p><strong>Grado:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.grado}</p>
+                  <p><strong>Grupo:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.grupo}</p>
+                  <p><strong>Semestre:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.semestre}</p>
+                  <p><strong>Ciclo Escolar:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.ciclo_escolar}</p>
+                </div>
+                <BoletaGenerator data={generarDatosBoletaParaEstudiante(selectedEstudiante)!} />
+              </div>
+            )}
           </div>
-          {generarDatosBoletaParaEstudiante(boletaEstudianteId) && (
-            <BeletaGenerator data={generarDatosBoletaParaEstudiante(boletaEstudianteId)!} />
-          )}
-        </Card>
-      )}
+        </DialogContent>
+      </Dialog>
 
-      {/* Filtro por Grado */}
       <Card className="p-4 bg-white">
         <label className="block text-sm font-medium mb-2">Filtrar por Grado:</label>
         <select
@@ -227,7 +300,6 @@ export default function EstudiantesPage() {
         </select>
       </Card>
 
-      {/* Mensajes */}
       {error && (
         <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
           {error}
@@ -239,7 +311,6 @@ export default function EstudiantesPage() {
         </div>
       )}
 
-      {/* Formulario */}
       {showForm && (
         <Card className="p-6 bg-blue-50 border-blue-200">
           <h2 className="text-xl font-bold mb-4">
@@ -345,7 +416,6 @@ export default function EstudiantesPage() {
         </Card>
       )}
 
-      {/* Tabla */}
       {loading ? (
         <div className="p-8 text-center text-gray-500">Cargando estudiantes...</div>
       ) : error && estudiantes.length === 0 ? (
@@ -395,7 +465,7 @@ export default function EstudiantesPage() {
                       </td>
                       <td className="px-4 py-3 flex gap-2">
                         <button
-                          onClick={() => setBoletaEstudianteId(est.id)}
+                          onClick={() => handleDescargarClick(est.id)}
                           className="text-purple-600 hover:text-purple-800 p-2 hover:bg-purple-50 rounded transition"
                           title="Descargar Boleta"
                         >

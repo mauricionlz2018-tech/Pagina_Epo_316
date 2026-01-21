@@ -1,126 +1,391 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
-interface BeletaData {
+interface BoletaData {
   nombre_estudiante: string;
   grado: string;
+  grupo: string;
   semestre: string;
   calificaciones: Array<{
     materia: string;
-    calificacion: number;
+    calificacion_1: number;
+    calificacion_2: number;
+    calificacion_3: number;
+    inasistencias_1: number;
+    inasistencias_2: number;
+    inasistencias_3: number;
   }>;
   ciclo_escolar: string;
 }
 
-export function BeletaGenerator({ data }: { data: BeletaData }) {
+export function BoletaGenerator({ data }: { data: BoletaData }) {
   const [isLoading, setIsLoading] = useState(false);
-
-  const calcularPromedio = () => {
-    if (data.calificaciones.length === 0) return '0.00';
-    const suma = data.calificaciones.reduce((acc, cal) => acc + cal.calificacion, 0);
-    return (suma / data.calificaciones.length).toFixed(2);
-  };
 
   const descargarBoleta = async () => {
     try {
       setIsLoading(true);
+
+      const { jsPDF } = await import('jspdf');
       
-      // Cargar html2pdf dinámicamente
-      const html2pdf = (await import('html2pdf.js')).default;
+      const doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 20;
+      let yPos = 25;
+
+      // ============ ENCABEZADO ============
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.text('ESCUELA PREPARATORIA OFICIAL NÚM. 316', pageWidth / 2, yPos, { align: 'center' });
+      yPos += 6;
       
-      // Crear elemento temporal con la boleta
-      const element = document.createElement('div');
-      element.style.padding = '40px';
-      element.style.fontFamily = 'Arial, sans-serif';
-      element.style.fontSize = '12px';
-      element.style.backgroundColor = 'white';
-      element.style.color = 'black';
-      element.style.maxWidth = '800px';
-      element.style.margin = '0 auto';
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.text('SANTA CRUZ DEL TEJOCOTE, SAN JOSÉ DEL RINCÓN', pageWidth / 2, yPos, { align: 'center' });
+      yPos += 10;
+      
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.text('BOLETA INTERNA DE CALIFICACIONES', pageWidth / 2, yPos, { align: 'center' });
+      yPos += 15;
 
-      // Contenido de la boleta
-      element.innerHTML = `
-        <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid black; padding-bottom: 15px;">
-          <h1 style="font-weight: bold; font-size: 14px; margin: 5px 0;">ESCUELA PREPARATORIA OFICIAL NÚM. 316</h1>
-          <p style="font-size: 11px; margin: 3px 0;">SANTA CRUZ DEL TEJOLOTE, SAN JOSÉ DEL RINCÓN</p>
-          <p style="font-weight: bold; font-size: 12px; margin: 3px 0;">BOLETA INTERNA DE CALIFICACIONES</p>
-        </div>
+      // ============ LÍNEA SEPARADORA ============
+      doc.setLineWidth(0.8);
+      doc.line(margin, yPos, pageWidth - margin, yPos);
+      yPos += 10;
 
-        <div style="margin-bottom: 15px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; font-size: 11px;">
-          <div>
-            <p style="font-weight: bold; margin: 0 0 5px 0;">Nombre del alumno:</p>
-            <p style="margin: 0;">${data.nombre_estudiante}</p>
-          </div>
-          <div>
-            <p style="font-weight: bold; margin: 0 0 5px 0;">Grado:</p>
-            <p style="margin: 0;">${data.grado}</p>
-          </div>
-          <div>
-            <p style="font-weight: bold; margin: 0 0 5px 0;">Semestre:</p>
-            <p style="margin: 0;">${data.semestre}</p>
-          </div>
-        </div>
+      // ============ INFORMACIÓN DEL ESTUDIANTE (MEJOR DISTRIBUIDA) ============
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      
+      // Primera línea: Nombre
+      doc.text('Nombre del alumno:', margin, yPos);
+      doc.setFont('helvetica', 'normal');
+      doc.text(String(data.nombre_estudiante || ''), margin + 35, yPos);
+      yPos += 7;
+      
+      // Segunda línea: Grado, Grupo y Semestre bien separados
+      doc.setFont('helvetica', 'bold');
+      doc.text('Grado:', margin, yPos);
+      doc.setFont('helvetica', 'normal');
+      doc.text(String(data.grado || ''), margin + 15, yPos);
+      
+      doc.setFont('helvetica', 'bold');
+      doc.text('Grupo:', margin + 40, yPos);
+      doc.setFont('helvetica', 'normal');
+      doc.text(String(data.grupo || ''), margin + 53, yPos);
+      
+      doc.setFont('helvetica', 'bold');
+      doc.text('Semestre:', margin + 75, yPos);
+      doc.setFont('helvetica', 'normal');
+      doc.text(String(data.semestre || ''), margin + 93, yPos);
+      yPos += 7;
+      
+      // Tercera línea: Ciclo escolar
+      doc.setFont('helvetica', 'bold');
+      doc.text('Ciclo Escolar:', margin, yPos);
+      doc.setFont('helvetica', 'normal');
+      doc.text(String(data.ciclo_escolar || ''), margin + 28, yPos);
+      yPos += 15;
 
-        <div style="margin-bottom: 15px; font-size: 11px;">
-          <p style="font-weight: bold; margin: 0;"><span style="font-weight: bold;">Ciclo Escolar:</span> ${data.ciclo_escolar}</p>
-        </div>
+      // ============ TABLA DE MATERIAS ============
+      const materiaColWidth = 80;
+      const inasColWidth = 10;
+      const evalColWidth = 10;
+      const totalColWidth = 12;
+      const promedioColWidth = 18;
+      
+      const inasSecWidth = inasColWidth * 3 + totalColWidth;
+      const evalSecWidth = evalColWidth * 3 + totalColWidth;
+      
+      let currentX = margin;
 
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 11px; border: 2px solid black;">
-          <thead>
-            <tr style="border: 2px solid black;">
-              <th style="border: 1px solid black; background-color: #e0e0e0; padding: 8px; text-align: left; font-weight: bold;">MATERIAS</th>
-              <th style="border: 1px solid black; background-color: #e0e0e0; padding: 8px; width: 100px; font-weight: bold;">CALIFICACIÓN</th>
-              <th style="border: 1px solid black; background-color: #e0e0e0; padding: 8px; width: 100px; font-weight: bold;">OBSERVACIONES</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${data.calificaciones.map(cal => `
-              <tr style="border: 1px solid black;">
-                <td style="border: 1px solid black; padding: 8px;">${cal.materia}</td>
-                <td style="border: 1px solid black; padding: 8px; text-align: center; font-weight: bold;">${cal.calificacion.toFixed(1)}</td>
-                <td style="border: 1px solid black; padding: 8px; text-align: center;">
-                  ${cal.calificacion >= 8 ? '✓' : cal.calificacion >= 6 ? '○' : ''}
-                </td>
-              </tr>
-            `).join('')}
-            <tr style="border: 2px solid black; font-weight: bold; background-color: #f5f5f5;">
-              <td style="border: 1px solid black; padding: 8px; text-align: right;">PROMEDIO PARCIAL:</td>
-              <td style="border: 1px solid black; padding: 8px; text-align: center; font-weight: bold;">${calcularPromedio()}</td>
-              <td style="border: 1px solid black; padding: 8px;"></td>
-            </tr>
-          </tbody>
-        </table>
+      // ===== ENCABEZADO DE TABLA (SIN FONDO NEGRO, SOLO GRIS CLARO) =====
+      doc.setFillColor(220, 220, 220);
+      doc.setTextColor(0, 0, 0);
+      
+      // Columna MATERIAS
+      doc.rect(currentX, yPos, materiaColWidth, 12, 'FD');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.text('MATERIAS', currentX + materiaColWidth / 2, yPos + 8, { align: 'center' });
+      currentX += materiaColWidth;
+      
+      // Sección INASISTENCIAS - FONDO BLANCO, TEXTO NEGRO
+      doc.setFillColor(255, 255, 255);
+      doc.rect(currentX, yPos, inasSecWidth, 6, 'FD');
+      doc.setFont('helvetica', 'bold');
+      doc.text('INASISTENCIAS', currentX + inasSecWidth / 2, yPos + 4, { align: 'center' });
+      
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.rect(currentX, yPos + 6, inasColWidth, 6, 'D');
+      doc.text('1°', currentX + inasColWidth / 2, yPos + 10, { align: 'center' });
+      
+      doc.rect(currentX + inasColWidth, yPos + 6, inasColWidth, 6, 'D');
+      doc.text('2°', currentX + inasColWidth * 1.5, yPos + 10, { align: 'center' });
+      
+      doc.rect(currentX + inasColWidth * 2, yPos + 6, inasColWidth, 6, 'D');
+      doc.text('3°', currentX + inasColWidth * 2.5, yPos + 10, { align: 'center' });
+      
+      doc.rect(currentX + inasColWidth * 3, yPos + 6, totalColWidth, 6, 'D');
+      doc.text('TOTAL', currentX + inasColWidth * 3 + totalColWidth / 2, yPos + 10, { align: 'center' });
+      
+      currentX += inasSecWidth;
+      
+      // Sección EVALUACIONES - FONDO BLANCO, TEXTO NEGRO
+      doc.setFillColor(255, 255, 255);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.rect(currentX, yPos, evalSecWidth, 6, 'FD');
+      doc.text('EVALUACIONES', currentX + evalSecWidth / 2, yPos + 4, { align: 'center' });
+      
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.rect(currentX, yPos + 6, evalColWidth, 6, 'D');
+      doc.text('1°', currentX + evalColWidth / 2, yPos + 10, { align: 'center' });
+      
+      doc.rect(currentX + evalColWidth, yPos + 6, evalColWidth, 6, 'D');
+      doc.text('2°', currentX + evalColWidth * 1.5, yPos + 10, { align: 'center' });
+      
+      doc.rect(currentX + evalColWidth * 2, yPos + 6, evalColWidth, 6, 'D');
+      doc.text('3°', currentX + evalColWidth * 2.5, yPos + 10, { align: 'center' });
+      
+      doc.rect(currentX + evalColWidth * 3, yPos + 6, totalColWidth, 6, 'D');
+      doc.text('TOTAL', currentX + evalColWidth * 3 + totalColWidth / 2, yPos + 10, { align: 'center' });
+      
+      currentX += evalSecWidth;
+      
+      // Columna PROMEDIO FINAL
+      doc.setFillColor(220, 220, 220);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold');
+      doc.rect(currentX, yPos, promedioColWidth, 12, 'FD');
+      doc.text('PROMEDIO', currentX + promedioColWidth / 2, yPos + 6, { align: 'center' });
+      doc.text('FINAL', currentX + promedioColWidth / 2, yPos + 10, { align: 'center' });
+      
+      yPos += 12;
 
-        <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; font-size: 11px; text-align: center;">
-          <div>
-            <div style="height: 50px; margin-bottom: 10px;"></div>
-            <p style="border-top: 1px solid black; margin: 0; padding-top: 5px;">PRIMERA EVALUACIÓN</p>
-          </div>
-          <div>
-            <div style="height: 50px; margin-bottom: 10px;"></div>
-            <p style="border-top: 1px solid black; margin: 0; padding-top: 5px;">SEGUNDA EVALUACIÓN</p>
-          </div>
-          <div>
-            <div style="height: 50px; margin-bottom: 10px;"></div>
-            <p style="border-top: 1px solid black; margin: 0; padding-top: 5px;">TERCERA EVALUACIÓN</p>
-          </div>
-        </div>
+      // ===== FILAS DE MATERIAS =====
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      
+      const materias = data.calificaciones && data.calificaciones.length > 0 
+        ? data.calificaciones 
+        : [
+            'TEMAS SELECTOS DE IGUALDAD',
+            'PRACTICA Y COLABORACION CIUDADANA',
+            'PROBABILIDAD Y ESTADÍSTICA',
+            'INGLÉS',
+            'PSICOLOGÍA',
+            'ACTIVIDADES ARTÍSTICAS Y CULTURALES',
+            'DERECHO Y SOCIEDAD',
+            'LA ENERGÍA Y LOS PROCESOS DE LA VIDA',
+            'SISTEMAS DE INFORMACIÓN',
+            'PROGRAMACIÓN',
+            'HABILIDADES SOCIOEMOCIONALES',
+            'CONCIENCIA HISTÓRICA'
+          ].map(materia => ({
+            materia,
+            calificacion_1: 0,
+            calificacion_2: 0,
+            calificacion_3: 0,
+            inasistencias_1: 0,
+            inasistencias_2: 0,
+            inasistencias_3: 0
+          }));
 
-        <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid black; font-size: 11px; text-align: center;">
-          <p style="margin: 0;">FORMA DEL PADRE, MADRE O TUTOR (A)</p>
-        </div>
-      `;
+      materias.forEach((cal) => {
+        if (yPos > pageHeight - 60) {
+          doc.addPage();
+          yPos = 20;
+        }
 
-      const options = {
-        margin: 10,
-        filename: `Boleta_${data.nombre_estudiante.replace(/\s+/g, '_')}_${data.grado}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { orientation: 'portrait', unit: 'mm', format: 'letter' },
+        currentX = margin;
+        const rowHeight = 7;
+        
+        // Columna de materia
+        doc.rect(currentX, yPos, materiaColWidth, rowHeight, 'D');
+        const materiaText = cal.materia.length > 35 ? cal.materia.substring(0, 35) + '...' : cal.materia;
+        doc.text(materiaText, currentX + 2, yPos + 5);
+        currentX += materiaColWidth;
+        
+        // CONVERTIR A NÚMEROS para evitar errores
+        const inas1 = parseInt(String(cal.inasistencias_1)) || 0;
+        const inas2 = parseInt(String(cal.inasistencias_2)) || 0;
+        const inas3 = parseInt(String(cal.inasistencias_3)) || 0;
+        const totalInas = inas1 + inas2 + inas3;
+        
+        doc.rect(currentX, yPos, inasColWidth, rowHeight, 'D');
+        doc.text(String(inas1), currentX + inasColWidth / 2, yPos + 5, { align: 'center' });
+        
+        doc.rect(currentX + inasColWidth, yPos, inasColWidth, rowHeight, 'D');
+        doc.text(String(inas2), currentX + inasColWidth * 1.5, yPos + 5, { align: 'center' });
+        
+        doc.rect(currentX + inasColWidth * 2, yPos, inasColWidth, rowHeight, 'D');
+        doc.text(String(inas3), currentX + inasColWidth * 2.5, yPos + 5, { align: 'center' });
+        
+        doc.rect(currentX + inasColWidth * 3, yPos, totalColWidth, rowHeight, 'D');
+        doc.text(String(totalInas), currentX + inasColWidth * 3 + totalColWidth / 2, yPos + 5, { align: 'center' });
+        
+        currentX += inasSecWidth;
+        
+        // CONVERTIR CALIFICACIONES A NÚMEROS
+        const calificacion1 = parseFloat(String(cal.calificacion_1)) || 0;
+        const calificacion2 = parseFloat(String(cal.calificacion_2)) || 0;
+        const calificacion3 = parseFloat(String(cal.calificacion_3)) || 0;
+        
+        const eval1 = calificacion1 > 0 ? calificacion1.toFixed(1) : '';
+        const eval2 = calificacion2 > 0 ? calificacion2.toFixed(1) : '';
+        const eval3 = calificacion3 > 0 ? calificacion3.toFixed(1) : '';
+        
+        const calificacionesValidas = [calificacion1, calificacion2, calificacion3].filter(c => c > 0);
+        const totalEval = calificacionesValidas.length > 0 
+          ? (calificacionesValidas.reduce((a, b) => a + b, 0) / calificacionesValidas.length).toFixed(1)
+          : '';
+        
+        doc.rect(currentX, yPos, evalColWidth, rowHeight, 'D');
+        doc.text(eval1, currentX + evalColWidth / 2, yPos + 5, { align: 'center' });
+        
+        doc.rect(currentX + evalColWidth, yPos, evalColWidth, rowHeight, 'D');
+        doc.text(eval2, currentX + evalColWidth * 1.5, yPos + 5, { align: 'center' });
+        
+        doc.rect(currentX + evalColWidth * 2, yPos, evalColWidth, rowHeight, 'D');
+        doc.text(eval3, currentX + evalColWidth * 2.5, yPos + 5, { align: 'center' });
+        
+        doc.rect(currentX + evalColWidth * 3, yPos, totalColWidth, rowHeight, 'D');
+        doc.text(totalEval, currentX + evalColWidth * 3 + totalColWidth / 2, yPos + 5, { align: 'center' });
+        
+        currentX += evalSecWidth;
+        
+        // Promedio final
+        doc.rect(currentX, yPos, promedioColWidth, rowHeight, 'D');
+        doc.text(totalEval, currentX + promedioColWidth / 2, yPos + 5, { align: 'center' });
+        
+        yPos += rowHeight;
+      });
+
+      // ===== FILA DE PROMEDIO PARCIAL =====
+      yPos += 3;
+      currentX = margin;
+      
+      doc.setFillColor(240, 240, 240);
+      doc.setFont('helvetica', 'bold');
+      
+      doc.rect(currentX, yPos, materiaColWidth, 8, 'FD');
+      doc.text('PROMEDIO PARCIAL:', currentX + 2, yPos + 5.5);
+      currentX += materiaColWidth;
+      
+      const calcularPromedioInas = (parcial: number) => {
+        const inasistencias = materias.map(m => {
+          const val = parcial === 1 ? m.inasistencias_1 : parcial === 2 ? m.inasistencias_2 : m.inasistencias_3;
+          return parseInt(String(val)) || 0;
+        });
+        const suma = inasistencias.reduce((a, b) => a + b, 0);
+        return (suma / materias.length).toFixed(1);
       };
+      
+      const promInas1 = calcularPromedioInas(1);
+      const promInas2 = calcularPromedioInas(2);
+      const promInas3 = calcularPromedioInas(3);
+      const totalPromInas = ((parseFloat(promInas1) + parseFloat(promInas2) + parseFloat(promInas3)) / 3).toFixed(1);
+      
+      doc.rect(currentX, yPos, inasColWidth, 8, 'D');
+      doc.text(promInas1, currentX + inasColWidth / 2, yPos + 5.5, { align: 'center' });
+      
+      doc.rect(currentX + inasColWidth, yPos, inasColWidth, 8, 'D');
+      doc.text(promInas2, currentX + inasColWidth * 1.5, yPos + 5.5, { align: 'center' });
+      
+      doc.rect(currentX + inasColWidth * 2, yPos, inasColWidth, 8, 'D');
+      doc.text(promInas3, currentX + inasColWidth * 2.5, yPos + 5.5, { align: 'center' });
+      
+      doc.rect(currentX + inasColWidth * 3, yPos, totalColWidth, 8, 'D');
+      doc.text(totalPromInas, currentX + inasColWidth * 3 + totalColWidth / 2, yPos + 5.5, { align: 'center' });
+      
+      currentX += inasSecWidth;
+      
+      const calcularPromedioEval = (parcial: number) => {
+        const calificacionesValidas = materias
+          .map(m => {
+            const val = parcial === 1 ? m.calificacion_1 : parcial === 2 ? m.calificacion_2 : m.calificacion_3;
+            return parseFloat(String(val)) || 0;
+          })
+          .filter(c => c > 0);
+        
+        if (calificacionesValidas.length === 0) return '0.0';
+        const suma = calificacionesValidas.reduce((a, b) => a + b, 0);
+        return (suma / calificacionesValidas.length).toFixed(1);
+      };
+      
+      const promEval1 = calcularPromedioEval(1);
+      const promEval2 = calcularPromedioEval(2);
+      const promEval3 = calcularPromedioEval(3);
+      
+      const promediosValidos = [promEval1, promEval2, promEval3].map(p => parseFloat(p)).filter(p => p > 0);
+      const totalPromEval = promediosValidos.length > 0 
+        ? (promediosValidos.reduce((a, b) => a + b, 0) / promediosValidos.length).toFixed(1)
+        : '0.0';
+      
+      doc.rect(currentX, yPos, evalColWidth, 8, 'D');
+      doc.text(promEval1, currentX + evalColWidth / 2, yPos + 5.5, { align: 'center' });
+      
+      doc.rect(currentX + evalColWidth, yPos, evalColWidth, 8, 'D');
+      doc.text(promEval2, currentX + evalColWidth * 1.5, yPos + 5.5, { align: 'center' });
+      
+      doc.rect(currentX + evalColWidth * 2, yPos, evalColWidth, 8, 'D');
+      doc.text(promEval3, currentX + evalColWidth * 2.5, yPos + 5.5, { align: 'center' });
+      
+      doc.rect(currentX + evalColWidth * 3, yPos, totalColWidth, 8, 'D');
+      doc.text(totalPromEval, currentX + evalColWidth * 3 + totalColWidth / 2, yPos + 5.5, { align: 'center' });
+      
+      currentX += evalSecWidth;
+      
+      doc.rect(currentX, yPos, promedioColWidth, 8, 'D');
+      doc.text(totalPromEval, currentX + promedioColWidth / 2, yPos + 5.5, { align: 'center' });
+      
+      yPos += 20;
 
-      html2pdf().set(options).from(element).save();
+      // ============ FIRMAS ============
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.text('FIRMA DEL PADRE, MADRE O TUTOR (A)', pageWidth / 2, yPos, { align: 'center' });
+      yPos += 15;
+      
+      const firmaSpacing = (pageWidth - 2 * margin) / 3;
+      
+      for (let i = 0; i < 3; i++) {
+        const firmaX = margin + firmaSpacing * i;
+        const centerX = firmaX + firmaSpacing / 2;
+        
+        doc.setLineWidth(0.3);
+        doc.line(firmaX + 10, yPos, firmaX + firmaSpacing - 10, yPos);
+        
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        const evalText = i === 0 ? 'PRIMERA EVALUACIÓN' : i === 1 ? 'SEGUNDA EVALUACIÓN' : 'TERCERA EVALUACIÓN';
+        doc.text(evalText, centerX, yPos + 6, { align: 'center' });
+      }
+
+      doc.setFontSize(8);
+      doc.setTextColor(120, 120, 120);
+      doc.text(
+        `Generado el ${new Date().toLocaleDateString('es-MX')} - Sistema de Gestión Escolar`,
+        pageWidth / 2,
+        pageHeight - 10,
+        { align: 'center' }
+      );
+
+      const fileName = `Boleta_${data.nombre_estudiante.replace(/\s+/g, '_')}_${data.grado}_${data.grupo}.pdf`;
+      doc.save(fileName);
+      
       setIsLoading(false);
     } catch (error) {
       console.error('Error al generar PDF:', error);
@@ -131,20 +396,36 @@ export function BeletaGenerator({ data }: { data: BeletaData }) {
 
   return (
     <div className="space-y-4">
-      <button
-        onClick={descargarBoleta}
-        disabled={isLoading}
-        className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-      >
-        {isLoading ? '⏳ Generando...' : '📥 Descargar Boleta en PDF'}
-      </button>
-
-      <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 text-sm text-gray-600">
-        <p>✓ Nombre: {data.nombre_estudiante}</p>
-        <p>✓ Grado: {data.grado}</p>
-        <p>✓ Materias: {data.calificaciones.length}</p>
-        <p>✓ Promedio: {calcularPromedio()}</p>
-      </div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="bg-blue-600 hover:bg-blue-700">
+            📥 Descargar Boleta en PDF
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Confirmar Descarga de Boleta</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 text-sm text-gray-600">
+              <p className="mb-2"><span className="font-medium">Nombre:</span> {data.nombre_estudiante}</p>
+              <p className="mb-2"><span className="font-medium">Grado:</span> {data.grado} - Grupo: {data.grupo}</p>
+              <p className="mb-2"><span className="font-medium">Semestre:</span> {data.semestre}</p>
+              <p className="mb-2"><span className="font-medium">Ciclo Escolar:</span> {data.ciclo_escolar}</p>
+              <p className="mb-2"><span className="font-medium">Materias:</span> {data.calificaciones?.length || 0}</p>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                onClick={descargarBoleta}
+                disabled={isLoading}
+                className="flex-1 bg-green-600 hover:bg-green-700"
+              >
+                {isLoading ? '⏳ Generando PDF...' : '✅ Descargar Boleta'}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
