@@ -99,23 +99,23 @@ export default function SecretariaPage() {
                   <h3 className="font-bold text-lg mb-4">Fechas Importantes</h3>
                   <ul className="space-y-3 text-muted-foreground text-sm">
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">📅</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>20 de Agosto:</strong> Inicio de clases</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">📅</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>8 de Octubre:</strong> Fin 1er parcial / Evaluaciones</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">📅</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>22 de Noviembre:</strong> Fin 2do parcial / Evaluaciones</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">📅</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>23 de Diciembre - 5 de Enero:</strong> Receso vacacional</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">📅</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>12 de Febrero:</strong> Fin 3er parcial / Evaluaciones</span>
                     </li>
                   </ul>
@@ -124,23 +124,23 @@ export default function SecretariaPage() {
                   <h3 className="font-bold text-lg mb-4">Eventos y Festividades</h3>
                   <ul className="space-y-3 text-muted-foreground text-sm">
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">🎉</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>15 de Septiembre:</strong> Evento cívico nacional</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">🎃</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>31 de Octubre:</strong> Día de Muertos - Actividades culturales</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">🎄</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>25 de Diciembre:</strong> Navidad</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">🏆</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>10 de Marzo:</strong> Día de la Mujer Mexicana</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">🎓</span>
+                      <span className="text-primary font-bold"></span>
                       <span><strong>31 de Mayo:</strong> Clausura de ciclo escolar</span>
                     </li>
                   </ul>
@@ -182,7 +182,7 @@ export default function SecretariaPage() {
                 <div className="space-y-3">
                   <p className="flex items-center gap-2 text-muted-foreground">
                     <Clock size={20} className="text-accent" />
-                    Lunes a viernes, 8:30 - 16:00 hrs
+                    Lunes a viernes, 8:00 AM - 15:00 PM
                   </p>
                   <p className="flex items-center gap-2 text-muted-foreground">
                     <Phone size={20} className="text-accent" />

@@ -8,7 +8,7 @@ interface BoletaData {
   nombre_estudiante: string;
   grado: string;
   grupo: string;
-  semestre: string;
+  ciclo_escolar: string;
   calificaciones: Array<{
     materia: string;
     calificacion_1: number;
@@ -18,7 +18,6 @@ interface BoletaData {
     inasistencias_2: number;
     inasistencias_3: number;
   }>;
-  ciclo_escolar: string;
 }
 
 export function BoletaGenerator({ data }: { data: BoletaData }) {
@@ -62,7 +61,7 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
       doc.line(margin, yPos, pageWidth - margin, yPos);
       yPos += 10;
 
-      // ============ INFORMACIÓN DEL ESTUDIANTE (MEJOR DISTRIBUIDA) ============
+      // ============ INFORMACIÓN DEL ESTUDIANTE ============
       doc.setFontSize(10);
       doc.setFont('helvetica', 'bold');
       
@@ -72,7 +71,7 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
       doc.text(String(data.nombre_estudiante || ''), margin + 35, yPos);
       yPos += 7;
       
-      // Segunda línea: Grado, Grupo y Semestre bien separados
+      // Segunda línea: Grado y Grupo
       doc.setFont('helvetica', 'bold');
       doc.text('Grado:', margin, yPos);
       doc.setFont('helvetica', 'normal');
@@ -82,11 +81,6 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
       doc.text('Grupo:', margin + 40, yPos);
       doc.setFont('helvetica', 'normal');
       doc.text(String(data.grupo || ''), margin + 53, yPos);
-      
-      doc.setFont('helvetica', 'bold');
-      doc.text('Semestre:', margin + 75, yPos);
-      doc.setFont('helvetica', 'normal');
-      doc.text(String(data.semestre || ''), margin + 93, yPos);
       yPos += 7;
       
       // Tercera línea: Ciclo escolar
@@ -96,19 +90,17 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
       doc.text(String(data.ciclo_escolar || ''), margin + 28, yPos);
       yPos += 15;
 
-      // ============ TABLA DE MATERIAS ============
-      const materiaColWidth = 80;
-      const inasColWidth = 10;
-      const evalColWidth = 10;
-      const totalColWidth = 12;
-      const promedioColWidth = 18;
+      // ============ TABLA DE MATERIAS (SIN COLUMNA TOTAL NI PROMEDIO FINAL) ============
+      const materiaColWidth = 85;
+      const inasColWidth = 11;
+      const evalColWidth = 11;
       
-      const inasSecWidth = inasColWidth * 3 + totalColWidth;
-      const evalSecWidth = evalColWidth * 3 + totalColWidth;
+      const inasSecWidth = inasColWidth * 3;
+      const evalSecWidth = evalColWidth * 3;
       
       let currentX = margin;
 
-      // ===== ENCABEZADO DE TABLA (SIN FONDO NEGRO, SOLO GRIS CLARO) =====
+      // ===== ENCABEZADO DE TABLA =====
       doc.setFillColor(220, 220, 220);
       doc.setTextColor(0, 0, 0);
       
@@ -119,7 +111,7 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
       doc.text('MATERIAS', currentX + materiaColWidth / 2, yPos + 8, { align: 'center' });
       currentX += materiaColWidth;
       
-      // Sección INASISTENCIAS - FONDO BLANCO, TEXTO NEGRO
+      // Sección INASISTENCIAS - FONDO BLANCO
       doc.setFillColor(255, 255, 255);
       doc.rect(currentX, yPos, inasSecWidth, 6, 'FD');
       doc.setFont('helvetica', 'bold');
@@ -136,12 +128,9 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
       doc.rect(currentX + inasColWidth * 2, yPos + 6, inasColWidth, 6, 'D');
       doc.text('3°', currentX + inasColWidth * 2.5, yPos + 10, { align: 'center' });
       
-      doc.rect(currentX + inasColWidth * 3, yPos + 6, totalColWidth, 6, 'D');
-      doc.text('TOTAL', currentX + inasColWidth * 3 + totalColWidth / 2, yPos + 10, { align: 'center' });
-      
       currentX += inasSecWidth;
       
-      // Sección EVALUACIONES - FONDO BLANCO, TEXTO NEGRO
+      // Sección EVALUACIONES - FONDO BLANCO
       doc.setFillColor(255, 255, 255);
       doc.setFontSize(10);
       doc.setFont('helvetica', 'bold');
@@ -158,19 +147,6 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
       
       doc.rect(currentX + evalColWidth * 2, yPos + 6, evalColWidth, 6, 'D');
       doc.text('3°', currentX + evalColWidth * 2.5, yPos + 10, { align: 'center' });
-      
-      doc.rect(currentX + evalColWidth * 3, yPos + 6, totalColWidth, 6, 'D');
-      doc.text('TOTAL', currentX + evalColWidth * 3 + totalColWidth / 2, yPos + 10, { align: 'center' });
-      
-      currentX += evalSecWidth;
-      
-      // Columna PROMEDIO FINAL
-      doc.setFillColor(220, 220, 220);
-      doc.setFontSize(9);
-      doc.setFont('helvetica', 'bold');
-      doc.rect(currentX, yPos, promedioColWidth, 12, 'FD');
-      doc.text('PROMEDIO', currentX + promedioColWidth / 2, yPos + 6, { align: 'center' });
-      doc.text('FINAL', currentX + promedioColWidth / 2, yPos + 10, { align: 'center' });
       
       yPos += 12;
 
@@ -214,15 +190,14 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
         
         // Columna de materia
         doc.rect(currentX, yPos, materiaColWidth, rowHeight, 'D');
-        const materiaText = cal.materia.length > 35 ? cal.materia.substring(0, 35) + '...' : cal.materia;
+        const materiaText = cal.materia.length > 40 ? cal.materia.substring(0, 40) + '...' : cal.materia;
         doc.text(materiaText, currentX + 2, yPos + 5);
         currentX += materiaColWidth;
         
-        // CONVERTIR A NÚMEROS para evitar errores
+        // Inasistencias
         const inas1 = parseInt(String(cal.inasistencias_1)) || 0;
         const inas2 = parseInt(String(cal.inasistencias_2)) || 0;
         const inas3 = parseInt(String(cal.inasistencias_3)) || 0;
-        const totalInas = inas1 + inas2 + inas3;
         
         doc.rect(currentX, yPos, inasColWidth, rowHeight, 'D');
         doc.text(String(inas1), currentX + inasColWidth / 2, yPos + 5, { align: 'center' });
@@ -233,12 +208,9 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
         doc.rect(currentX + inasColWidth * 2, yPos, inasColWidth, rowHeight, 'D');
         doc.text(String(inas3), currentX + inasColWidth * 2.5, yPos + 5, { align: 'center' });
         
-        doc.rect(currentX + inasColWidth * 3, yPos, totalColWidth, rowHeight, 'D');
-        doc.text(String(totalInas), currentX + inasColWidth * 3 + totalColWidth / 2, yPos + 5, { align: 'center' });
-        
         currentX += inasSecWidth;
         
-        // CONVERTIR CALIFICACIONES A NÚMEROS
+        // Evaluaciones
         const calificacion1 = parseFloat(String(cal.calificacion_1)) || 0;
         const calificacion2 = parseFloat(String(cal.calificacion_2)) || 0;
         const calificacion3 = parseFloat(String(cal.calificacion_3)) || 0;
@@ -246,11 +218,6 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
         const eval1 = calificacion1 > 0 ? calificacion1.toFixed(1) : '';
         const eval2 = calificacion2 > 0 ? calificacion2.toFixed(1) : '';
         const eval3 = calificacion3 > 0 ? calificacion3.toFixed(1) : '';
-        
-        const calificacionesValidas = [calificacion1, calificacion2, calificacion3].filter(c => c > 0);
-        const totalEval = calificacionesValidas.length > 0 
-          ? (calificacionesValidas.reduce((a, b) => a + b, 0) / calificacionesValidas.length).toFixed(1)
-          : '';
         
         doc.rect(currentX, yPos, evalColWidth, rowHeight, 'D');
         doc.text(eval1, currentX + evalColWidth / 2, yPos + 5, { align: 'center' });
@@ -261,96 +228,9 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
         doc.rect(currentX + evalColWidth * 2, yPos, evalColWidth, rowHeight, 'D');
         doc.text(eval3, currentX + evalColWidth * 2.5, yPos + 5, { align: 'center' });
         
-        doc.rect(currentX + evalColWidth * 3, yPos, totalColWidth, rowHeight, 'D');
-        doc.text(totalEval, currentX + evalColWidth * 3 + totalColWidth / 2, yPos + 5, { align: 'center' });
-        
-        currentX += evalSecWidth;
-        
-        // Promedio final
-        doc.rect(currentX, yPos, promedioColWidth, rowHeight, 'D');
-        doc.text(totalEval, currentX + promedioColWidth / 2, yPos + 5, { align: 'center' });
-        
         yPos += rowHeight;
       });
 
-      // ===== FILA DE PROMEDIO PARCIAL =====
-      yPos += 3;
-      currentX = margin;
-      
-      doc.setFillColor(240, 240, 240);
-      doc.setFont('helvetica', 'bold');
-      
-      doc.rect(currentX, yPos, materiaColWidth, 8, 'FD');
-      doc.text('PROMEDIO PARCIAL:', currentX + 2, yPos + 5.5);
-      currentX += materiaColWidth;
-      
-      const calcularPromedioInas = (parcial: number) => {
-        const inasistencias = materias.map(m => {
-          const val = parcial === 1 ? m.inasistencias_1 : parcial === 2 ? m.inasistencias_2 : m.inasistencias_3;
-          return parseInt(String(val)) || 0;
-        });
-        const suma = inasistencias.reduce((a, b) => a + b, 0);
-        return (suma / materias.length).toFixed(1);
-      };
-      
-      const promInas1 = calcularPromedioInas(1);
-      const promInas2 = calcularPromedioInas(2);
-      const promInas3 = calcularPromedioInas(3);
-      const totalPromInas = ((parseFloat(promInas1) + parseFloat(promInas2) + parseFloat(promInas3)) / 3).toFixed(1);
-      
-      doc.rect(currentX, yPos, inasColWidth, 8, 'D');
-      doc.text(promInas1, currentX + inasColWidth / 2, yPos + 5.5, { align: 'center' });
-      
-      doc.rect(currentX + inasColWidth, yPos, inasColWidth, 8, 'D');
-      doc.text(promInas2, currentX + inasColWidth * 1.5, yPos + 5.5, { align: 'center' });
-      
-      doc.rect(currentX + inasColWidth * 2, yPos, inasColWidth, 8, 'D');
-      doc.text(promInas3, currentX + inasColWidth * 2.5, yPos + 5.5, { align: 'center' });
-      
-      doc.rect(currentX + inasColWidth * 3, yPos, totalColWidth, 8, 'D');
-      doc.text(totalPromInas, currentX + inasColWidth * 3 + totalColWidth / 2, yPos + 5.5, { align: 'center' });
-      
-      currentX += inasSecWidth;
-      
-      const calcularPromedioEval = (parcial: number) => {
-        const calificacionesValidas = materias
-          .map(m => {
-            const val = parcial === 1 ? m.calificacion_1 : parcial === 2 ? m.calificacion_2 : m.calificacion_3;
-            return parseFloat(String(val)) || 0;
-          })
-          .filter(c => c > 0);
-        
-        if (calificacionesValidas.length === 0) return '0.0';
-        const suma = calificacionesValidas.reduce((a, b) => a + b, 0);
-        return (suma / calificacionesValidas.length).toFixed(1);
-      };
-      
-      const promEval1 = calcularPromedioEval(1);
-      const promEval2 = calcularPromedioEval(2);
-      const promEval3 = calcularPromedioEval(3);
-      
-      const promediosValidos = [promEval1, promEval2, promEval3].map(p => parseFloat(p)).filter(p => p > 0);
-      const totalPromEval = promediosValidos.length > 0 
-        ? (promediosValidos.reduce((a, b) => a + b, 0) / promediosValidos.length).toFixed(1)
-        : '0.0';
-      
-      doc.rect(currentX, yPos, evalColWidth, 8, 'D');
-      doc.text(promEval1, currentX + evalColWidth / 2, yPos + 5.5, { align: 'center' });
-      
-      doc.rect(currentX + evalColWidth, yPos, evalColWidth, 8, 'D');
-      doc.text(promEval2, currentX + evalColWidth * 1.5, yPos + 5.5, { align: 'center' });
-      
-      doc.rect(currentX + evalColWidth * 2, yPos, evalColWidth, 8, 'D');
-      doc.text(promEval3, currentX + evalColWidth * 2.5, yPos + 5.5, { align: 'center' });
-      
-      doc.rect(currentX + evalColWidth * 3, yPos, totalColWidth, 8, 'D');
-      doc.text(totalPromEval, currentX + evalColWidth * 3 + totalColWidth / 2, yPos + 5.5, { align: 'center' });
-      
-      currentX += evalSecWidth;
-      
-      doc.rect(currentX, yPos, promedioColWidth, 8, 'D');
-      doc.text(totalPromEval, currentX + promedioColWidth / 2, yPos + 5.5, { align: 'center' });
-      
       yPos += 20;
 
       // ============ FIRMAS ============
@@ -410,7 +290,6 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 text-sm text-gray-600">
               <p className="mb-2"><span className="font-medium">Nombre:</span> {data.nombre_estudiante}</p>
               <p className="mb-2"><span className="font-medium">Grado:</span> {data.grado} - Grupo: {data.grupo}</p>
-              <p className="mb-2"><span className="font-medium">Semestre:</span> {data.semestre}</p>
               <p className="mb-2"><span className="font-medium">Ciclo Escolar:</span> {data.ciclo_escolar}</p>
               <p className="mb-2"><span className="font-medium">Materias:</span> {data.calificaciones?.length || 0}</p>
             </div>

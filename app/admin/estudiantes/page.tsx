@@ -23,9 +23,15 @@ interface CalificacionDB {
   id: number;
   estudiante_id: number;
   materia: string;
-  calificacion: number;
-  semestre: number;
+  grado: string;
+  grupo: string;
   ciclo_escolar: string;
+  calificacion_parcial_1: number;
+  inasistencias_parcial_1: number;
+  calificacion_parcial_2: number;
+  inasistencias_parcial_2: number;
+  calificacion_parcial_3: number;
+  inasistencias_parcial_3: number;
 }
 
 export default function EstudiantesPage() {
@@ -124,37 +130,19 @@ export default function EstudiantesPage() {
     const estudiante = estudiantes.find(e => e.id === estudianteId);
     if (!estudiante) return null;
 
-    const calificacionesEstudiante = calificaciones.filter(c => c.estudiante_id === estudianteId);
+    const calificacionesEstudiante = calificaciones.filter(
+      c => c.estudiante_id === estudianteId
+    );
     
-    const materiasPorNombre: { [key: string]: any } = {};
-    
-    calificacionesEstudiante.forEach(cal => {
-      if (!materiasPorNombre[cal.materia]) {
-        materiasPorNombre[cal.materia] = {
-          materia: cal.materia,
-          calificacion_1: 0,
-          calificacion_2: 0,
-          calificacion_3: 0,
-          inasistencias_1: 0,
-          inasistencias_2: 0,
-          inasistencias_3: 0,
-        };
-      }
-      
-      // CONVERTIR A NÚMERO para evitar errores
-      const calificacionNum = parseFloat(String(cal.calificacion)) || 0;
-      const semestreNum = parseInt(String(cal.semestre)) || 0;
-      
-      if (semestreNum === 1) {
-        materiasPorNombre[cal.materia].calificacion_1 = calificacionNum;
-      } else if (semestreNum === 2) {
-        materiasPorNombre[cal.materia].calificacion_2 = calificacionNum;
-      } else if (semestreNum === 3) {
-        materiasPorNombre[cal.materia].calificacion_3 = calificacionNum;
-      }
-    });
-
-    const materiasConCalificaciones = Object.values(materiasPorNombre);
+    const materiasConCalificaciones = calificacionesEstudiante.map(cal => ({
+      materia: cal.materia,
+      calificacion_1: parseFloat(String(cal.calificacion_parcial_1)) || 0,
+      calificacion_2: parseFloat(String(cal.calificacion_parcial_2)) || 0,
+      calificacion_3: parseFloat(String(cal.calificacion_parcial_3)) || 0,
+      inasistencias_1: parseInt(String(cal.inasistencias_parcial_1)) || 0,
+      inasistencias_2: parseInt(String(cal.inasistencias_parcial_2)) || 0,
+      inasistencias_3: parseInt(String(cal.inasistencias_parcial_3)) || 0,
+    }));
 
     if (materiasConCalificaciones.length === 0) {
       const materiasPredeterminadas = [
@@ -187,8 +175,7 @@ export default function EstudiantesPage() {
       nombre_estudiante: estudiante.nombre,
       grado: estudiante.grado,
       grupo: estudiante.grupo,
-      semestre: String(calificacionesEstudiante[0]?.semestre || '5'),
-      ciclo_escolar: calificacionesEstudiante[0]?.ciclo_escolar || '2024-2025',
+      ciclo_escolar: calificacionesEstudiante[0]?.ciclo_escolar || '2025-2026',
       calificaciones: materiasConCalificaciones,
     };
   };
@@ -276,7 +263,6 @@ export default function EstudiantesPage() {
                   <p><strong>Nombre:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.nombre_estudiante}</p>
                   <p><strong>Grado:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.grado}</p>
                   <p><strong>Grupo:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.grupo}</p>
-                  <p><strong>Semestre:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.semestre}</p>
                   <p><strong>Ciclo Escolar:</strong> {generarDatosBoletaParaEstudiante(selectedEstudiante)!.ciclo_escolar}</p>
                 </div>
                 <BoletaGenerator data={generarDatosBoletaParaEstudiante(selectedEstudiante)!} />

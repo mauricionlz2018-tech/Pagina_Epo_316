@@ -130,7 +130,7 @@ export default function InfraestructuraPage() {
                 Accede a la plataforma MIGES para gestión administrativa y académica.
               </p>
               <a
-                href="https://miges.edomex.gob.mx"
+                href="https://miges.edugem.gob.mx/?AspxAutoDetectCookieSupport=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity"
