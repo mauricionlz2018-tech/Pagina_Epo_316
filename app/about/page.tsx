@@ -1,5 +1,6 @@
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
+import Image from 'next/image';
 
 export default function AboutPage() {
   return (
@@ -64,7 +65,103 @@ export default function AboutPage() {
                 <p className="text-muted-foreground">Buscamos constantemente nuevas formas de mejorar la educación.</p>
               </div>
             </div>
-          </div>  
+          </div>
+
+          {/* Galería de Imágenes */}
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Momentos EPO 316</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Estudiantes en clase"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Aprendizaje Activo</h3>
+                  <p className="text-muted-foreground text-sm">Nuestros estudiantes participando en clases dinámicas.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Actividades extracurriculares"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Actividades Culturales</h3>
+                  <p className="text-muted-foreground text-sm">Eventos que enriquecen la formación integral.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Graduación"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Éxito Académico</h3>
+                  <p className="text-muted-foreground text-sm">Celebrando logros y nuevos comienzos.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Trabajo en equipo"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Trabajo en Equipo</h3>
+                  <p className="text-muted-foreground text-sm">Colaboración y compañerismo entre estudiantes.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Investigación científica"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Investigación</h3>
+                  <p className="text-muted-foreground text-sm">Explorando el conocimiento científico.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Comunidad educativa"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Comunidad</h3>
+                  <p className="text-muted-foreground text-sm">Unidos por la educación y el crecimiento.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -89,19 +89,19 @@ export default function AdminPanel() {
 
       {/* Quick Access */}
       <div>
-        <h2 className="text-2xl font-bold mb-4">Acceso Rápido</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <h2 className="text-xl md:text-2xl font-bold mb-4">Acceso Rápido</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {menuItems.map((item, idx) => (
             <Link key={idx} href={item.href}>
-              <Card className="p-6 hover:shadow-lg transition cursor-pointer h-full">
-                <div className="flex items-start gap-4">
-                  <div className={`p-3 bg-gradient-to-br ${item.color} rounded-lg text-white`}>
-                    <item.icon size={24} />
+              <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer h-full">
+                <div className="flex items-start gap-3 md:gap-4">
+                  <div className={`p-2 md:p-3 bg-gradient-to-br ${item.color} rounded-lg text-white flex-shrink-0`}>
+                    <item.icon size={20} className="md:w-6 md:h-6" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-lg">{item.title}</h3>
-                    <p className="text-gray-600 text-sm mt-1">{item.description}</p>
-                    <div className="text-blue-600 font-semibold text-sm mt-3">Abrir →</div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-base md:text-lg">{item.title}</h3>
+                    <p className="text-gray-600 text-xs md:text-sm mt-1">{item.description}</p>
+                    <div className="text-blue-600 font-semibold text-xs md:text-sm mt-3">Abrir →</div>
                   </div>
                 </div>
               </Card>

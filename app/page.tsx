@@ -36,15 +36,15 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div className="hidden md:block">
-              <div className="relative">
+            <div className="flex justify-center md:justify-end">
+              <div className="relative w-full max-w-sm md:max-w-md">
                 <div className="absolute inset-0 bg-white/10 rounded-2xl transform rotate-3 blur-2xl"></div>
-                <div className="relative bg-white/10 backdrop-blur rounded-2xl p-8 border border-white/20">
-                  <div className="space-y-4">
-                    <div className="h-32 bg-white/10 rounded-lg"></div>
-                    <div className="h-24 bg-white/10 rounded-lg"></div>
-                    <div className="h-16 bg-white/10 rounded-lg"></div>
-                  </div>
+                <div className="relative bg-white/10 backdrop-blur rounded-2xl p-4 border border-white/20 overflow-hidden">
+                  <img
+                    src="/logo_epo.jpg"
+                    alt="Escuela Preparatoria Oficial 316"
+                    className="w-full h-auto rounded-lg object-cover"
+                  />
                 </div>
               </div>
             </div>

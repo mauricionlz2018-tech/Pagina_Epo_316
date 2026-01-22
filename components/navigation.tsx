@@ -2,18 +2,20 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
+import { useTheme } from 'next-themes';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const { theme, setTheme } = useTheme();
 
   const menuItems = [
     { label: 'Inicio', href: '/' },
     {
       label: 'Institución',
-      href: '#',
+      href: '/about',
       submenu: [
         { label: 'Acerca de Nosotros', href: '/about?section=mision' },
         { label: 'Infraestructura', href: '/infraestructura' },
@@ -22,7 +24,7 @@ export default function Navigation() {
     },
     {
       label: 'Académico',
-      href: '#',
+      href: '/academics',
       submenu: [
         { label: 'Programas Académicos', href: '/academics?section=colegio' },
         { label: 'Plan de Trabajo', href: '/academics#plan' },
@@ -32,7 +34,7 @@ export default function Navigation() {
     },
     {
       label: 'Servicios',
-      href: '#',
+      href: '/orientacion',
       submenu: [
         { label: 'Secretaría Escolar', href: '/secretaria' },
         { label: 'Orientación', href: '/orientacion' },
@@ -92,7 +94,14 @@ export default function Navigation() {
           </div>
 
           {/* Desktop Auth Links */}
-          <div className="hidden md:flex gap-3">
+          <div className="hidden md:flex gap-3 items-center">
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="p-2 rounded hover:bg-accent hover:text-accent-foreground transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
             <Link
               href="/admin/login"
               className="px-4 py-2 rounded bg-secondary text-secondary-foreground hover:opacity-90 transition-opacity"
@@ -141,7 +150,7 @@ export default function Navigation() {
                       <Link
                         key={subitem.href}
                         href={subitem.href}
-                        className="block px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-colors text-sm"
+                        className="block px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-colors text-sm text-gray-800"
                         onClick={() => setIsOpen(false)}
                       >
                         {subitem.label}

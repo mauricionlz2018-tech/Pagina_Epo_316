@@ -221,10 +221,10 @@ export default function EstudiantesPage() {
   return (
     <div className="space-y-6">
       {/* HEADER */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Estudiantes</h1>
-          <p className="text-gray-500 mt-1">Gestiona los estudiantes de la escuela</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Estudiantes</h1>
+          <p className="text-gray-500 mt-1 text-sm md:text-base">Gestiona los estudiantes de la escuela</p>
         </div>
         <Button
           onClick={() => {
@@ -241,11 +241,12 @@ export default function EstudiantesPage() {
             });
             setError('');
           }}
-          className="gap-2 bg-blue-600 hover:bg-blue-700 shadow-lg"
+          className="gap-2 bg-blue-600 hover:bg-blue-700 shadow-lg w-full sm:w-auto"
           size="lg"
         >
           <Plus size={20} />
-          Agregar Estudiante
+          <span className="hidden sm:inline">Agregar Estudiante</span>
+          <span className="sm:hidden">Agregar</span>
         </Button>
       </div>
 

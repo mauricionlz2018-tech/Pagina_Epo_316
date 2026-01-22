@@ -6,52 +6,51 @@ export default function AcademicsPage() {
   const program = {
     name: 'Bachillerato General',
     description: 'Formación integral con énfasis en ciencias, humanidades y tecnología.',
-    subjects: [
-      'Primer grado (1° y 2° semestre)',
-      'Lengua y Comunicación I y II',
-      'Pensamiento Matemático I y II',
-      'Ciencias Naturales, Experimentales y Tecnología I y II',
-
-      'Conciencia Histórica I',
-
-      'Ciencias Sociales I',
-
-      'Pensamiento Filosófico y Humanidades I',
-
-      'Cultura Digital I y II',
-
-      'Inglés I y II',
-      'Formación Socioemocional (PAEC, actividades físicas, artísticas, educación para la salud)',
-
-      'Segundo grado (3° y 4° semestre)',
-      'Lengua y Comunicación III',
-      'Pensamiento Matemático III y IV',
-      'Ciencias Naturales, Experimentales y Tecnología III y IV',
-      'Conciencia Histórica II',
-
-      'Ciencias Sociales II',
-
-      'Pensamiento Filosófico y Humanidades II',
-      'Cultura Digital III',
-
-      'Inglés III y IV',
-
-      'Formación Socioemocional (continuación de PAEC, ciudadanía, sexualidad y género)',
-      'Optativas del componente fundamental extendido (ej. temas selectos de matemáticas, ciencias aplicadas, literatura, etc.)',
-
-      'Tercer grado (5° y 6° semestre)',
-      'Pensamiento Matemático V y VI',
-
-      'Ciencias Naturales, Experimentales y Tecnología V y VI',
-
-      'Conciencia Histórica III',
-      'Ciencias Sociales III',
-      'Pensamiento Filosófico y Humanidades III',
-      'Inglés V',
-      'Formación Socioemocional (proyectos de colaboración ciudadana, actividades culturales)',
-      'Optativas del componente fundamental extendido (ej. especialización en ciencias, humanidades, tecnología)',
-      'Currículum laboral (competencias básicas, técnicas o tecnológicas según la trayectoria elegida: ocupacional básico, técnico o tecnológico)'
-    ],
+    grades: [
+      {
+        title: 'Primer Grado (1° y 2° semestre)',
+        subjects: [
+          'Lengua y Comunicación I y II',
+          'Pensamiento Matemático I y II',
+          'Ciencias Naturales, Experimentales y Tecnología I y II',
+          'Conciencia Histórica I',
+          'Ciencias Sociales I',
+          'Pensamiento Filosófico y Humanidades I',
+          'Cultura Digital I y II',
+          'Inglés I y II',
+          'Formación Socioemocional (PAEC, actividades físicas, artísticas, educación para la salud)'
+        ]
+      },
+      {
+        title: 'Segundo Grado (3° y 4° semestre)',
+        subjects: [
+          'Lengua y Comunicación III',
+          'Pensamiento Matemático III y IV',
+          'Ciencias Naturales, Experimentales y Tecnología III y IV',
+          'Conciencia Histórica II',
+          'Ciencias Sociales II',
+          'Pensamiento Filosófico y Humanidades II',
+          'Cultura Digital III',
+          'Inglés III y IV',
+          'Formación Socioemocional (continuación de PAEC, ciudadanía, sexualidad y género)',
+          'Optativas del componente fundamental extendido (ej. temas selectos de matemáticas, ciencias aplicadas, literatura, etc.)'
+        ]
+      },
+      {
+        title: 'Tercer Grado (5° y 6° semestre)',
+        subjects: [
+          'Pensamiento Matemático V y VI',
+          'Ciencias Naturales, Experimentales y Tecnología V y VI',
+          'Conciencia Histórica III',
+          'Ciencias Sociales III',
+          'Pensamiento Filosófico y Humanidades III',
+          'Inglés V',
+          'Formación Socioemocional (proyectos de colaboración ciudadana, actividades culturales)',
+          'Optativas del componente fundamental extendido (ej. especialización en ciencias, humanidades, tecnología)',
+          'Currículum laboral (competencias básicas, técnicas o tecnológicas según la trayectoria elegida: ocupacional básico, técnico o tecnológico)'
+        ]
+      }
+    ]
   };
 
   const specialties = [
@@ -104,11 +103,18 @@ export default function AcademicsPage() {
 
             <div>
               <p className="font-semibold text-lg mb-6">Asignaturas Principales:</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {program.subjects.map((subject) => (
-                  <div key={subject} className="flex items-center gap-3">
-                    <CheckCircle className="text-primary flex-shrink-0" size={20} />
-                    <span>{subject}</span>
+              <div className="space-y-8">
+                {program.grades.map((grade, gradeIndex) => (
+                  <div key={gradeIndex} className="bg-gradient-to-r from-teal-50 to-gray-50 border border-teal-100 rounded-xl p-6">
+                    <h4 className="font-bold text-xl mb-4 text-teal-800">{grade.title}</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {grade.subjects.map((subject, subjectIndex) => (
+                        <div key={subjectIndex} className="flex items-start gap-3">
+                          <CheckCircle className="text-teal-600 flex-shrink-0 mt-0.5" size={18} />
+                          <span className="text-gray-700">{subject}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>

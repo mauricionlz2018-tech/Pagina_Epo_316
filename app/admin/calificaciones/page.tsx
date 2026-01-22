@@ -475,12 +475,12 @@ export default function CalificacionesPage() {
       </Dialog>
 
       {/* PASO 1: SELECCIONAR GRADO */}
-      <Card className="p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg">
-        <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
-          <BookOpen size={24} />
+      <Card className="p-4 md:p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg">
+        <h3 className="font-bold text-lg md:text-xl mb-4 flex items-center gap-2">
+          <BookOpen size={20} className="md:w-6 md:h-6" />
           Paso 1: Selecciona el Grado
         </h3>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { value: '1ro', label: 'Primer Grado' },
             { value: '2do', label: 'Segundo Grado' },
@@ -492,7 +492,7 @@ export default function CalificacionesPage() {
                 setGradoSeleccionado(grado.value);
                 setEstudianteSeleccionado('');
               }}
-              className={`p-6 rounded-lg font-bold text-xl transition-all ${
+              className={`p-4 md:p-6 rounded-lg font-bold text-lg md:text-xl transition-all ${
                 gradoSeleccionado === grado.value
                   ? 'bg-white text-blue-600 shadow-xl'
                   : 'bg-white/10 hover:bg-white/20 backdrop-blur'

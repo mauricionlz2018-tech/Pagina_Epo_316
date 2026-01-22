@@ -1,5 +1,6 @@
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
+import Image from 'next/image';
 import { Building2, Trees, Layers, Zap } from 'lucide-react';
 
 export default function InfraestructuraPage() {
@@ -49,6 +50,102 @@ export default function InfraestructuraPage() {
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Cafetería</h3>
                 <p className="text-muted-foreground">Cafetería moderna con comidas saludables y espacios cómodos para estudiantes durante los descansos.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Galería de Imágenes */}
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Galería de Instalaciones</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Aula moderna con pizarra inteligente"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Aulas Tecnológicas</h3>
+                  <p className="text-muted-foreground text-sm">Equipadas con la última tecnología para el aprendizaje.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Laboratorio de ciencias"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Laboratorios</h3>
+                  <p className="text-muted-foreground text-sm">Espacios especializados para experimentación científica.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Biblioteca escolar"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Biblioteca</h3>
+                  <p className="text-muted-foreground text-sm">Centro de conocimiento con miles de recursos.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Centro de cómputo"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Centro de Cómputo</h3>
+                  <p className="text-muted-foreground text-sm">Tecnología de vanguardia para el aprendizaje digital.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Auditorio escolar"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Auditorio</h3>
+                  <p className="text-muted-foreground text-sm">Espacio para eventos culturales y académicos.</p>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
+                <div className="aspect-video relative">
+                  <Image
+                    src="/placeholder.jpg"
+                    alt="Áreas deportivas"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg mb-2">Áreas Deportivas</h3>
+                  <p className="text-muted-foreground text-sm">Instalaciones para el desarrollo físico y recreativo.</p>
+                </div>
               </div>
             </div>
           </div>

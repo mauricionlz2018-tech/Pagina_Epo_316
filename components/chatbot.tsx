@@ -80,6 +80,7 @@ export default function Chatbot() {
       };
 
       setMessages((prev) => [...prev, botMessage]);
+      setShowSuggestions(true);
     } catch (error) {
       console.error('[v0] Chatbot error:', error);
       const errorMessage: Message = {
@@ -89,6 +90,7 @@ export default function Chatbot() {
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
+      setShowSuggestions(true);
     } finally {
       setLoading(false);
     }
