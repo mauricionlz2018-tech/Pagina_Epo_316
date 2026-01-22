@@ -58,7 +58,7 @@ export default function Navigation() {
                 className="object-cover rounded-lg"
               />
             </div>
-            <span>EPO 316</span>
+            <span>Escuela Preparatoria Oficial Núm. 316</span>
           </Link>
 
           {/* Desktop Menu */}

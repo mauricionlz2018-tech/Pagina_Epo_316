@@ -29,7 +29,8 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-bold mb-4">Nuestra Misión</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Formar estudiantes integrales con excelencia académica, valores éticos sólidos y competencias para enfrentar los retos del siglo XXI, contribuyendo al desarrollo sostenible de la sociedad mexicana.
+              Somos una institución de educación media superior dedicada a la enseñanza por competencias, investigación, y  Vinculación que se distingue por su enfoque de excelencia educativa, 
+              haciendo partícipe a la comunidad, con el propósito de fomentar en los estudiantes el saber ser, hacer, pensar, aprender, crear y convivir permitiendo así un desarrollo integral.
             </p>
           </div>
 
@@ -37,7 +38,8 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-bold mb-4">Nuestra Visión</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Ser reconocida como una institución educativa de excelencia que forma profesionales competentes, con pensamiento crítico y responsabilidad social, capaces de contribuir al progreso de México.
+              Consolidarse como una institución de educación media superior competitiva, pertinente y reconocida en el área educativa local, regional y estatal respondiendo con calidad 
+              académica las demandas de los jóvenes que les permitan el desarrollo de competencias científicas, culturales, humanas y tecnológicas.
             </p>
           </div>
 

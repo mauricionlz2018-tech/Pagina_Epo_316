@@ -7,16 +7,50 @@ export default function AcademicsPage() {
     name: 'Bachillerato General',
     description: 'Formación integral con énfasis en ciencias, humanidades y tecnología.',
     subjects: [
-      'Matemáticas I, II y III',
-      'Física I y II',
-      'Química I y II',
-      'Biología',
-      'Literatura',
-      'Historia Universal y de México',
-      'Inglés I, II y III',
-      'Computación e Informática',
-      'Educación Física',
-      'Ética y Filosofía',
+      'Primer grado (1° y 2° semestre)',
+      'Lengua y Comunicación I y II',
+      'Pensamiento Matemático I y II',
+      'Ciencias Naturales, Experimentales y Tecnología I y II',
+
+      'Conciencia Histórica I',
+
+      'Ciencias Sociales I',
+
+      'Pensamiento Filosófico y Humanidades I',
+
+      'Cultura Digital I y II',
+
+      'Inglés I y II',
+      'Formación Socioemocional (PAEC, actividades físicas, artísticas, educación para la salud)',
+
+      'Segundo grado (3° y 4° semestre)',
+      'Lengua y Comunicación III',
+      'Pensamiento Matemático III y IV',
+      'Ciencias Naturales, Experimentales y Tecnología III y IV',
+      'Conciencia Histórica II',
+
+      'Ciencias Sociales II',
+
+      'Pensamiento Filosófico y Humanidades II',
+      'Cultura Digital III',
+
+      'Inglés III y IV',
+
+      'Formación Socioemocional (continuación de PAEC, ciudadanía, sexualidad y género)',
+      'Optativas del componente fundamental extendido (ej. temas selectos de matemáticas, ciencias aplicadas, literatura, etc.)',
+
+      'Tercer grado (5° y 6° semestre)',
+      'Pensamiento Matemático V y VI',
+
+      'Ciencias Naturales, Experimentales y Tecnología V y VI',
+
+      'Conciencia Histórica III',
+      'Ciencias Sociales III',
+      'Pensamiento Filosófico y Humanidades III',
+      'Inglés V',
+      'Formación Socioemocional (proyectos de colaboración ciudadana, actividades culturales)',
+      'Optativas del componente fundamental extendido (ej. especialización en ciencias, humanidades, tecnología)',
+      'Currículum laboral (competencias básicas, técnicas o tecnológicas según la trayectoria elegida: ocupacional básico, técnico o tecnológico)'
     ],
   };
 
@@ -56,7 +90,7 @@ export default function AcademicsPage() {
           <div className="bg-card border border-border rounded-xl p-8 hover:shadow-lg transition-shadow mb-12">
             <h3 className="text-3xl font-bold mb-3 text-primary">{program.name}</h3>
             <p className="text-muted-foreground mb-8 text-lg">{program.description}</p>
-            
+
             {/* Specialties */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               {specialties.map((specialty) => (
