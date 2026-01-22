@@ -41,7 +41,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-white/10 rounded-2xl transform rotate-3 blur-2xl"></div>
                 <div className="relative bg-white/10 backdrop-blur rounded-2xl p-4 border border-white/20 overflow-hidden">
                   <img
-                    src="/logo_epo.jpg"
+                    src="/Secretaria_Escolar/Inicio_3.jpg"
                     alt="Escuela Preparatoria Oficial 316"
                     className="w-full h-auto rounded-lg object-cover"
                   />

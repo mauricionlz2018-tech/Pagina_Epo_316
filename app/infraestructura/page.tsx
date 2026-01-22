@@ -61,7 +61,7 @@ export default function InfraestructuraPage() {
               <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
                 <div className="aspect-video relative">
                   <Image
-                    src="/placeholder.jpg"
+                    src="/Secretaria_Escolar/1748722690528.jpg"
                     alt="Aula moderna con pizarra inteligente"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -76,7 +76,7 @@ export default function InfraestructuraPage() {
               <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
                 <div className="aspect-video relative">
                   <Image
-                    src="/placeholder.jpg"
+                    src="/Secretaria_Escolar/1748722690528.jpg"
                     alt="Laboratorio de ciencias"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -106,7 +106,7 @@ export default function InfraestructuraPage() {
               <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
                 <div className="aspect-video relative">
                   <Image
-                    src="/placeholder.jpg"
+                    src="/Secretaria_Escolar/1748722690528.jpg"
                     alt="Centro de cómputo"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -136,7 +136,7 @@ export default function InfraestructuraPage() {
               <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
                 <div className="aspect-video relative">
                   <Image
-                    src="/placeholder.jpg"
+                    src="/Secretaria_Escolar/Area_recreacion_4.jpg"
                     alt="Áreas deportivas"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
