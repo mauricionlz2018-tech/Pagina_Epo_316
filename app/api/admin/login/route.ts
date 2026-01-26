@@ -4,7 +4,7 @@ import { ejecutarConsulta } from '@/lib/db';
 
 export async function POST(request: Request) {
   try {
-    const { email, password } = await request.json();
+    const { email, password, role } = await request.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -41,10 +41,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // Verificar si es administrador
-    if (usuario.rol !== 'administrador') {
+    // Verificar si el rol tiene acceso al panel administrativo
+    const rolesPermitidos = ['director', 'subdirectora', 'secretaria', 'orientador', 'docente'];
+    if (!rolesPermitidos.includes(usuario.rol)) {
       return NextResponse.json(
-        { message: 'Acceso denegado. No tienes permisos de administrador' },
+        { message: 'Acceso denegado. No tienes permisos para acceder al panel administrativo' },
         { status: 403 }
       );
     }

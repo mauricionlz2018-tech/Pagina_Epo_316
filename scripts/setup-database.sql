@@ -14,7 +14,7 @@
     id INT AUTO_INCREMENT PRIMARY KEY,
     correo VARCHAR(255) UNIQUE NOT NULL COMMENT 'Correo electrónico del usuario',
     contraseña VARCHAR(255) NOT NULL COMMENT 'Contraseña hasheada',
-    rol ENUM('administrador', 'profesor', 'estudiante') DEFAULT 'administrador' COMMENT 'Rol del usuario',
+    rol ENUM('director', 'subdirectora', 'secretaria', 'orientador', 'docente', 'administrador') DEFAULT 'administrador' COMMENT 'Rol del usuario',
     nombre VARCHAR(100) COMMENT 'Nombre del usuario',
     apellido VARCHAR(100) COMMENT 'Apellido del usuario',
     activo BOOLEAN DEFAULT TRUE COMMENT 'Si el usuario está activo',

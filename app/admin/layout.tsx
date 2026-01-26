@@ -1,32 +1,93 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, GraduationCap, FileText, Megaphone, UserCircle, Sun, Moon } from 'lucide-react';
+import { LayoutDashboard, Users, GraduationCap, FileText, Megaphone, UserCircle, Sun, Moon, UserCheck, BarChart3, Calendar, Target, LogOut } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     setMounted(true);
+    const role = localStorage.getItem('user_role') || '';
+    setUserRole(role);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('user_role');
+    router.push('/admin/login');
+  };
 
   // Si estamos en la página de login, NO mostrar el navbar
   if (pathname === '/admin/login') {
     return <>{children}</>;
   }
 
-  const navItems = [
-    { href: '/admin/panel', label: 'Panel', icon: LayoutDashboard },
-    { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
-    { href: '/admin/profesores', label: 'Profesores', icon: UserCircle },
-    { href: '/admin/calificaciones', label: 'Calificaciones', icon: GraduationCap },
-    { href: '/admin/noticias', label: 'Noticias', icon: Megaphone },
-  ];
+  // Role-specific navigation items
+  const getNavItems = (role: string) => {
+    const commonItems = [
+      { href: `/admin/${role}`, label: 'Panel', icon: LayoutDashboard },
+    ];
+
+    switch (role) {
+      case 'director':
+        return [
+          ...commonItems,
+          { href: '/admin/profesores', label: 'Profesores', icon: UserCircle },
+          { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
+          { href: '/admin/calificaciones', label: 'Calificaciones', icon: GraduationCap },
+          { href: '/admin/estadisticas', label: 'Estadísticas', icon: BarChart3 },
+        ];
+      case 'subdirectora':
+        return [
+          ...commonItems,
+          { href: '/admin/profesores', label: 'Profesores', icon: UserCircle },
+          { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
+          { href: '/admin/calificaciones', label: 'Calificaciones', icon: GraduationCap },
+          { href: '/admin/documentos', label: 'Documentos', icon: FileText },
+        ];
+      case 'secretaria':
+        return [
+          ...commonItems,
+          { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
+          { href: '/admin/boletas', label: 'Boletas', icon: FileText },
+          { href: '/admin/documentos', label: 'Documentos', icon: FileText },
+          { href: '/admin/eventos', label: 'Eventos', icon: Calendar },
+        ];
+      case 'orientador':
+        return [
+          ...commonItems,
+          { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
+          { href: '/admin/calificaciones', label: 'Calificaciones', icon: GraduationCap },
+          { href: '/admin/reportes', label: 'Reportes', icon: FileText },
+        ];
+      case 'docente':
+        return [
+          ...commonItems,
+          { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
+          { href: '/admin/calificaciones', label: 'Calificaciones', icon: GraduationCap },
+          { href: '/admin/materias', label: 'Materias', icon: GraduationCap },
+          { href: '/admin/evaluaciones', label: 'Evaluaciones', icon: Target },
+        ];
+      default:
+        return [
+          { href: '/admin/panel', label: 'Panel', icon: LayoutDashboard },
+          { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
+          { href: '/admin/profesores', label: 'Profesores', icon: UserCircle },
+          { href: '/admin/calificaciones', label: 'Calificaciones', icon: GraduationCap },
+          { href: '/admin/noticias', label: 'Noticias', icon: Megaphone },
+        ];
+    }
+  };
+
+  const navItems = getNavItems(userRole);
 
   return (
     <div className="min-h-screen bg-background">
@@ -55,13 +116,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               })}
             </div>
             {mounted && (
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 rounded-lg bg-muted hover:bg-accent transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleLogout}
+                  className="p-2 rounded-lg bg-muted hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
+                  aria-label="Cerrar sesión"
+                >
+                  <LogOut size={16} />
+                </button>
+                <button
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className="p-2 rounded-lg bg-muted hover:bg-accent transition-colors"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                </button>
+              </div>
             )}
           </div>
         </div>

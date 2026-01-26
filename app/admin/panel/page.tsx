@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
-import { Users, BookOpen, Newspaper, BarChart3 } from 'lucide-react';
+import { Users, BookOpen, Newspaper, BarChart3, UserCheck, FileText, GraduationCap, Settings } from 'lucide-react';
 
 export default function AdminPanel() {
   const [stats, setStats] = useState({
@@ -12,8 +12,11 @@ export default function AdminPanel() {
     noticias: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
+    const role = localStorage.getItem('user_role') || '';
+    setUserRole(role);
     cargarEstadisticas();
   }, []);
 

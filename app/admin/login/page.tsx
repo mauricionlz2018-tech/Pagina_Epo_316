@@ -12,6 +12,7 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [selectedRole, setSelectedRole] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -20,11 +21,17 @@ export default function AdminLoginPage() {
     setError('');
     setLoading(true);
 
+    if (!selectedRole) {
+      setError('Por favor selecciona tu rol');
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, role: selectedRole }),
       });
 
       const data = await response.json();
@@ -34,9 +41,10 @@ export default function AdminLoginPage() {
         return;
       }
 
-      // Store admin token
+      // Store admin token and role
       localStorage.setItem('admin_token', data.token);
-      router.push('/admin/panel');
+      localStorage.setItem('user_role', data.usuario.rol);
+      router.push(`/admin/${data.usuario.rol}`);
     } catch (err) {
       setError('Error de conexión. Por favor intenta de nuevo.');
       console.error('[v0] Login error:', err);
@@ -104,6 +112,24 @@ export default function AdminLoginPage() {
                   required
                 />
               </div>
+            </div>
+
+            {/* Role Selector */}
+            <div>
+              <label className="block text-sm font-medium mb-2">Tipo de Usuario</label>
+              <select
+                value={selectedRole}
+                onChange={(e) => setSelectedRole(e.target.value)}
+                className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-background"
+                required
+              >
+                <option value="">Selecciona tu rol</option>
+                <option value="director">Director</option>
+                <option value="subdirectora">Subdirectora</option>
+                <option value="secretaria">Secretaria</option>
+                <option value="orientador">Orientador</option>
+                <option value="docente">Docente</option>
+              </select>
             </div>
 
             {/* Submit Button */}
