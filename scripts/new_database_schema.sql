@@ -11,7 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -97,6 +96,32 @@ INSERT INTO `calificaciones` (`id`, `estudiante_id`, `materia`, `grado`, `grupo`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `director`
+--
+
+CREATE TABLE `director` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL COMMENT 'Nombre completo del director',
+  `correo` varchar(255) NOT NULL COMMENT 'Correo electrónico',
+  `contraseña` varchar(255) NOT NULL COMMENT 'Contraseña hasheada',
+  `telefono` varchar(20) DEFAULT NULL COMMENT 'Teléfono de contacto',
+  `activo` tinyint(1) DEFAULT 1 COMMENT 'Si está activo',
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de directores';
+
+--
+-- Volcado de datos para la tabla `director`
+--
+
+INSERT INTO `director` (`id`, `nombre`, `correo`, `contraseña`, `telefono`, `activo`, `fecha_creacion`, `fecha_actualizacion`) VALUES
+(1, 'Administrador EPO316', 'admin@epo316.edu.mx', 'admin123', NULL, 1, '2026-01-20 04:20:30', '2026-01-26 02:53:06'),
+(2, 'Director Académico', 'director@epo316.edu.mx', 'director123', NULL, 1, '2026-01-20 04:21:17', '2026-01-26 02:53:06'),
+(3, 'Soporte Técnico', 'soporte@epo316.edu.mx', 'soporte123', NULL, 1, '2026-01-20 04:21:17', '2026-01-26 02:53:06');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `estadisticas_escuela`
 --
 
@@ -125,7 +150,6 @@ INSERT INTO `estadisticas_escuela` (`id`, `total_estudiantes`, `total_profesores
 
 CREATE TABLE `estudiantes` (
   `id` int(11) NOT NULL,
-  `usuario_id` int(11) DEFAULT NULL COMMENT 'ID del usuario asociado',
   `nombre` varchar(255) NOT NULL COMMENT 'Nombre completo del estudiante',
   `correo` varchar(255) DEFAULT NULL COMMENT 'Correo electrónico del estudiante',
   `numero_inscripcion` varchar(50) NOT NULL COMMENT 'Número de inscripción único',
@@ -159,14 +183,38 @@ INSERT INTO `estudiantes` (`id`, `usuario_id`, `nombre`, `correo`, `numero_inscr
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `orientador`
+--
+
+CREATE TABLE `orientador` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL COMMENT 'Nombre completo del orientador',
+  `correo` varchar(255) NOT NULL COMMENT 'Correo electrónico',
+  `contraseña` varchar(255) NOT NULL COMMENT 'Contraseña hasheada',
+  `telefono` varchar(20) DEFAULT NULL COMMENT 'Teléfono de contacto',
+  `activo` tinyint(1) DEFAULT 1 COMMENT 'Si está activo',
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de orientadores';
+
+--
+-- Volcado de datos para la tabla `orientador`
+--
+
+INSERT INTO `orientador` (`id`, `nombre`, `correo`, `contraseña`, `telefono`, `activo`, `fecha_creacion`, `fecha_actualizacion`) VALUES
+(1, 'Carlos Rodríguez', 'orientador@epo316.edu.mx', 'ori123', NULL, 1, '2026-01-26 02:53:06', '2026-01-26 02:53:06');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `profesores`
 --
 
 CREATE TABLE `profesores` (
   `id` int(11) NOT NULL,
-  `usuario_id` int(11) DEFAULT NULL COMMENT 'ID del usuario asociado',
   `nombre` varchar(255) NOT NULL COMMENT 'Nombre completo del profesor',
   `correo` varchar(255) NOT NULL COMMENT 'Correo electrónico',
+  `contraseña` varchar(255) DEFAULT NULL COMMENT 'Contraseña hasheada',
   `telefono` varchar(20) DEFAULT NULL COMMENT 'Teléfono de contacto',
   `especialidad` varchar(100) DEFAULT NULL COMMENT 'Especialidad o área',
   `materias_asignadas` text DEFAULT NULL COMMENT 'Materias que imparte (separadas por coma)',
@@ -179,50 +227,59 @@ CREATE TABLE `profesores` (
 -- Volcado de datos para la tabla `profesores`
 --
 
-INSERT INTO `profesores` (`id`, `usuario_id`, `nombre`, `correo`, `telefono`, `especialidad`, `materias_asignadas`, `activo`, `fecha_creacion`, `fecha_actualizacion`) VALUES
-(1, 6, 'Prof. Roberto García', 'rgarcia@epo316.mx', '5551111111', 'Matemáticas', 'Matemáticas I,Matemáticas II', 1, '2026-01-21 15:56:30', '2026-01-26 02:53:07'),
-(2, 7, 'Prof. Laura Martínez', 'lmartinez@epo316.mx', '5552222222', 'Física', 'Física I,Física II', 1, '2026-01-21 15:56:30', '2026-01-26 02:53:07'),
-(3, 8, 'Prof. Carlos Hernández', 'chernandez@epo316.mx', '5553333333', 'Programación', 'Programación,Sistemas de Información', 1, '2026-01-21 15:56:30', '2026-01-26 02:53:07');
+INSERT INTO `profesores` (`id`, `nombre`, `correo`, `contraseña`, `telefono`, `especialidad`, `materias_asignadas`, `activo`, `fecha_creacion`, `fecha_actualizacion`) VALUES
+(1, 'Prof. Roberto García', 'rgarcia@epo316.mx', 'profesor123', '5551111111', 'Matemáticas', 'Matemáticas I,Matemáticas II', 1, '2026-01-21 15:56:30', '2026-01-26 02:53:07'),
+(2, 'Prof. Laura Martínez', 'lmartinez@epo316.mx', 'profesor123', '5552222222', 'Física', 'Física I,Física II', 1, '2026-01-21 15:56:30', '2026-01-26 02:53:07'),
+(3, 'Prof. Carlos Hernández', 'chernandez@epo316.mx', 'profesor123', '5553333333', 'Programación', 'Programación,Sistemas de Información', 1, '2026-01-21 15:56:30', '2026-01-26 02:53:07'),
+(4, 'Luis Martínez', 'docente@epo316.edu.mx', 'doc123', NULL, NULL, NULL, 1, '2026-01-26 02:53:06', '2026-01-26 02:53:06');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Estructura de tabla para la tabla `secretaria`
 --
 
-CREATE TABLE `usuarios` (
+CREATE TABLE `secretaria` (
   `id` int(11) NOT NULL,
-  `correo` varchar(255) NOT NULL COMMENT 'Correo electrónico del usuario',
+  `nombre` varchar(255) NOT NULL COMMENT 'Nombre completo de la secretaria',
+  `correo` varchar(255) NOT NULL COMMENT 'Correo electrónico',
   `contraseña` varchar(255) NOT NULL COMMENT 'Contraseña hasheada',
-  `rol` enum('administrador','profesor','estudiante','director','subdirectora','secretaria','orientador','docente') DEFAULT 'administrador',
-  `nombre` varchar(100) DEFAULT NULL COMMENT 'Nombre del usuario',
-  `apellido` varchar(100) DEFAULT NULL COMMENT 'Apellido del usuario',
-  `activo` tinyint(1) DEFAULT 1 COMMENT 'Si el usuario está activo',
+  `telefono` varchar(20) DEFAULT NULL COMMENT 'Teléfono de contacto',
+  `activo` tinyint(1) DEFAULT 1 COMMENT 'Si está activo',
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
   `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de usuarios administradores';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de secretarias';
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Volcado de datos para la tabla `secretaria`
 --
 
-INSERT INTO `usuarios` (`id`, `correo`, `contraseña`, `rol`, `nombre`, `apellido`, `activo`, `fecha_creacion`, `fecha_actualizacion`) VALUES
-(2, 'admin@epo316.edu.mx', 'admin123', 'director', 'Administrador', 'EPO316', 1, '2026-01-20 04:20:30', '2026-01-26 02:53:06'),
-(3, 'director@epo316.edu.mx', 'director123', 'director', 'Director', 'Académico', 1, '2026-01-20 04:21:17', '2026-01-26 02:53:06'),
-(4, 'soporte@epo316.edu.mx', 'soporte123', 'director', 'Soporte', 'Técnico', 1, '2026-01-20 04:21:17', '2026-01-26 02:53:06'),
-(6, 'rgarcia@epo316.mx', 'profesor123', 'profesor', 'Roberto', 'García', 1, '2026-01-21 15:56:30', '2026-01-21 15:56:30'),
-(7, 'lmartinez@epo316.mx', 'profesor123', 'profesor', 'Laura', 'Martínez', 1, '2026-01-21 15:56:30', '2026-01-21 15:56:30'),
-(8, 'chernandez@epo316.mx', 'profesor123', 'profesor', 'Carlos', 'Hernández', 1, '2026-01-21 15:56:30', '2026-01-21 15:56:30'),
-(9, 'subdirectora@epo316.edu.mx', 'sub123', 'subdirectora', 'María', 'González', 1, '2026-01-26 02:53:06', '2026-01-26 02:53:06'),
-(10, 'secretaria@epo316.edu.mx', 'sec123', 'secretaria', 'Ana', 'López', 1, '2026-01-26 02:53:06', '2026-01-26 02:53:06'),
-(11, 'orientador@epo316.edu.mx', 'ori123', 'orientador', 'Carlos', 'Rodríguez', 1, '2026-01-26 02:53:06', '2026-01-26 02:53:06'),
-(12, 'docente@epo316.edu.mx', 'doc123', 'docente', 'Luis', 'Martínez', 1, '2026-01-26 02:53:06', '2026-01-26 02:53:06'),
-(13, 'juan.garcia@epo316.mx', '001est123', 'estudiante', 'Juan', 'López', 1, '2026-01-26 02:53:07', '2026-01-26 02:53:07'),
-(14, 'maria.rodriguez@epo316.mx', '002est123', 'estudiante', 'María', 'Pérez', 1, '2026-01-26 02:53:07', '2026-01-26 02:53:07'),
-(15, 'luis.martinez@epo316.mx', '003est123', 'estudiante', 'Luis', 'Sánchez', 1, '2026-01-26 02:53:07', '2026-01-26 02:53:07'),
-(16, 'ana.gonzalez@epo316.mx', '004est123', 'estudiante', 'Ana', 'Torres', 1, '2026-01-26 02:53:07', '2026-01-26 02:53:07'),
-(17, 'carlos.lopez@epo316.mx', '005est123', 'estudiante', 'Carlos', 'Sánchez', 1, '2026-01-26 02:53:07', '2026-01-26 02:53:07'),
-(18, 'diana.morales@epo316.mx', '006est123', 'estudiante', 'Diana', 'Rivera', 1, '2026-01-26 02:53:07', '2026-01-26 02:53:07');
+INSERT INTO `secretaria` (`id`, `nombre`, `correo`, `contraseña`, `telefono`, `activo`, `fecha_creacion`, `fecha_actualizacion`) VALUES
+(1, 'Ana López', 'secretaria@epo316.edu.mx', 'sec123', NULL, 1, '2026-01-26 02:53:06', '2026-01-26 02:53:06');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `subdirectora`
+--
+
+CREATE TABLE `subdirectora` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL COMMENT 'Nombre completo de la subdirectora',
+  `correo` varchar(255) NOT NULL COMMENT 'Correo electrónico',
+  `contraseña` varchar(255) NOT NULL COMMENT 'Contraseña hasheada',
+  `telefono` varchar(20) DEFAULT NULL COMMENT 'Teléfono de contacto',
+  `activo` tinyint(1) DEFAULT 1 COMMENT 'Si está activo',
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de subdirectoras';
+
+--
+-- Volcado de datos para la tabla `subdirectora`
+--
+
+INSERT INTO `subdirectora` (`id`, `nombre`, `correo`, `contraseña`, `telefono`, `activo`, `fecha_creacion`, `fecha_actualizacion`) VALUES
+(1, 'María González', 'subdirectora@epo316.edu.mx', 'sub123', NULL, 1, '2026-01-26 02:53:06', '2026-01-26 02:53:06');
 
 --
 -- Índices para tablas volcadas
@@ -248,6 +305,13 @@ ALTER TABLE `calificaciones`
   ADD KEY `profesor_id` (`profesor_id`);
 
 --
+-- Indices de la tabla `director`
+--
+ALTER TABLE `director`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `correo` (`correo`);
+
+--
 -- Indices de la tabla `estadisticas_escuela`
 --
 ALTER TABLE `estadisticas_escuela`
@@ -260,25 +324,36 @@ ALTER TABLE `estudiantes`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `numero_inscripcion` (`numero_inscripcion`),
   ADD UNIQUE KEY `correo` (`correo`),
-  ADD KEY `usuario_id` (`usuario_id`),
   ADD KEY `idx_numero_inscripcion` (`numero_inscripcion`),
   ADD KEY `idx_grado_grupo` (`grado`,`grupo`);
+
+--
+-- Indices de la tabla `orientador`
+--
+ALTER TABLE `orientador`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `correo` (`correo`);
 
 --
 -- Indices de la tabla `profesores`
 --
 ALTER TABLE `profesores`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `correo` (`correo`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD UNIQUE KEY `correo` (`correo`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indices de la tabla `secretaria`
 --
-ALTER TABLE `usuarios`
+ALTER TABLE `secretaria`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `correo` (`correo`),
-  ADD KEY `idx_correo` (`correo`);
+  ADD UNIQUE KEY `correo` (`correo`);
+
+--
+-- Indices de la tabla `subdirectora`
+--
+ALTER TABLE `subdirectora`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `correo` (`correo`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -297,6 +372,12 @@ ALTER TABLE `calificaciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT de la tabla `director`
+--
+ALTER TABLE `director`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `estadisticas_escuela`
 --
 ALTER TABLE `estadisticas_escuela`
@@ -309,16 +390,28 @@ ALTER TABLE `estudiantes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT de la tabla `orientador`
+--
+ALTER TABLE `orientador`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `profesores`
 --
 ALTER TABLE `profesores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT de la tabla `secretaria`
 --
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+ALTER TABLE `secretaria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `subdirectora`
+--
+ALTER TABLE `subdirectora`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -328,7 +421,7 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `anuncios`
 --
 ALTER TABLE `anuncios`
-  ADD CONSTRAINT `anuncios_ibfk_1` FOREIGN KEY (`autor_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `anuncios_ibfk_1` FOREIGN KEY (`autor_id`) REFERENCES `director` (`id`) ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `calificaciones`
@@ -337,17 +430,8 @@ ALTER TABLE `calificaciones`
   ADD CONSTRAINT `calificaciones_ibfk_1` FOREIGN KEY (`estudiante_id`) REFERENCES `estudiantes` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `calificaciones_ibfk_2` FOREIGN KEY (`profesor_id`) REFERENCES `profesores` (`id`) ON DELETE SET NULL;
 
---
--- Filtros para la tabla `estudiantes`
---
-ALTER TABLE `estudiantes`
-  ADD CONSTRAINT `estudiantes_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL;
 
---
--- Filtros para la tabla `profesores`
---
-ALTER TABLE `profesores`
-  ADD CONSTRAINT `profesores_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

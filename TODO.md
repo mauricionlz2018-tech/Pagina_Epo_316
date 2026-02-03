@@ -1,29 +1,31 @@
-# TODO - Login and Logout Fixes
+# TODO - Login Fix and Database Restructuring
 
 ## Completed Tasks
-- [x] Fix login redirection to role-specific panels (e.g., /admin/orientador for orientador role)
-- [x] Add logout button to admin layout (available on all admin pages)
-- [x] Implement logout functionality that clears localStorage and redirects to login
+- [x] Analyze current database structure and login implementation
+- [x] Create new database schema with separate tables for each role (director, subdirectora, secretaria, orientador, docente)
+- [x] Update login API to query appropriate tables based on role
+- [x] Add password fields to role tables (including profesores for docente role)
+- [x] Remove usuario_id references from estudiantes and profesores tables
+- [x] Update foreign key constraints to remove references to old usuarios table
 
-## Changes Made
-1. **app/admin/login/page.tsx**: Changed redirect from `/admin/panel` to `/admin/${data.usuario.rol}`
-2. **app/admin/layout.tsx**: 
-   - Added logout button with LogOut icon
-   - Added handleLogout function to clear tokens and redirect to login
-   - Imported necessary icons and router
+## Pending Tasks
+- [ ] Test the new login functionality with the updated database
+- [ ] Update any other API endpoints that reference the old `usuarios` table
+- [ ] Update foreign key references in other tables if needed
+- [ ] Verify all role-based access works correctly
 
-## Testing Needed
-- [ ] Test login with different roles (director, subdirectora, secretaria, orientador, docente)
-- [ ] Verify correct redirection to role-specific panels
-- [ ] Test logout functionality from all admin pages
-- [ ] Ensure old dashboard page is not interfering
+## Database Changes Summary
+- **Removed**: `usuarios` table
+- **Added**: Separate tables for each role:
+  - `director` (id, nombre, correo, contraseña, telefono, activo, timestamps)
+  - `subdirectora` (id, nombre, correo, contraseña, telefono, activo, timestamps)
+  - `secretaria` (id, nombre, correo, contraseña, telefono, activo, timestamps)
+  - `orientador` (id, nombre, correo, contraseña, telefono, activo, timestamps)
+  - `profesores` (updated with contraseña field for docente role)
+- **Updated**: Foreign key references to point to appropriate role tables
+- **Migrated**: Existing user data to new role-specific tables
 
-## Summary
-The login system has been fixed to redirect users to their role-specific panels instead of the generic /admin/panel. A logout button has been added to the admin layout, making it available on all admin pages. The logout functionality clears authentication tokens and redirects to the login page.
-
-The user can now test the login with 'orientador' role and should be redirected to /admin/orientador instead of the old dashboard.
-
-## Notes
-- Database already supports 'orientador' role
-- Role-specific panels exist for each role
-- Layout provides consistent logout across all admin pages
+## Next Steps
+1. Apply the new database schema to XAMPP
+2. Test login with different roles
+3. Fix any remaining issues

@@ -44,7 +44,10 @@ export default function AdminLoginPage() {
       // Store admin token and role
       localStorage.setItem('admin_token', data.token);
       localStorage.setItem('user_role', data.usuario.rol);
-      router.push(`/admin/${data.usuario.rol}`);
+
+      // Map 'administrador' to 'director' for routing
+      const roleForRoute = data.usuario.rol === 'administrador' ? 'director' : data.usuario.rol;
+      router.push(`/admin/${roleForRoute}`);
     } catch (err) {
       setError('Error de conexión. Por favor intenta de nuevo.');
       console.error('[v0] Login error:', err);
