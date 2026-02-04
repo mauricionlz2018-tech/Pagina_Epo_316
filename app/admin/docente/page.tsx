@@ -43,18 +43,10 @@ export default function DocentePanel() {
 
   const menuItems = [
     {
-      title: 'Mis Estudiantes',
-      description: 'Gestionar alumnos asignados',
-      icon: Users,
-      href: '/admin/estudiantes',
-      color: 'from-blue-500 to-blue-600',
-      count: stats.estudiantes,
-    },
-    {
-      title: 'Registro de Calificaciones',
+      title: 'Mis Calificaciones',
       description: 'Ingresar notas y evaluaciones',
       icon: BookOpen,
-      href: '/admin/calificaciones',
+      href: '/admin/docente/calificaciones',
       color: 'from-green-500 to-green-600',
       count: stats.calificaciones,
     },

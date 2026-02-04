@@ -61,14 +61,14 @@ export default function InfraestructuraPage() {
               <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
                 <div className="aspect-video relative">
                   <Image
-                    src="/Secretaria_Escolar/1748722690528.jpg"
+                    src="/Secretaria_Escolar/Infraestructura_2.jpg" 
                     alt="Aula moderna con pizarra inteligente"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-bold text-lg mb-2">Aulas Tecnológicas</h3>
+                  <h3 className="font-bold text-lg mb-2">Aulas de Clase</h3>
                   <p className="text-muted-foreground text-sm">Equipadas con la última tecnología para el aprendizaje.</p>
                 </div>
               </div>
@@ -76,14 +76,14 @@ export default function InfraestructuraPage() {
               <div className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-lg transition-shadow">
                 <div className="aspect-video relative">
                   <Image
-                    src="/Secretaria_Escolar/1748722690528.jpg"
+                    src="/Direccion/Direccion_1.jpg"
                     alt="Laboratorio de ciencias"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-bold text-lg mb-2">Laboratorios</h3>
+                  <h3 className="font-bold text-lg mb-2">Dirección</h3>
                   <p className="text-muted-foreground text-sm">Espacios especializados para experimentación científica.</p>
                 </div>
               </div>
@@ -182,15 +182,15 @@ export default function InfraestructuraPage() {
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold">✓</span>
-                  <span>Mobiliario ergonómico en aulas</span>
+                  <span>Aulas espaciosas</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold">✓</span>
-                  <span>Pizarras inteligentes interactivas</span>
+                  <span>Pantallas en cada aula</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold">✓</span>
-                  <span>Proyectores de última generación</span>
+                  <span>Proyectores de buena calidad</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold">✓</span>
@@ -198,11 +198,11 @@ export default function InfraestructuraPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold">✓</span>
-                  <span>Equipos de laboratorio especializados</span>
+                  <span>Equipos de computo de gran capacidad</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold">✓</span>
-                  <span>Conexión WiFi en toda la institución</span>
+                  <span>Conexión WiFi</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold">✓</span>
@@ -210,7 +210,7 @@ export default function InfraestructuraPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-primary font-bold">✓</span>
-                  <span>Sistema de seguridad y vigilancia</span>
+                  <span>Bibloteca con varios titulos</span>
                 </li>
               </ul>
             </div>

@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { BookOpen, Users, Calendar, Award } from 'lucide-react';
 
 export default function MateriasPage() {
-  const [materias, setMaterias] = useState([]);
+  const [materias, setMaterias] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function MateriasPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Estudiantes Totales</p>
-              <p className="text-3xl font-bold mt-2">{materias.reduce((acc, m) => acc + m.estudiantes, 0)}</p>
+              <p className="text-3xl font-bold mt-2">{materias.reduce((acc: number, m: any) => acc + m.estudiantes, 0)}</p>
             </div>
             <Users size={40} opacity={0.8} />
           </div>
@@ -61,7 +61,7 @@ export default function MateriasPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Grupos</p>
-              <p className="text-3xl font-bold mt-2">{new Set(materias.map(m => m.grupo)).size}</p>
+              <p className="text-3xl font-bold mt-2">{new Set(materias.map((m: any) => m.grupo)).size}</p>
             </div>
             <Calendar size={40} opacity={0.8} />
           </div>
@@ -82,7 +82,7 @@ export default function MateriasPage() {
       <Card className="p-6">
         <h2 className="text-xl font-bold mb-4">Mis Materias</h2>
         <div className="space-y-4">
-          {materias.map((materia) => (
+          {materias.map((materia: any) => (
             <div key={materia.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
               <div>
                 <h3 className="font-semibold">{materia.nombre}</h3>

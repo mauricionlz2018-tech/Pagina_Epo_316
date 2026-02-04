@@ -64,7 +64,7 @@ export default function SecretariaPanel() {
       title: 'Documentos Académicos',
       description: 'Gestionar certificados y constancias',
       icon: FileText,
-      href: '/admin/documentos',
+      href: '/admin/secretaria/documentos',
       color: 'from-purple-500 to-purple-600',
       count: stats.documentos,
     },
@@ -72,7 +72,7 @@ export default function SecretariaPanel() {
       title: 'Eventos Escolares',
       description: 'Organizar actividades institucionales',
       icon: Calendar,
-      href: '/admin/eventos',
+      href: '/admin/secretaria/eventos',
       color: 'from-orange-500 to-orange-600',
       count: stats.eventos,
     },
@@ -107,44 +107,50 @@ export default function SecretariaPanel() {
       <div>
         <h2 className="text-xl md:text-2xl font-bold mb-4">Tareas Administrativas</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-start gap-3 md:gap-4">
-              <div className="p-2 md:p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg text-white flex-shrink-0">
-                <ClipboardList size={20} className="md:w-6 md:h-6" />
+          <button onClick={() => window.location.href = '/admin/estudiantes'} className="w-full">
+            <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className="p-2 md:p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg text-white flex-shrink-0">
+                  <ClipboardList size={20} className="md:w-6 md:h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-base md:text-lg">Inscripciones</h3>
+                  <p className="text-gray-600 text-xs md:text-sm mt-1">Procesar nuevas matrículas</p>
+                  <div className="text-blue-600 font-semibold text-xs md:text-sm mt-3">Gestionar →</div>
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-base md:text-lg">Inscripciones</h3>
-                <p className="text-gray-600 text-xs md:text-sm mt-1">Procesar nuevas matrículas</p>
-                <div className="text-blue-600 font-semibold text-xs md:text-sm mt-3">Gestionar →</div>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </button>
 
-          <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-start gap-3 md:gap-4">
-              <div className="p-2 md:p-3 bg-gradient-to-br from-green-500 to-green-600 rounded-lg text-white flex-shrink-0">
-                <FileCheck size={20} className="md:w-6 md:h-6" />
+          <button onClick={() => window.location.href = '/admin/secretaria/documentos'} className="w-full">
+            <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className="p-2 md:p-3 bg-gradient-to-br from-green-500 to-green-600 rounded-lg text-white flex-shrink-0">
+                  <FileCheck size={20} className="md:w-6 md:h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-base md:text-lg">Certificaciones</h3>
+                  <p className="text-gray-600 text-xs md:text-sm mt-1">Emitir documentos oficiales</p>
+                  <div className="text-green-600 font-semibold text-xs md:text-sm mt-3">Generar →</div>
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-base md:text-lg">Certificaciones</h3>
-                <p className="text-gray-600 text-xs md:text-sm mt-1">Emitir documentos oficiales</p>
-                <div className="text-green-600 font-semibold text-xs md:text-sm mt-3">Generar →</div>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </button>
 
-          <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-start gap-3 md:gap-4">
-              <div className="p-2 md:p-3 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg text-white flex-shrink-0">
-                <Calendar size={20} className="md:w-6 md:h-6" />
+          <button onClick={() => window.location.href = '/admin/secretaria/eventos'} className="w-full">
+            <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className="p-2 md:p-3 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg text-white flex-shrink-0">
+                  <Calendar size={20} className="md:w-6 md:h-6" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-base md:text-lg">Agenda Institucional</h3>
+                  <p className="text-gray-600 text-xs md:text-sm mt-1">Coordinar eventos y reuniones</p>
+                  <div className="text-purple-600 font-semibold text-xs md:text-sm mt-3">Organizar →</div>
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-base md:text-lg">Agenda Institucional</h3>
-                <p className="text-gray-600 text-xs md:text-sm mt-1">Coordinar eventos y reuniones</p>
-                <div className="text-purple-600 font-semibold text-xs md:text-sm mt-3">Organizar →</div>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </button>
         </div>
       </div>
 

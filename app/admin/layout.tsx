@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, GraduationCap, FileText, Megaphone, UserCircle, Sun, Moon, UserCheck, BarChart3, Calendar, Target, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, GraduationCap, FileText, Megaphone, UserCircle, Sun, Moon, UserCheck, BarChart3, Calendar, Target, LogOut, Heart } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -51,28 +51,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           { href: '/admin/profesores', label: 'Profesores', icon: UserCircle },
           { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
           { href: '/admin/calificaciones', label: 'Calificaciones', icon: GraduationCap },
-          { href: '/admin/documentos', label: 'Documentos', icon: FileText },
+          { href: '/admin/subdirectora/reportes', label: 'Reportes', icon: FileText },
+          { href: '/admin/estadisticas', label: 'Estadísticas', icon: BarChart3 },
         ];
       case 'secretaria':
         return [
           ...commonItems,
           { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
           { href: '/admin/boletas', label: 'Boletas', icon: FileText },
-          { href: '/admin/documentos', label: 'Documentos', icon: FileText },
-          { href: '/admin/eventos', label: 'Eventos', icon: Calendar },
+          { href: '/admin/secretaria/documentos', label: 'Documentos', icon: FileText },
+          { href: '/admin/secretaria/eventos', label: 'Eventos', icon: Calendar },
         ];
       case 'orientador':
         return [
           ...commonItems,
           { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
+          { href: '/admin/orientador/casos', label: 'Casos', icon: Heart },
           { href: '/admin/calificaciones', label: 'Calificaciones', icon: GraduationCap },
           { href: '/admin/reportes', label: 'Reportes', icon: FileText },
         ];
       case 'docente':
         return [
           ...commonItems,
-          { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
-          { href: '/admin/calificaciones', label: 'Calificaciones', icon: GraduationCap },
+          { href: '/admin/docente/calificaciones', label: 'Calificaciones', icon: GraduationCap },
           { href: '/admin/materias', label: 'Materias', icon: GraduationCap },
           { href: '/admin/evaluaciones', label: 'Evaluaciones', icon: Target },
         ];

@@ -16,7 +16,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold text-balance leading-tight">
-                Educación Integral de Calidad
+                Juntos reconstruimos nuestra sociedad
               </h1>
               <p className="text-lg md:text-xl opacity-95 text-balance">
                 En la Escuela Preparatoria Oficial Núm. 316 formamos estudiantes con excelencia académica, valores humanistas y visión de futuro.
