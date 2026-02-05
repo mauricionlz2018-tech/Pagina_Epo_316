@@ -114,7 +114,7 @@ export default function OrientadorPanel() {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-base md:text-lg">Alertas Académicas</h3>
                   <p className="text-gray-600 text-xs md:text-sm mt-1">Estudiantes con bajo rendimiento</p>
-                  <div className="text-red-600 font-semibold text-xs md:text-sm mt-3">Revisar →</div>
+                  <div className="text-red-600 font-semibold text-xs md:text-sm mt-3">Revisar</div>
                 </div>
               </div>
             </Card>
@@ -129,7 +129,7 @@ export default function OrientadorPanel() {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-base md:text-lg">Entrevistas Individuales</h3>
                   <p className="text-gray-600 text-xs md:text-sm mt-1">Programar sesiones de orientación</p>
-                  <div className="text-blue-600 font-semibold text-xs md:text-sm mt-3">Agendar →</div>
+                  <div className="text-blue-600 font-semibold text-xs md:text-sm mt-3">Agendar</div>
                 </div>
               </div>
             </Card>
@@ -144,7 +144,7 @@ export default function OrientadorPanel() {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-base md:text-lg">Seguimiento de Progreso</h3>
                   <p className="text-gray-600 text-xs md:text-sm mt-1">Monitorear mejora estudiantil</p>
-                  <div className="text-green-600 font-semibold text-xs md:text-sm mt-3">Analizar →</div>
+                  <div className="text-green-600 font-semibold text-xs md:text-sm mt-3">Analizar</div>
                 </div>
               </div>
             </Card>

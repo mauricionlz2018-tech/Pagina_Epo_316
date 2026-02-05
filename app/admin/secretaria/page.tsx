@@ -56,7 +56,7 @@ export default function SecretariaPanel() {
       title: 'Emisión de Boletas',
       description: 'Generar reportes de calificaciones',
       icon: FileCheck,
-      href: '/admin/boletas',
+      href: '/admin/secretaria/boletas',
       color: 'from-green-500 to-green-600',
       count: stats.boletas,
     },
@@ -131,7 +131,7 @@ export default function SecretariaPanel() {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-base md:text-lg">Certificaciones</h3>
                   <p className="text-gray-600 text-xs md:text-sm mt-1">Emitir documentos oficiales</p>
-                  <div className="text-green-600 font-semibold text-xs md:text-sm mt-3">Generar →</div>
+                  <div className="text-green-600 font-semibold text-xs md:text-sm mt-3">Generar </div>
                 </div>
               </div>
             </Card>
@@ -146,7 +146,7 @@ export default function SecretariaPanel() {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-base md:text-lg">Agenda Institucional</h3>
                   <p className="text-gray-600 text-xs md:text-sm mt-1">Coordinar eventos y reuniones</p>
-                  <div className="text-purple-600 font-semibold text-xs md:text-sm mt-3">Organizar →</div>
+                  <div className="text-purple-600 font-semibold text-xs md:text-sm mt-3">Organizar </div>
                 </div>
               </div>
             </Card>

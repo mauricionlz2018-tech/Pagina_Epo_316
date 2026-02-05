@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Trash2, Edit2, Plus, FileText, CheckCircle, Clock } from 'lucide-react';
+import { Trash2, Edit2, Plus, FileText, CheckCircle, Clock, AlertCircle, Save, X, File } from 'lucide-react';
 
 interface Documento {
   id: number;
@@ -98,7 +98,7 @@ export default function DocumentosPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error en la operación');
 
-      setSuccess(editingId ? '✓ Documento actualizado exitosamente' : '✓ Documento creado exitosamente');
+      setSuccess(editingId ? 'Documento actualizado exitosamente' : 'Documento creado exitosamente');
       setFormData({
         estudiante_id: '',
         tipo_documento: 'Certificado',
@@ -136,7 +136,7 @@ export default function DocumentosPage() {
       const res = await fetch(`/api/admin/secretaria/documentos?id=${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Error al eliminar');
 
-      setSuccess('✓ Documento eliminado exitosamente');
+      setSuccess('Documento eliminado exitosamente');
       setTimeout(() => {
         cargarDatos();
         setSuccess('');
@@ -164,8 +164,8 @@ export default function DocumentosPage() {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Documentos Académicos</h1>
-          <p className="text-gray-500 mt-1 text-sm md:text-base">Gestiona certificados y constancias</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Documentos Académicos</h1>
+          <p className="text-gray-600 mt-1 text-sm md:text-base">Gestiona certificados y constancias</p>
         </div>
         <Button
           onClick={() => {
@@ -179,7 +179,7 @@ export default function DocumentosPage() {
             });
             setError('');
           }}
-          className="gap-2 bg-teal-600 hover:bg-teal-700 shadow-lg w-full sm:w-auto"
+          className="gap-2 bg-teal-600 hover:bg-teal-700 shadow-md w-full sm:w-auto"
           size="lg"
         >
           <Plus size={20} />
@@ -190,14 +190,14 @@ export default function DocumentosPage() {
 
       {/* MENSAJES */}
       {error && (
-        <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg text-red-700 flex items-center gap-3">
-          <span className="text-2xl">⚠️</span>
+        <div className="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg text-red-800 flex items-center gap-3">
+          <AlertCircle size={24} className="text-red-500" />
           <span>{error}</span>
         </div>
       )}
       {success && (
-        <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg text-green-700 flex items-center gap-3">
-          <span className="text-2xl">✓</span>
+        <div className="p-4 bg-emerald-50 border-l-4 border-emerald-400 rounded-lg text-emerald-800 flex items-center gap-3">
+          <CheckCircle size={24} className="text-emerald-500" />
           <span>{success}</span>
         </div>
       )}
@@ -206,14 +206,24 @@ export default function DocumentosPage() {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold">
-              {editingId ? '✏️ Editar Documento' : '➕ Nuevo Documento'}
+            <DialogTitle className="text-2xl font-bold flex items-center gap-2 text-gray-800">
+              {editingId ? (
+                <>
+                  <Edit2 size={24} className="text-teal-600" />
+                  Editar Documento
+                </>
+              ) : (
+                <>
+                  <Plus size={24} className="text-teal-600" />
+                  Nuevo Documento
+                </>
+              )}
             </DialogTitle>
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-            <div className="bg-teal-50 p-4 rounded-lg">
-              <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
+            <div className="bg-teal-50 p-4 rounded-lg border border-teal-100">
+              <h3 className="font-semibold text-lg mb-4 flex items-center gap-2 text-gray-800">
                 <FileText size={20} className="text-teal-600" />
                 Información del Documento
               </h3>
@@ -221,13 +231,13 @@ export default function DocumentosPage() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-gray-700">
-                    Estudiante <span className="text-red-500">*</span>
+                    Estudiante <span className="text-rose-500">*</span>
                   </label>
                   <select
                     required
                     value={formData.estudiante_id}
                     onChange={(e) => setFormData({ ...formData, estudiante_id: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:border-transparent"
                   >
                     <option value="">Selecciona un estudiante...</option>
                     {estudiantes.map(est => (
@@ -240,12 +250,12 @@ export default function DocumentosPage() {
 
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-gray-700">
-                    Tipo de Documento <span className="text-red-500">*</span>
+                    Tipo de Documento <span className="text-rose-500">*</span>
                   </label>
                   <select
                     value={formData.tipo_documento}
                     onChange={(e) => setFormData({ ...formData, tipo_documento: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:border-transparent"
                   >
                     <option value="Certificado">Certificado</option>
                     <option value="Constancia">Constancia</option>
@@ -264,7 +274,7 @@ export default function DocumentosPage() {
                     onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
                     placeholder="Detalles del documento..."
                     rows={3}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:border-transparent"
                   />
                 </div>
 
@@ -275,7 +285,7 @@ export default function DocumentosPage() {
                   <select
                     value={formData.estado}
                     onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:border-transparent"
                   >
                     <option value="Pendiente">Pendiente</option>
                     <option value="Procesado">Procesado</option>
@@ -289,16 +299,18 @@ export default function DocumentosPage() {
             <div className="flex gap-3 pt-4 border-t">
               <Button
                 type="submit"
-                className="flex-1 bg-green-600 hover:bg-green-700 text-lg py-6"
+                className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-lg py-6 gap-2"
               >
-                {editingId ? '💾 Guardar Cambios' : '➕ Crear Documento'}
+                <Save size={20} />
+                {editingId ? 'Guardar Cambios' : 'Crear Documento'}
               </Button>
               <Button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="flex-1 bg-gray-500 hover:bg-gray-600 text-lg py-6"
+                className="flex-1 bg-slate-500 hover:bg-slate-600 text-lg py-6 gap-2"
               >
-                ❌ Cancelar
+                <X size={20} />
+                Cancelar
               </Button>
             </div>
           </form>
@@ -307,21 +319,33 @@ export default function DocumentosPage() {
 
       {/* ESTADÍSTICAS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-gradient-to-br from-teal-500 to-teal-600 text-white">
-          <div className="text-sm opacity-90">Total Documentos</div>
-          <div className="text-3xl font-bold mt-2">{stats.total}</div>
+        <Card className="p-4 bg-gradient-to-br from-teal-500 to-teal-600 text-white shadow-md">
+          <div className="flex items-center gap-2 mb-2">
+            <File size={20} className="opacity-90" />
+            <div className="text-sm opacity-90">Total Documentos</div>
+          </div>
+          <div className="text-3xl font-bold">{stats.total}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-yellow-500 to-yellow-600 text-white">
-          <div className="text-sm opacity-90">Pendientes</div>
-          <div className="text-3xl font-bold mt-2">{stats.pendientes}</div>
+        <Card className="p-4 bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-md">
+          <div className="flex items-center gap-2 mb-2">
+            <Clock size={20} className="opacity-90" />
+            <div className="text-sm opacity-90">Pendientes</div>
+          </div>
+          <div className="text-3xl font-bold">{stats.pendientes}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
-          <div className="text-sm opacity-90">Procesados</div>
-          <div className="text-3xl font-bold mt-2">{stats.procesados}</div>
+        <Card className="p-4 bg-gradient-to-br from-sky-500 to-sky-600 text-white shadow-md">
+          <div className="flex items-center gap-2 mb-2">
+            <FileText size={20} className="opacity-90" />
+            <div className="text-sm opacity-90">Procesados</div>
+          </div>
+          <div className="text-3xl font-bold">{stats.procesados}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-green-500 to-green-600 text-white">
-          <div className="text-sm opacity-90">Entregados</div>
-          <div className="text-3xl font-bold mt-2">{stats.entregados}</div>
+        <Card className="p-4 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
+          <div className="flex items-center gap-2 mb-2">
+            <CheckCircle size={20} className="opacity-90" />
+            <div className="text-sm opacity-90">Entregados</div>
+          </div>
+          <div className="text-3xl font-bold">{stats.entregados}</div>
         </Card>
       </div>
 
@@ -335,7 +359,7 @@ export default function DocumentosPage() {
             <select
               value={filtroTipo}
               onChange={(e) => setFiltroTipo(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-400"
             >
               <option value="">Todos los tipos</option>
               <option value="Certificado">Certificado</option>
@@ -353,7 +377,7 @@ export default function DocumentosPage() {
             <select
               value={filtroEstado}
               onChange={(e) => setFiltroEstado(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-400"
             >
               <option value="">Todos los estados</option>
               <option value="Pendiente">Pendiente</option>
@@ -381,25 +405,25 @@ export default function DocumentosPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-200">
+                <thead className="bg-slate-100">
                   <tr>
-                    <th className="px-4 py-3 text-left font-semibold">Estudiante</th>
-                    <th className="px-4 py-3 text-left font-semibold">Tipo</th>
-                    <th className="px-4 py-3 text-left font-semibold">Estado</th>
-                    <th className="px-4 py-3 text-left font-semibold">Fecha Creación</th>
-                    <th className="px-4 py-3 text-left font-semibold">Acciones</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Estudiante</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Tipo</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Estado</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Fecha Creación</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   {documentosFiltrados.map((doc) => (
-                    <tr key={doc.id} className="border-t hover:bg-gray-50 transition">
-                      <td className="px-4 py-3 font-medium">{doc.estudiante_nombre}</td>
-                      <td className="px-4 py-3">{doc.tipo_documento}</td>
+                    <tr key={doc.id} className="border-t hover:bg-slate-50 transition">
+                      <td className="px-4 py-3 font-medium text-gray-800">{doc.estudiante_nombre}</td>
+                      <td className="px-4 py-3 text-gray-700">{doc.tipo_documento}</td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 w-fit ${
-                          doc.estado === 'Entregado' ? 'bg-green-100 text-green-700' :
-                          doc.estado === 'Procesado' ? 'bg-blue-100 text-blue-700' :
-                          'bg-yellow-100 text-yellow-700'
+                          doc.estado === 'Entregado' ? 'bg-emerald-100 text-emerald-700' :
+                          doc.estado === 'Procesado' ? 'bg-sky-100 text-sky-700' :
+                          'bg-amber-100 text-amber-700'
                         }`}>
                           {doc.estado === 'Entregado' ? <CheckCircle size={14} /> : <Clock size={14} />}
                           {doc.estado}
@@ -411,13 +435,13 @@ export default function DocumentosPage() {
                       <td className="px-4 py-3 flex gap-2">
                         <button
                           onClick={() => handleEdit(doc)}
-                          className="text-blue-600 hover:text-blue-800 p-2 hover:bg-blue-50 rounded transition"
+                          className="text-sky-600 hover:text-sky-800 p-2 hover:bg-sky-50 rounded transition"
                         >
                           <Edit2 size={18} />
                         </button>
                         <button
                           onClick={() => handleDelete(doc.id)}
-                          className="text-red-600 hover:text-red-800 p-2 hover:bg-red-50 rounded transition"
+                          className="text-rose-600 hover:text-rose-800 p-2 hover:bg-rose-50 rounded transition"
                         >
                           <Trash2 size={18} />
                         </button>

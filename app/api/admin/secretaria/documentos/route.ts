@@ -14,8 +14,8 @@ export async function GET(request: NextRequest) {
         descripcion,
         estado,
         fecha_creacion,
-        fecha_entrega
-      FROM documentos_academicos
+        fecha_emision
+      FROM documentos
     `;
     const params: any[] = [];
 
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await ejecutarConsulta(
-      `INSERT INTO documentos_academicos 
+      `INSERT INTO documentos 
        (estudiante_id, tipo_documento, descripcion, estado, fecha_creacion)
        VALUES (?, ?, ?, ?, NOW())`,
       [
@@ -92,8 +92,8 @@ export async function PUT(request: NextRequest) {
     }
 
     await ejecutarConsulta(
-      `UPDATE documentos_academicos 
-       SET tipo_documento = ?, descripcion = ?, estado = ?, fecha_entrega = NOW()
+      `UPDATE documentos 
+       SET tipo_documento = ?, descripcion = ?, estado = ?, fecha_emision = NOW()
        WHERE id = ?`,
       [tipo_documento, descripcion, estado, id]
     );
@@ -120,7 +120,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    await ejecutarConsulta('DELETE FROM documentos_academicos WHERE id = ?', [id]);
+    await ejecutarConsulta('DELETE FROM documentos WHERE id = ?', [id]);
 
     return NextResponse.json({ message: 'Documento eliminado exitosamente' });
   } catch (error) {

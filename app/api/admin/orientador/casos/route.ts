@@ -10,13 +10,12 @@ export async function GET(request: NextRequest) {
       SELECT 
         id,
         estudiante_id,
-        orientador_id,
         tipo_caso,
         descripcion,
-        prioridad,
         estado,
+        prioridad,
         fecha_creacion,
-        fecha_seguimiento
+        fecha_inicio
       FROM casos_orientacion
     `;
     const params: any[] = [];
@@ -44,27 +43,26 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
       estudiante_id,
-      orientador_id,
       tipo_caso,
       descripcion,
       prioridad,
       estado,
     } = body;
 
-    if (!estudiante_id || !orientador_id || !tipo_caso) {
+    if (!estudiante_id || !tipo_caso) {
       return NextResponse.json(
-        { error: 'Campos requeridos: estudiante_id, orientador_id, tipo_caso' },
+        { error: 'Campos requeridos: estudiante_id, tipo_caso' },
         { status: 400 }
       );
     }
 
     const result = await ejecutarConsulta(
-      `INSERT INTO casos_orientacion 
+      `INSERT INTO casos_orientacion
        (estudiante_id, orientador_id, tipo_caso, descripcion, prioridad, estado, fecha_creacion)
        VALUES (?, ?, ?, ?, ?, ?, NOW())`,
       [
         estudiante_id,
-        orientador_id,
+        1, // Default orientador_id (first orientador)
         tipo_caso,
         descripcion || '',
         prioridad || 'Media',
@@ -99,7 +97,7 @@ export async function PUT(request: NextRequest) {
 
     await ejecutarConsulta(
       `UPDATE casos_orientacion 
-       SET tipo_caso = ?, descripcion = ?, prioridad = ?, estado = ?, fecha_seguimiento = NOW()
+       SET tipo_caso = ?, descripcion = ?, prioridad = ?, estado = ?, fecha_inicio = NOW()
        WHERE id = ?`,
       [tipo_caso, descripcion, prioridad, estado, id]
     );
