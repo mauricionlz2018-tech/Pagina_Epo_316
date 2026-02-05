@@ -29,27 +29,23 @@ export default function InfraestructuraPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Aulas de Clase</h3>
-                <p className="text-muted-foreground">30 aulas equipadas con proyectores, pizarras inteligentes y acceso a internet de alta velocidad para una experiencia educativa moderna.</p>
+                <p className="text-muted-foreground">Aulas suficientes para cada semestre con espacio suficiente para que los alumnos puedan desarrollar sus actividades, ademas de incluir equipo visual.</p>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">Laboratorios</h3>
-                <p className="text-muted-foreground">Laboratorios de Física, Química y Biología equipados con instrumental científico de última generación para prácticas experimentales.</p>
+                <h3 className="font-bold text-lg mb-3">Area de administración</h3>
+                <p className="text-muted-foreground">Administración con áreas de secretaría y dirección para la gestión académica y administrativa.</p>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Biblioteca</h3>
-                <p className="text-muted-foreground">Biblioteca de 5,000 títulos con sala de consulta, área de referencia y acceso a bases de datos académicas digitales.</p>
+                <p className="text-muted-foreground">Biblioteca con muchos libros y revistas para el desarrollo de las actividades de los alumnos.</p>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Centro de Cómputo</h3>
-                <p className="text-muted-foreground">Dos centros de cómputo con 50 computadoras conectadas a internet para clases de Informática e investigación.</p>
+                <p className="text-muted-foreground">Un centro de cómputo con suficientes equipos con gran capacidad para el desarrollo de las actividades de los alumnos.</p>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">Auditorio</h3>
-                <p className="text-muted-foreground">Auditorio con capacidad para 400 personas, equipado con sistema de audio y visualización para eventos académicos.</p>
-              </div>
-              <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">Cafetería</h3>
-                <p className="text-muted-foreground">Cafetería moderna con comidas saludables y espacios cómodos para estudiantes durante los descansos.</p>
+                <h3 className="font-bold text-lg mb-3">Area de orientación y subdirección</h3>
+                  <p className="text-muted-foreground">Área dedicada a la orientación académica y personal de los alumnos.</p>
               </div>
             </div>
           </div>
@@ -99,7 +95,7 @@ export default function InfraestructuraPage() {
                 </div>
                 <div className="p-4">
                   <h3 className="font-bold text-lg mb-2">Biblioteca</h3>
-                  <p className="text-muted-foreground text-sm">Centro de conocimiento con miles de recursos.</p>
+                  <p className="text-muted-foreground text-sm">Centro de conocimiento con muchos recursos.</p>
                 </div>
               </div>
 
@@ -159,7 +155,7 @@ export default function InfraestructuraPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Cancha de Básquetbol</h3>
-                <p className="text-muted-foreground">Cancha profesional con infraestructura para torneos internos y entrenamiento de equipos representativos.</p>
+                <p className="text-muted-foreground">Cancha deportiva para básquetbol y otras actividades recreativas.</p>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Cancha de Fútbol</h3>

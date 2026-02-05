@@ -38,12 +38,12 @@ export default function SecretariaPage() {
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-full mb-4 flex items-center justify-center text-white text-2xl">👨‍💼</div>
-                <h3 className="font-bold text-lg mb-1">LIC. Carlos Rodríguez López</h3>
-                <p className="text-muted-foreground text-sm mb-3 font-semibold">Subdirector Administrativo</p>
+                <h3 className="font-bold text-lg mb-1">MTRA. Analy Cruz Rivera</h3>
+                <p className="text-muted-foreground text-sm mb-3 font-semibold">Subdirectora Escolar</p>
                 <p className="text-muted-foreground text-sm">Responsable de la supervisión de procesos administrativos y apoyo a la secretaría escolar.</p>
                 <div className="mt-4 space-y-2 text-sm text-muted-foreground">
                   <p className="flex items-center gap-2"><Phone size={16} /> (555) 1234-5679</p>
-                  <p className="flex items-center gap-2"><Mail size={16} /> carlos.rodriguez@epo316.edu.mx</p>
+                  <p className="flex items-center gap-2"><Mail size={16} /> analyrivera@epo316.edu.mx</p>
                 </div>
               </div>
             </div>
@@ -173,7 +173,7 @@ export default function SecretariaPage() {
                   </p>
                   <p className="flex items-start gap-2 text-muted-foreground">
                     <MapPin size={20} className="text-primary flex-shrink-0 mt-0.5" />
-                    Edificio Principal, Planta Baja
+                    Edificio Principal, Planta Alta
                   </p>
                 </div>
               </div>
@@ -194,7 +194,7 @@ export default function SecretariaPage() {
                   </p>
                   <p className="flex items-start gap-2 text-muted-foreground">
                     <MapPin size={20} className="text-accent flex-shrink-0 mt-0.5" />
-                    Edificio Administrativo, 2do Piso
+                    Edificio Administrativo
                   </p>
                 </div>
               </div>

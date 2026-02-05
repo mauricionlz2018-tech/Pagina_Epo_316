@@ -11,7 +11,7 @@ export default function LocationPage() {
       <section className="bg-primary text-primary-foreground py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold">Ubicación</h1>
-          <p className="text-lg opacity-90 mt-2">Encuentranos en el corazón del Estado de México</p>
+          <p className="text-lg opacity-90 mt-2">Encuentranos en San José del Rincón, Estado de México</p>
         </div>
       </section>
 
@@ -94,9 +94,8 @@ export default function LocationPage() {
                   <div>
                     <h3 className="font-bold text-lg mb-3">Horario de Atención</h3>
                     <div className="space-y-2 text-sm text-muted-foreground">
-                      <p><span className="font-semibold">Lunes - Viernes:</span> 7:00 AM - 3:00 PM</p>
-                      <p><span className="font-semibold">Sábado:</span> 8:00 AM - 12:00 PM</p>
-                      <p><span className="font-semibold">Domingo:</span> Cerrado</p>
+                      <p><span className="font-semibold">Lunes - Viernes:</span> 8:00 AM - 3:00 PM</p>
+                      <p><span className="font-semibold">Sabados y Domingos:</span> Cerrado</p>
                     </div>
                   </div>
                 </div>
@@ -115,8 +114,8 @@ export default function LocationPage() {
                 <div>
                   <h3 className="font-bold mb-2">Transporte Público</h3>
                   <p className="text-sm text-muted-foreground">
-                    Autobús línea 15 dirección Centro<br />
-                    Parada: Avenida Principal esquina con Calle 5<br />
+                    Autobús Insurgentes de San José del Rincón a Santa Cruz del Tejocote<br />
+                    Parada: La base de taxis enfrente de la terminal de San José del Rincón<br />
                     Tiempo estimado: 5 minutos a pie
                   </p>
                 </div>
@@ -143,14 +142,6 @@ export default function LocationPage() {
             </div>
           </div>
 
-          {/* Parking Info */}
-          <div className="mt-8 bg-primary/5 border border-primary/20 rounded-xl p-8">
-            <h3 className="font-bold text-lg mb-4">Estacionamiento</h3>
-            <p className="text-muted-foreground">
-              Contamos con estacionamiento gratuito para visitantes y padres de familia. 
-              El acceso se encuentra en la lateral derecha del edificio principal.
-            </p>
-          </div>
         </div>
       </section>
 
