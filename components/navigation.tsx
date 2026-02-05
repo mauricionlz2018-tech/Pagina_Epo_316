@@ -47,11 +47,11 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-lg">
+    <nav className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-lg animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl">
+          <Link href="/" className="flex items-center gap-2 font-bold text-xl hover:scale-105 transition-smooth">
             <div className="w-10 h-10 relative">
               <Image
                 src="/logo_epo.jpg"
@@ -69,7 +69,7 @@ export default function Navigation() {
               <div key={item.href} className="relative group">
                 <Link
                   href={item.href}
-                  className="hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded transition-colors flex items-center gap-1"
+                  className="hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded transition-smooth flex items-center gap-1"
                 >
                   {item.label}
                   {item.submenu && <ChevronDown size={16} />}
@@ -97,14 +97,14 @@ export default function Navigation() {
           <div className="hidden md:flex gap-3 items-center">
             <button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="p-2 rounded hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="p-2 rounded hover:bg-accent hover:text-accent-foreground hover:scale-110 transition-smooth"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <Link
               href="/admin/login"
-              className="px-4 py-2 rounded bg-secondary text-secondary-foreground hover:opacity-90 transition-opacity"
+              className="px-4 py-2 rounded bg-secondary text-secondary-foreground hover:opacity-90 hover:scale-105 transition-smooth"
             >
               Admin
             </Link>
@@ -127,12 +127,12 @@ export default function Navigation() {
               <div key={item.href}>
                 <div className="flex items-center justify-between">
                   <Link
-                    href={item.href}
-                    className="block flex-1 px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
+                      href={item.href}
+                      className="block flex-1 px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-smooth"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
                   {item.submenu && (
                     <button
                       onClick={() => setOpenSubmenu(openSubmenu === item.label ? null : item.label)}
@@ -150,7 +150,7 @@ export default function Navigation() {
                       <Link
                         key={subitem.href}
                         href={subitem.href}
-                        className="block px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-colors text-sm text-gray-800"
+                        className="block px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-smooth text-sm text-gray-800"
                         onClick={() => setIsOpen(false)}
                       >
                         {subitem.label}
@@ -162,7 +162,7 @@ export default function Navigation() {
             ))}
             <Link
               href="/admin/login"
-              className="block px-4 py-2 mt-2 rounded bg-secondary text-secondary-foreground hover:opacity-90 transition-opacity"
+              className="block px-4 py-2 mt-2 rounded bg-secondary text-secondary-foreground hover:opacity-90 hover:scale-105 transition-smooth"
               onClick={() => setIsOpen(false)}
             >
               Admin
