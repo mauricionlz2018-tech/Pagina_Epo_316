@@ -30,7 +30,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/academics" className="hover:underline hover:scale-105 transition-smooth">
-                  Académico
+                  Academico
                 </Link>
               </li>
               <li>
