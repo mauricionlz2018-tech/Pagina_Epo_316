@@ -55,7 +55,7 @@ export default function Footer() {
               </div>
               <div className="flex gap-2 items-start">
                 <Mail size={18} className="mt-0.5 flex-shrink-0" />
-                <span>info@epo316.edu.mx</span>
+                <span>info@epo316.gmail.com</span>
               </div>
             </div>
           </div>

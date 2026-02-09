@@ -1,6 +1,6 @@
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
-import { FileText, Calendar, BookOpen, Users, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { FileText, Calendar, BookOpen, Users, Phone, Mail, MapPin, Clock, User } from 'lucide-react';
 
 export default function SecretariaPage() {
   return (
@@ -27,7 +27,9 @@ export default function SecretariaPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full mb-4 flex items-center justify-center text-white text-2xl">👩‍💼</div>
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full mb-4 flex items-center justify-center text-white">
+                <User size={24} />
+              </div>
                 <h3 className="font-bold text-lg mb-1">MTRA. Miriam Arleth Miranda</h3>
                 <p className="text-muted-foreground text-sm mb-3 font-semibold">Secretaria Escolar</p>
                 <p className="text-muted-foreground text-sm">Profesional en administración educativa con más de 10 años de experiencia en gestión administrativa escolar.</p>
@@ -37,7 +39,9 @@ export default function SecretariaPage() {
                 </div>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-full mb-4 flex items-center justify-center text-white text-2xl">👨‍💼</div>
+                <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-full mb-4 flex items-center justify-center text-white">
+                  <User size={24} />
+                </div>
                 <h3 className="font-bold text-lg mb-1">MTRA. Analy Cruz Rivera</h3>
                 <p className="text-muted-foreground text-sm mb-3 font-semibold">Subdirectora Escolar</p>
                 <p className="text-muted-foreground text-sm">Responsable de la supervisión de procesos administrativos y apoyo a la secretaría escolar.</p>
@@ -60,28 +64,28 @@ export default function SecretariaPage() {
                 <h3 className="font-bold text-lg mb-3">Reglamento Interno para Estudiantes</h3>
                 <p className="text-muted-foreground mb-4 text-sm">Reglas de convivencia, derechos y obligaciones de los estudiantes dentro de la institución.</p>
                 <a href="#" className="inline-block px-4 py-2 bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity text-sm font-semibold">
-                  📄 Descargar PDF
+                  Descargar PDF
                 </a>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Reglamento para Docentes</h3>
                 <p className="text-muted-foreground mb-4 text-sm">Normas y disposiciones para el personal docente de la institución.</p>
                 <a href="#" className="inline-block px-4 py-2 bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity text-sm font-semibold">
-                  📄 Descargar PDF
+                  Descargar PDF
                 </a>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Código de Ética</h3>
                 <p className="text-muted-foreground mb-4 text-sm">Principios éticos y conducta esperada de toda la comunidad escolar.</p>
                 <a href="#" className="inline-block px-4 py-2 bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity text-sm font-semibold">
-                  📄 Descargar PDF
+                  Descargar PDF
                 </a>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
                 <h3 className="font-bold text-lg mb-3">Políticas Académicas</h3>
                 <p className="text-muted-foreground mb-4 text-sm">Políticas de evaluación, calificación y requisitos académicos.</p>
                 <a href="#" className="inline-block px-4 py-2 bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity text-sm font-semibold">
-                  📄 Descargar PDF
+                  Descargar PDF
                 </a>
               </div>
             </div>

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { Trash2, Edit2, Plus, X } from 'lucide-react';
+import { Trash2, Edit2, Plus, X, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface Profesor {
   id: number;
@@ -65,13 +65,7 @@ export default function ProfesoresPage() {
         body: JSON.stringify(body),
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Error en la operación');
-      }
-
-      setSuccess(editingId ? '✓ Profesor actualizado' : '✓ Profesor agregado');
+      setSuccess(editingId ? 'Profesor actualizado' : 'Profesor agregado');
       setFormData({
         nombre: '',
         correo: '',
@@ -114,7 +108,7 @@ export default function ProfesoresPage() {
 
       if (!res.ok) throw new Error('Error al eliminar');
 
-      setSuccess('✓ Profesor eliminado');
+      setSuccess('Profesor eliminado');
       setTimeout(() => cargarProfesores(), 500);
     } catch (error: any) {
       setError(error.message);

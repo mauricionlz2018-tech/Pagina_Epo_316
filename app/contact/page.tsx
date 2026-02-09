@@ -74,8 +74,8 @@ export default function ContactPage() {
                   <Mail className="text-primary mt-1 flex-shrink-0" size={24} />
                   <div>
                     <h3 className="font-bold mb-1">Correo Electrónico</h3>
-                    <p className="text-muted-foreground">info@epo316.edu.mx</p>
-                    <p className="text-muted-foreground">admisiones@epo316.edu.mx</p>
+                    <p className="text-muted-foreground">info@epo316.gmail.com</p>
+                    <p className="text-muted-foreground">admisiones@epo316.gmail.com</p>
                   </div>
                 </div>
               </div>

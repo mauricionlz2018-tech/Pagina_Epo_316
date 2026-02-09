@@ -299,7 +299,7 @@ export function BoletaGenerator({ data }: { data: BoletaData }) {
                 disabled={isLoading}
                 className="flex-1 bg-green-600 hover:bg-green-700"
               >
-                {isLoading ? '⏳ Generando PDF...' : '✅ Descargar Boleta'}
+                  {isLoading ? 'Generando PDF...' : 'Descargar Boleta'}
               </Button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
-import { Users, Heart, BookMarked } from 'lucide-react';
+import { Users, Heart, BookMarked, User, Library, GraduationCap, Code2, Book, RotateCcw, Beaker, Globe, PenTool } from 'lucide-react';
 
 export default function OrientacionPage() {
   return (
@@ -27,13 +27,17 @@ export default function OrientacionPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <div className="w-20 h-20 bg-primary rounded-full mb-4 flex items-center justify-center text-white text-2xl">👩‍🏫</div>
+                <div className="w-20 h-20 bg-primary rounded-full mb-4 flex items-center justify-center text-white">
+                  <User size={32} />
+                </div>
                 <h3 className="font-bold text-lg mb-2">Lic. Rosa Garía Trejo</h3>
                 <p className="text-muted-foreground text-sm mb-3">Orientadora Educativa</p>
                 <p className="text-muted-foreground text-sm">Especializada en orientación académica y vocacional, con 10 años de experiencia en educación.</p>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <div className="w-20 h-20 bg-primary rounded-full mb-4 flex items-center justify-center text-white text-2xl">👩‍🏫</div>
+                <div className="w-20 h-20 bg-primary rounded-full mb-4 flex items-center justify-center text-white">
+                  <User size={32} />
+                </div>
                 <h3 className="font-bold text-lg mb-2">Lic. Yanet Nuñez Alcantara</h3>
                 <p className="text-muted-foreground text-sm mb-3">Orientadora Psicosocial</p>
                 <p className="text-muted-foreground text-sm">Enfocada en bienestar estudiantil, relaciones interpersonales y desarrollo emocional.</p>
@@ -71,7 +75,7 @@ export default function OrientacionPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">📚 Bibliotecas Digitales</h3>
+                <h3 className="font-bold text-lg mb-3"><Library className="inline mr-2" size={20} /> Bibliotecas Digitales</h3>
                 <ul className="space-y-3 text-muted-foreground text-sm">
                   <li>
                     <a href="https://www.dgbiblio.unam.mx/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
@@ -106,7 +110,7 @@ export default function OrientacionPage() {
                 </ul>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">🎓 Plataformas de Aprendizaje</h3>
+                <h3 className="font-bold text-lg mb-3"><GraduationCap className="inline mr-2" size={20} /> Plataformas de Aprendizaje</h3>
                 <ul className="space-y-3 text-muted-foreground text-sm">
                   <li>
                     <a href="https://www.khanacademy.org/es" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
@@ -141,7 +145,7 @@ export default function OrientacionPage() {
                 </ul>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">💻 Herramientas Digitales</h3>
+                <h3 className="font-bold text-lg mb-3"><Code2 className="inline mr-2" size={20} /> Herramientas Digitales</h3>
                 <ul className="space-y-3 text-muted-foreground text-sm">
                   <li>
                     <a href="https://www.overleaf.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
@@ -176,34 +180,34 @@ export default function OrientacionPage() {
                 </ul>
               </div>
               <div className="p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-3">📖 Recursos por Materia</h3>
+                <h3 className="font-bold text-lg mb-3"><Book className="inline mr-2" size={20} /> Recursos por Materia</h3>
                 <ul className="space-y-3 text-muted-foreground text-sm">
                   <li className="flex items-start gap-2">
-                    <span className="text-primary font-bold">📐</span>
+                    <RotateCcw size={16} className="text-primary mt-1 flex-shrink-0" />
                     <div>
                       <p><strong>Matemáticas:</strong> Khan Academy, Wolfram Alpha, Desmos</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-primary font-bold">🧪</span>
+                    <Beaker size={16} className="text-primary mt-1 flex-shrink-0" />
                     <div>
                       <p><strong>Ciencias:</strong> Coursera, Khan Academy, Google Scholar</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-primary font-bold">🌍</span>
+                    <Globe size={16} className="text-primary mt-1 flex-shrink-0" />
                     <div>
                       <p><strong>Idiomas:</strong> Duolingo, DeepL, YouTube Educativo</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-primary font-bold">📚</span>
+                    <BookMarked size={16} className="text-primary mt-1 flex-shrink-0" />
                     <div>
                       <p><strong>Historia:</strong> UNAM, Dominio Público, BIDI</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-primary font-bold">✏️</span>
+                    <PenTool size={16} className="text-primary mt-1 flex-shrink-0" />
                     <div>
                       <p><strong>Literatura:</strong> Google Scholar, JSTOR, UNAM</p>
                     </div>

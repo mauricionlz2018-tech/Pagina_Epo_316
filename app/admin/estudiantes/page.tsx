@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Trash2, Edit2, Plus, X, Download, Search, User } from 'lucide-react';
+import { Trash2, Edit2, Plus, X, Download, Search, User, AlertCircle, CheckCircle2, PencilSquare, GraduationCap } from 'lucide-react';
 import { BoletaGenerator } from '@/components/boleta-generator';
 
 interface Estudiante {
@@ -100,7 +100,7 @@ export default function EstudiantesPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error en la operación');
 
-      setSuccess(editingId ? '✓ Estudiante actualizado exitosamente' : '✓ Estudiante agregado exitosamente');
+      setSuccess(editingId ? 'Estudiante actualizado exitosamente' : 'Estudiante agregado exitosamente');
       setFormData({
         nombre: '',
         correo: '',
@@ -194,7 +194,7 @@ export default function EstudiantesPage() {
       const res = await fetch(`/api/admin/estudiantes?id=${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Error al eliminar');
 
-      setSuccess('✓ Estudiante eliminado exitosamente');
+      setSuccess('Estudiante eliminado exitosamente');
       setTimeout(() => {
         cargarEstudiantes();
         setSuccess('');
@@ -253,13 +253,13 @@ export default function EstudiantesPage() {
       {/* MENSAJES */}
       {error && (
         <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg text-red-700 flex items-center gap-3">
-          <span className="text-2xl">⚠️</span>
+          <AlertCircle size={24} className="flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
         <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg text-green-700 flex items-center gap-3">
-          <span className="text-2xl">✓</span>
+          <CheckCircle2 size={24} className="flex-shrink-0" />
           <span>{success}</span>
         </div>
       )}
@@ -268,8 +268,8 @@ export default function EstudiantesPage() {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold">
-              {editingId ? '✏️ Editar Estudiante' : '➕ Nuevo Estudiante'}
+            <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+              {editingId ? <><PencilSquare size={24} /> Editar Estudiante</> : <><Plus size={24} /> Nuevo Estudiante</>}
             </DialogTitle>
           </DialogHeader>
 
@@ -325,7 +325,7 @@ export default function EstudiantesPage() {
             {/* INFORMACIÓN ACADÉMICA */}
             <div className="bg-green-50 p-4 rounded-lg">
               <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
-                <span className="text-2xl">🎓</span>
+                <GraduationCap size={20} className="text-green-600" />
                 Información Académica
               </h3>
               
@@ -352,9 +352,9 @@ export default function EstudiantesPage() {
                     onChange={(e) => setFormData({ ...formData, estado_inscripcion: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
-                    <option value="activo">✅ Activo</option>
-                    <option value="inactivo">⏸️ Inactivo</option>
-                    <option value="graduado">🎓 Graduado</option>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                    <option value="graduado">Graduado</option>
                   </select>
                 </div>
               </div>
@@ -398,14 +398,15 @@ export default function EstudiantesPage() {
                 type="submit"
                 className="flex-1 bg-green-600 hover:bg-green-700 text-lg py-6"
               >
-                {editingId ? '💾 Guardar Cambios' : '➕ Agregar Estudiante'}
+                {editingId ? 'Guardar Cambios' : 'Agregar Estudiante'}
               </Button>
               <Button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="flex-1 bg-gray-500 hover:bg-gray-600 text-lg py-6"
+                className="flex-1 bg-gray-500 hover:bg-gray-600 text-lg py-6 flex items-center justify-center gap-2"
               >
-                ❌ Cancelar
+                <X size={20} />
+                Cancelar
               </Button>
             </div>
           </form>
@@ -416,7 +417,7 @@ export default function EstudiantesPage() {
       <Dialog open={boletaDialogOpen} onOpenChange={setBoletaDialogOpen}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
-            <DialogTitle>📄 Boleta del Estudiante</DialogTitle>
+            <DialogTitle>Boleta del Estudiante</DialogTitle>
           </DialogHeader>
           <div className="max-h-[70vh] overflow-y-auto">
             {selectedEstudiante && generarDatosBoletaParaEstudiante(selectedEstudiante) && (
@@ -446,7 +447,7 @@ export default function EstudiantesPage() {
 
           <div>
             <label className="block text-sm font-semibold mb-2 text-gray-700">
-              📚 Filtrar por Grado
+              Filtrar por Grado
             </label>
             <select
               value={filtroGrado}
@@ -500,7 +501,7 @@ export default function EstudiantesPage() {
         <Card className="overflow-hidden shadow-md">
           {estudiantesFiltrados.length === 0 ? (
             <div className="p-8 text-center text-gray-500">
-              <span className="text-4xl mb-4 block">📚</span>
+              <GraduationCap size={48} className="mx-auto mb-4 opacity-50" />
               <p className="text-lg">No se encontraron estudiantes</p>
             </div>
           ) : (

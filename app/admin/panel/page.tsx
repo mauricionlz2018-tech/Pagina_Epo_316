@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
-import { Users, BookOpen, Newspaper, BarChart3, UserCheck, FileText, GraduationCap, Settings } from 'lucide-react';
+import { Users, BookOpen, Newspaper, BarChart3, UserCheck, FileText, GraduationCap, Settings, TrendingUp } from 'lucide-react';
 
 export default function AdminPanel() {
   const [stats, setStats] = useState({
@@ -115,7 +115,7 @@ export default function AdminPanel() {
 
       {/* Info Card */}
       <Card className="p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-gray-200">
-        <h3 className="font-bold text-lg mb-3">📊 Resumen General</h3>
+        <h3 className="font-bold text-lg mb-3 flex items-center gap-2"><TrendingUp size={20} /> Resumen General</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <p className="text-gray-600 text-sm">Estudiantes Activos</p>

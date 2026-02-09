@@ -9,7 +9,7 @@ const RESPONSES = {
   transporte: 'Contáctanos directamente al teléfono o email para información sobre disponibilidad de transporte escolar.',
   noticias: 'Puedes ver las noticias más recientes en la sección de Noticias del sitio web.',
   orientacion: 'Contamos con un departamento de orientación dedicado a tu bienestar académico y personal. Consulta la sección de Orientación.',
-  default: 'Gracias por tu pregunta. Para obtener información más específica, por favor contacta directamente con la escuela al teléfono (555) 123-4567 o email info@epo316.edu.mx'
+  default: 'Gracias por tu pregunta. Para obtener información más específica, por favor contacta directamente con la escuela al teléfono (555) 123-4567 o email info@epo316.gmail.com'
 };
 
 function getResponse(message: string): string {

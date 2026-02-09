@@ -77,8 +77,8 @@ export default function LocationPage() {
                   <div>
                     <h3 className="font-bold text-lg mb-1">Correo Electrónico</h3>
                     <p className="text-muted-foreground">
-                      <a href="mailto:info@epo316.edu.mx" className="hover:text-primary transition-colors">
-                        info@epo316.edu.mx
+                      <a href="mailto:info@epo316.gmail.com" className="hover:text-primary transition-colors">
+                        info@epo316.gmail.com
                       </a>
                     </p>
                   </div>

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Trash2, Edit2, Plus, FileText, Download, TrendingUp } from 'lucide-react';
+import { Trash2, Edit2, Plus, FileText, Download, TrendingUp, AlertCircle, CheckCircle2, PencilSquare, X } from 'lucide-react';
 
 interface Reporte {
   id: number;
@@ -71,7 +71,7 @@ export default function ReportesPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error en la operación');
 
-      setSuccess(editingId ? '✓ Reporte actualizado exitosamente' : '✓ Reporte creado exitosamente');
+      setSuccess(editingId ? 'Reporte actualizado exitosamente' : 'Reporte creado exitosamente');
       setFormData({
         titulo: '',
         tipo_reporte: 'Académico',
@@ -107,7 +107,7 @@ export default function ReportesPage() {
       const res = await fetch(`/api/admin/subdirectora/reportes?id=${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Error al eliminar');
 
-      setSuccess('✓ Reporte eliminado exitosamente');
+      setSuccess('Reporte eliminado exitosamente');
       setTimeout(() => {
         cargarReportes();
         setSuccess('');
@@ -160,13 +160,13 @@ export default function ReportesPage() {
       {/* MENSAJES */}
       {error && (
         <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg text-red-700 flex items-center gap-3">
-          <span className="text-2xl">⚠️</span>
+          <AlertCircle size={24} className="flex-shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
         <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg text-green-700 flex items-center gap-3">
-          <span className="text-2xl">✓</span>
+          <CheckCircle2 size={24} className="flex-shrink-0" />
           <span>{success}</span>
         </div>
       )}
@@ -175,8 +175,8 @@ export default function ReportesPage() {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold">
-              {editingId ? '✏️ Editar Reporte' : '➕ Nuevo Reporte'}
+            <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+              {editingId ? <><PencilSquare size={24} /> Editar Reporte</> : <><Plus size={24} /> Nuevo Reporte</>}
             </DialogTitle>
           </DialogHeader>
 
@@ -239,14 +239,15 @@ export default function ReportesPage() {
                 type="submit"
                 className="flex-1 bg-green-600 hover:bg-green-700 text-lg py-6"
               >
-                {editingId ? '💾 Guardar Cambios' : '➕ Crear Reporte'}
+                {editingId ? 'Guardar Cambios' : 'Crear Reporte'}
               </Button>
               <Button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="flex-1 bg-gray-500 hover:bg-gray-600 text-lg py-6"
+                className="flex-1 bg-gray-500 hover:bg-gray-600 text-lg py-6 flex items-center justify-center gap-2"
               >
-                ❌ Cancelar
+                <X size={20} />
+                Cancelar
               </Button>
             </div>
           </form>

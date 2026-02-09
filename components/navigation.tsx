@@ -18,7 +18,6 @@ export default function Navigation() {
       href: '/about',
       submenu: [
         { label: 'Acerca de Nosotros', href: '/about?section=mision' },
-        { label: 'Infraestructura', href: '/infraestructura' },
         { label: 'Noticias', href: '/news' },
       ],
     },
