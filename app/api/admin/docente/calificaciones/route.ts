@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
+import { notifyGradesChange } from '@/lib/email-notifications';
 
 export async function GET(request: NextRequest) {
     try {
@@ -107,31 +108,22 @@ export async function POST(request: NextRequest) {
         const profesorName = profesorData?.[0]?.nombre || 'Docente desconocido';
 
         // Enviar notificación a superiores
-        try {
-            await fetch(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000' + '/api/admin/notifications/grades', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    id: result.insertId,
-                    estudiante_id,
-                    estudiante_nombre: estudianteName,
-                    materia,
-                    grado,
-                    grupo,
-                    profesor_id,
-                    profesor_nombre: profesorName,
-                    calificacion_parcial_1,
-                    calificacion_parcial_2,
-                    calificacion_parcial_3,
-                    inasistencias_parcial_1,
-                    inasistencias_parcial_2,
-                    inasistencias_parcial_3,
-                    tipo: 'crear',
-                }),
-            }).catch(err => console.error('[Calificaciones] Error notificando:', err));
-        } catch (notificationError) {
-            console.error('[Calificaciones] Error al enviar notificación:', notificationError);
-        }
+        notifyGradesChange({
+            estudiante_id,
+            estudiante_nombre: estudianteName,
+            materia,
+            grado,
+            grupo,
+            profesor_id,
+            profesor_nombre: profesorName,
+            calificacion_parcial_1,
+            calificacion_parcial_2,
+            calificacion_parcial_3,
+            inasistencias_parcial_1,
+            inasistencias_parcial_2,
+            inasistencias_parcial_3,
+            tipo: 'crear',
+        }).catch(err => console.error('[Calificaciones] Error notificando:', err));
 
         return NextResponse.json({
             message: 'Calificación creada exitosamente',
@@ -206,31 +198,23 @@ export async function PUT(request: NextRequest) {
         const profesorName = profesorData?.[0]?.nombre || 'Docente desconocido';
 
         // Enviar notificación a superiores
-        try {
-            await fetch(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000' + '/api/admin/notifications/grades', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    id,
-                    estudiante_id: body.estudiante_id,
-                    estudiante_nombre: estudianteName,
-                    materia,
-                    grado,
-                    grupo,
-                    profesor_id,
-                    profesor_nombre: profesorName,
-                    calificacion_parcial_1,
-                    calificacion_parcial_2,
-                    calificacion_parcial_3,
-                    inasistencias_parcial_1,
-                    inasistencias_parcial_2,
-                    inasistencias_parcial_3,
-                    tipo: 'actualizar',
-                }),
-            }).catch(err => console.error('[Calificaciones] Error notificando:', err));
-        } catch (notificationError) {
-            console.error('[Calificaciones] Error al enviar notificación:', notificationError);
-        }
+        notifyGradesChange({
+            id,
+            estudiante_id: body.estudiante_id,
+            estudiante_nombre: estudianteName,
+            materia,
+            grado,
+            grupo,
+            profesor_id,
+            profesor_nombre: profesorName,
+            calificacion_parcial_1,
+            calificacion_parcial_2,
+            calificacion_parcial_3,
+            inasistencias_parcial_1,
+            inasistencias_parcial_2,
+            inasistencias_parcial_3,
+            tipo: 'actualizar',
+        }).catch(err => console.error('[Calificaciones] Error notificando:', err));
 
         return NextResponse.json({ message: 'Calificación actualizada exitosamente' });
     } catch (error: any) {

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sendEmail } from '@/lib/email';
 
 interface ContactPayload {
   name: string;
@@ -28,8 +29,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-
-    // Generar HTML del correo
 
     const htmlParaAdmin = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -91,66 +90,44 @@ export async function POST(request: NextRequest) {
       </div>
     `;
 
-    // Enviar correo a admisiones
-    const responseAdmin = await fetch(
-      new URL('/api/send-email', request.nextUrl.origin),
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: [
-            'infoepo316@gmail.com',
-            'admisionesepo316@gmail.com',
-          ],
-          subject: `[CONTACTO WEB] ${subject} - ${name}`,
-          html: htmlParaAdmin,
-          replyTo: email,
-        }),
-      }
-    );
+    try {
+      // Enviar correo a admisiones
+      await sendEmail(
+        ['infoepo316@gmail.com', 'admisionesepo316@gmail.com'],
+        `[CONTACTO WEB] ${subject} - ${name}`,
+        htmlParaAdmin,
+        email
+      );
 
-    if (!responseAdmin.ok) {
-      const adminError = await responseAdmin.json();
-      console.error('[Contact] Error sending admin email:', adminError);
+      // Enviar confirmación al solicitante (sin bloquear si falla)
+      sendEmail(
+        email,
+        '✓ Hemos recibido tu mensaje - EPO 316',
+        htmlParaSolicitante
+      ).catch(err => {
+        console.error('[Contact] Error enviando confirmación:', err.message);
+        // No bloquea el flujo
+      });
+
+      console.log('[Contact] Mensaje procesado exitosamente:', {
+        name,
+        email,
+        subject,
+      });
+
+      return NextResponse.json({
+        success: true,
+        message: 'Mensaje enviado exitosamente. Te hemos enviado una confirmación a tu correo electrónico.',
+      });
+    } catch (emailError: any) {
+      console.error('[Contact] Error al enviar correos:', emailError.message);
       return NextResponse.json(
-        { error: 'Error al procesar tu solicitud' },
+        { error: 'Error al procesar tu solicitud: ' + emailError.message },
         { status: 500 }
       );
     }
-
-    // Enviar correo de confirmación al solicitante
-    const responseSolicitante = await fetch(
-      new URL('/api/send-email', request.nextUrl.origin),
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: email,
-          subject: '✓ Hemos recibido tu mensaje - EPO 316',
-          html: htmlParaSolicitante,
-        }),
-      }
-    );
-
-    if (!responseSolicitante.ok) {
-      const solicitanteError = await responseSolicitante.json();
-      console.error('[Contact] Error sending confirmation email:', solicitanteError);
-      // No retornar error aquí porque el email principal ya se envió
-    }
-
-    console.log('[Contact] Mensaje de contacto procesado:', {
-      name,
-      email,
-      subject,
-    });
-
-    return NextResponse.json({
-      success: true,
-      message:
-        'Mensaje enviado exitosamente. Te hemos enviado una confirmación a tu correo electrónico.',
-    });
   } catch (error: any) {
-    console.error('[Contact] Error al procesar contacto:', error);
+    console.error('[Contact] Error general:', error);
     return NextResponse.json(
       { error: 'Error al procesar tu solicitud' },
       { status: 500 }

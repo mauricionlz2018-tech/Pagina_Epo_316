@@ -1,10 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
-import { RowDataPacket } from 'mysql2';
 import { sendEmail } from '@/lib/email';
+import { RowDataPacket } from 'mysql2';
 
-interface CalificacionNotificacion {
-  id?: number;
+interface CalificacionNotifi {
   estudiante_id: number;
   estudiante_nombre: string;
   materia: string;
@@ -22,19 +20,16 @@ interface CalificacionNotificacion {
 }
 
 /**
- * Envía notificaciones por correo a los superiores cuando se registra/actualiza una calificación
+ * Envía notificación de calificación a los superiores
+ * Función centralizada para evitar duplicación de código
  */
-export async function POST(request: NextRequest) {
+export async function notifyGradesChange(data: CalificacionNotifi) {
   try {
-    const body = await request.json() as CalificacionNotificacion;
     const {
-      id,
-      estudiante_id,
       estudiante_nombre,
       materia,
       grado,
       grupo,
-      profesor_id,
       profesor_nombre,
       calificacion_parcial_1,
       calificacion_parcial_2,
@@ -43,9 +38,9 @@ export async function POST(request: NextRequest) {
       inasistencias_parcial_2,
       inasistencias_parcial_3,
       tipo,
-    } = body;
+    } = data;
 
-    // Obtener correos de superiores: director, subdirectora, orientador
+    // Obtener correos de superiores
     const [superiores] = await pool.query<RowDataPacket[]>(
       `SELECT DISTINCT email FROM usuarios 
        WHERE rol IN ('director', 'subdirectora', 'orientador') 
@@ -57,15 +52,11 @@ export async function POST(request: NextRequest) {
       .filter((email) => email && email.includes('@'));
 
     if (correosSuperiores.length === 0) {
-      console.log('[Grades] No hay superiores configurados para notificación');
-      return NextResponse.json({
-        success: true,
-        message: 'No hay superiores para notificar',
-        notificados: 0,
-      });
+      console.log('[Grades] No hay superiores configurados');
+      return { success: true, notificados: 0 };
     }
 
-    // Construir el correo HTML
+    // Construir HTML
     const promedioP1 = calificacion_parcial_1 ? `${calificacion_parcial_1.toFixed(2)}` : 'Sin calificar';
     const promedioP2 = calificacion_parcial_2 ? `${calificacion_parcial_2.toFixed(2)}` : 'Sin calificar';
     const promedioP3 = calificacion_parcial_3 ? `${calificacion_parcial_3.toFixed(2)}` : 'Sin calificar';
@@ -138,11 +129,11 @@ export async function POST(request: NextRequest) {
         </div>
 
         <div style="background: #e8f4f8; padding: 15px; border-radius: 4px; border-left: 4px solid #00bcd4;">
-          <p style="margin: 0; color: #00695c;"><strong>Nota:</strong> Esta es una notificación automática del sistema. Por favor revisa los cambios en el panel administrativo.</p>
+          <p style="margin: 0; color: #00695c;"><strong>Nota:</strong> Esta es una notificación automática del sistema.</p>
         </div>
 
         <div style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 15px; color: #999; font-size: 12px;">
-          <p style="margin: 5px 0;">Fecha de notificación: ${new Date().toLocaleDateString('es-MX', {
+          <p style="margin: 5px 0;">Fecha: ${new Date().toLocaleDateString('es-MX', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
@@ -157,7 +148,7 @@ export async function POST(request: NextRequest) {
     const mensajeAccion = tipo === 'crear' ? 'registrada' : 'actualizada';
     const asunto = `[CALIFICACIONES] ${estudiante_nombre} - ${materia} (${mensajeAccion})`;
 
-    // Enviar notificación a cada superior
+    // Enviar a todos
     let enviados = 0;
     for (const correo of correosSuperiores) {
       try {
@@ -165,7 +156,6 @@ export async function POST(request: NextRequest) {
         enviados++;
       } catch (error) {
         console.error(`[Grades] Error enviando a ${correo}:`, error);
-        // Continuar con los siguientes
       }
     }
 
@@ -174,19 +164,11 @@ export async function POST(request: NextRequest) {
       materia,
       tipo,
       enviados,
-      total: correosSuperiores.length,
     });
 
-    return NextResponse.json({
-      success: true,
-      message: 'Notificación enviada a los superiores',
-      notificados: enviados,
-    });
+    return { success: true, notificados: enviados };
   } catch (error: any) {
-    console.error('[Grades] Error:', error);
-    return NextResponse.json(
-      { error: error.message || 'Error al enviar notificación' },
-      { status: 500 }
-    );
+    console.error('[Grades] Error en notifyGradesChange:', error);
+    return { success: false, notificados: 0, error: error.message };
   }
 }
