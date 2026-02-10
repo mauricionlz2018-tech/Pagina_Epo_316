@@ -1,25 +1,8 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
 
-/**
- * Configura el transporte de correo
- * Usa Gmail SMTP con opciones de conexión robustas
- */
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // true para 465, false para otros puertos
-  auth: {
-    user: process.env.EMAIL_USER || 'infoepo316@gmail.com',
-    pass: process.env.EMAIL_PASSWORD || '',
-  },
-  tls: {
-    rejectUnauthorized: false, // Evita errores de certificado en cloud
-  },
-  connectionTimeout: 10000, // Aumenta el tiempo de espera
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
-});
+// Inicializar Resend con la clave API
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 interface EmailPayload {
   to: string | string[];
@@ -40,39 +23,47 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validar que haya credenciales configuradas
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-      console.error('Credenciales de correo no configuradas');
+    // Validar que la clave API esté configurada
+    if (!process.env.RESEND_API_KEY) {
+      console.error('Clave API de Resend no configurada');
       return NextResponse.json(
         { error: 'Servicio de correo no configurado' },
         { status: 500 }
       );
     }
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER || 'infoepo316@gmail.com',
-      to: Array.isArray(to) ? to.join(',') : to,
+    // Enviar email con Resend (usa el email verificado o dominio de prueba)
+    const { data, error } = await resend.emails.send({
+      from: 'info@resend.dev', // Dominio de prueba de Resend (válido sin verificación)
+      to: Array.isArray(to) ? to : [to],
       subject,
       html,
-      ...(replyTo && { replyTo }),
-    };
+      ...(replyTo && { reply_to: replyTo }),
+    });
 
-    const info = await transporter.sendMail(mailOptions);
-    
-    console.log('[Email] Correo enviado exitosamente:', {
+    if (error) {
+      console.error('[Resend] Error al enviar correo:', error);
+      return NextResponse.json({
+        success: false,
+        error: 'Error al enviar el correo',
+        detail: error.message,
+      }, { status: 500 });
+    }
+
+    console.log('[Resend] Correo enviado exitosamente:', {
       to,
       subject,
-      messageId: info.messageId,
+      messageId: data?.id,
     });
 
     return NextResponse.json({
       success: true,
       message: 'Correo enviado exitosamente',
-      messageId: info.messageId,
+      messageId: data?.id,
     });
   } catch (error: any) {
-    console.error('[Email] Error completo al enviar correo:', JSON.stringify(error, null, 2));
-    console.error('[Email] Stack trace:', error.stack);
+    console.error('[Resend] Error completo al enviar correo:', JSON.stringify(error, null, 2));
+    console.error('[Resend] Stack trace:', error.stack);
     return NextResponse.json(
       {
         success: false,
