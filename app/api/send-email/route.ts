@@ -1,9 +1,6 @@
 import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
 
-// Inicializar Resend con la clave API
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 interface EmailPayload {
   to: string | string[];
   subject: string;
@@ -31,6 +28,9 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Inicializar Resend dentro del handler para evitar errores de build
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     // Enviar email con Resend (usa el email verificado o dominio de prueba)
     const { data, error } = await resend.emails.send({

@@ -1,8 +1,8 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 /**
  * Función centralizada para enviar correos
- * Evita problemas de fetches internos en producción (Railway)
+ * Usa Resend API para entornos cloud (Railway)
  */
 async function sendEmail(
   to: string | string[],
@@ -25,50 +25,35 @@ async function sendEmail(
 
     console.log('[Email] Enviando a:', validEmails);
 
-    // Verificar credenciales
-    const emailUser = process.env.EMAIL_USER;
-    const emailPassword = process.env.EMAIL_PASSWORD;
-
-    if (!emailUser || !emailPassword) {
-      console.error('[Email] Credenciales no configuradas:', {
-        hasUser: !!emailUser,
-        hasPassword: !!emailPassword,
-        userLength: emailUser?.length,
-        passLength: emailPassword?.length,
-      });
-      throw new Error('Credenciales de correo no configuradas o inválidas');
+    // Verificar credenciales de Resend
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      console.error('[Email] Clave API de Resend no configurada');
+      throw new Error('Clave API de correo no configurada');
     }
 
-    // Validar credenciales no contengan espacios
-    if (emailPassword.includes(' ')) {
-      console.error('[Email] ALERTA: La contraseña contiene espacios');
-      throw new Error('Credenciales de correo inválidas (espacios detectados)');
-    }
-
-    // Crear transporte - Simplificado para nodemailer v8+
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: emailUser,
-        pass: emailPassword,
-      },
-    });
+    // Inicializar Resend
+    const resend = new Resend(resendApiKey);
 
     // Enviar correos de uno en uno para mejor control de errores
     const resultados = [];
     for (const destinatario of validEmails) {
       try {
         console.log(`[Email] Enviando a ${destinatario}...`);
-        const info = await transporter.sendMail({
-          from: emailUser,
+        const { data, error } = await resend.emails.send({
+          from: 'info@resend.dev',
           to: destinatario,
           subject,
           html,
-          ...(replyTo && { replyTo }),
+          ...(replyTo && { reply_to: replyTo }),
         });
         
-        console.log(`[Email] ✓ Enviado a ${destinatario}: ${info.messageId}`);
-        resultados.push({ email: destinatario, success: true, messageId: info.messageId });
+        if (error) {
+          throw new Error(error.message);
+        }
+        
+        console.log(`[Email] ✓ Enviado a ${destinatario}: ${data?.id}`);
+        resultados.push({ email: destinatario, success: true, messageId: data?.id });
       } catch (singleError: any) {
         console.error(`[Email] ✗ Error enviando a ${destinatario}:`, singleError.message);
         resultados.push({ email: destinatario, success: false, error: singleError.message });
