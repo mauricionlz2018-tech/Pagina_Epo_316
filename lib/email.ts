@@ -29,6 +29,7 @@ async function sendEmail(
     const resendApiKey = process.env.RESEND_API_KEY;
     if (!resendApiKey) {
       console.error('[Email] Clave API de Resend no configurada');
+      console.error('[Email] RESEND_API_KEY actual:', process.env.RESEND_API_KEY);
       throw new Error('Clave API de correo no configurada');
     }
 
@@ -41,7 +42,7 @@ async function sendEmail(
       try {
         console.log(`[Email] Enviando a ${destinatario}...`);
         const { data, error } = await resend.emails.send({
-          from: 'info@resend.dev',
+          from: process.env.EMAIL_FROM || 'info@resend.dev',
           to: destinatario,
           subject,
           html,
