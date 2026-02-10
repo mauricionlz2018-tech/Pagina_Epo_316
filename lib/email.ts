@@ -11,6 +11,20 @@ async function sendEmail(
   replyTo?: string
 ) {
   try {
+    // Verificar y normalizar destinatarios
+    if (!to || (Array.isArray(to) && to.length === 0)) {
+      throw new Error('Destinatario(s) no especificado(s)');
+    }
+
+    const toArray = Array.isArray(to) ? to : [to];
+    const validEmails = toArray.filter(email => email && email.includes('@'));
+    
+    if (validEmails.length === 0) {
+      throw new Error('No hay correos válidos para enviar');
+    }
+
+    console.log('[Email] Enviando a:', validEmails);
+
     // Verificar credenciales
     const emailUser = process.env.EMAIL_USER;
     const emailPassword = process.env.EMAIL_PASSWORD;
@@ -19,41 +33,89 @@ async function sendEmail(
       console.error('[Email] Credenciales no configuradas:', {
         hasUser: !!emailUser,
         hasPassword: !!emailPassword,
+        userLength: emailUser?.length,
+        passLength: emailPassword?.length,
       });
-      throw new Error('Credenciales de correo no configuradas');
+      throw new Error('Credenciales de correo no configuradas o inválidas');
     }
 
-    // Crear transporte
+    // Validar credenciales no contengan espacios
+    if (emailPassword.includes(' ')) {
+      console.error('[Email] ALERTA: La contraseña contiene espacios');
+      throw new Error('Credenciales de correo inválidas (espacios detectados)');
+    }
+
+    // Crear transporte con configuración explícita para Gmail
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587, // TLS (más compatible que 465)
+      secure: false, // true para puerto 465, false para 587
       auth: {
         user: emailUser,
         pass: emailPassword,
       },
+      connectionTimeout: 10000, // 10 segundos
+      socketTimeout: 10000,
+      logger: true, // Mostrar logs de nodemailer
+      debug: true,
     });
 
-    // Enviar correo
-    const info = await transporter.sendMail({
-      from: emailUser,
-      to: Array.isArray(to) ? to.join(',') : to,
-      subject,
-      html,
-      ...(replyTo && { replyTo }),
-    });
+    // Verificar conexión antes de enviar
+    console.log('[Email] Verificando conexión a SMTP...');
+    try {
+      await transporter.verify();
+      console.log('[Email] Conexión verificada correctamente');
+    } catch (verifyError: any) {
+      console.error('[Email] Error verificando conexión SMTP:', verifyError.message);
+      // Continuar de todas formas, a veces verify falla pero sendMail funciona
+    }
 
-    console.log('[Email] Correo enviado:', {
-      to,
+    // Enviar correos de uno en uno para mejor control de errores
+    const resultados = [];
+    for (const destinatario of validEmails) {
+      try {
+        console.log(`[Email] Enviando a ${destinatario}...`);
+        const info = await transporter.sendMail({
+          from: emailUser,
+          to: destinatario,
+          subject,
+          html,
+          ...(replyTo && { replyTo }),
+        });
+        
+        console.log(`[Email] ✓ Enviado a ${destinatario}: ${info.messageId}`);
+        resultados.push({ email: destinatario, success: true, messageId: info.messageId });
+      } catch (singleError: any) {
+        console.error(`[Email] ✗ Error enviando a ${destinatario}:`, singleError.message);
+        resultados.push({ email: destinatario, success: false, error: singleError.message });
+      }
+    }
+
+    // Verificar si al menos uno fue exitoso
+    const exitosos = resultados.filter(r => r.success);
+    if (exitosos.length === 0) {
+      throw new Error(`No se pudo enviar a ningún destinatario. Detalles: ${JSON.stringify(resultados)}`);
+    }
+
+    console.log('[Email] Envío completado:', {
+      total: validEmails.length,
+      exitosos: exitosos.length,
       subject,
-      messageId: info.messageId,
     });
 
     return {
       success: true,
-      messageId: info.messageId,
+      sentTo: exitosos.map(r => r.email),
+      messageIds: exitosos.map(r => r.messageId),
     };
   } catch (error: any) {
-    console.error('[Email] Error al enviar correo:', error.message);
-    throw error;
+    console.error('[Email] Error al enviar correo:', {
+      message: error.message,
+      code: error.code,
+      errno: error.errno,
+      stack: error.stack,
+    });
+    throw new Error(`SendEmail Error: ${error.message} (${error.code || 'UNKNOWN'})`);
   }
 }
 

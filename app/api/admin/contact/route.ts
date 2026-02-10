@@ -91,13 +91,31 @@ export async function POST(request: NextRequest) {
     `;
 
     try {
-      // Enviar correo a admisiones
+      console.log('[Contact] Iniciando envío de correos...');
+      
+      // Enviar correo a admisiones primero
       await sendEmail(
-        ['infoepo316@gmail.com', 'admisionesepo316@gmail.com'],
+        'infoepo316@gmail.com',
         `[CONTACTO WEB] ${subject} - ${name}`,
         htmlParaAdmin,
         email
       );
+
+      console.log('[Contact] Correo a info enviado');
+
+      // Enviar a admisiones como segundo intento
+      try {
+        await sendEmail(
+          'admisionesepo316@gmail.com',
+          `[CONTACTO WEB] ${subject} - ${name}`,
+          htmlParaAdmin,
+          email
+        );
+        console.log('[Contact] Correo a admisiones enviado');
+      } catch (secondError) {
+        console.error('[Contact] Error enviando a admisiones (secundario):', secondError.message);
+        // No fallar por esto, el correo a info ya se envió
+      }
 
       // Enviar confirmación al solicitante (sin bloquear si falla)
       sendEmail(
@@ -120,9 +138,12 @@ export async function POST(request: NextRequest) {
         message: 'Mensaje enviado exitosamente. Te hemos enviado una confirmación a tu correo electrónico.',
       });
     } catch (emailError: any) {
-      console.error('[Contact] Error al enviar correos:', emailError.message);
+      console.error('[Contact] Error al enviar correos:', {
+        message: emailError.message,
+        code: emailError.code,
+      });
       return NextResponse.json(
-        { error: 'Error al procesar tu solicitud: ' + emailError.message },
+        { error: 'Error al enviar correo: ' + (emailError.message || 'Error desconocido') },
         { status: 500 }
       );
     }
