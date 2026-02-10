@@ -9,7 +9,7 @@ import { LayoutDashboard, Users, GraduationCap, FileText, Megaphone, UserCircle,
 interface NavItem {
   href: string;
   label: string;
-  icon: React.ComponentType<{ size: number; className?: string }>;
+  icon: React.ComponentType<any>;
 }
 
 interface AdminHeaderProps {
