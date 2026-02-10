@@ -188,15 +188,23 @@ Response:
 
 ## 🐛 Solución de Problemas
 
+### "Error: connect ENETUNREACH" o "IPv6"
+- **Causa**: Sistema intentando conectar por IPv6 pero falla (común en Railway)
+- **Solución**: ✅ RESUELTA - Sistema ahora fuerza IPv4 automáticamente (puerto 465 + `family: 4`)
+- **Si persiste**: 
+  1. Verifica variables en Railway console
+  2. Ejecuta: `echo $EMAIL_USER` y `echo $EMAIL_PASSWORD`
+  3. Si están vacías, Railway no las está leyendo correctamente
+
 ### "Error: EAUTH"
 - **Causa**: Contraseña incorrecta o Gmail rechaza la contraseña
 - **Solución**: 
-  1. Verifica que copiaste correctamente la contraseña de Gmail
-  2. Si usas 2FA, asegúrate de usar contraseña de app, no tu contraseña normal
+  1. Verifica que copiaste correctamente: `qfvlvownmrwkpnwy` (SIN ESPACIOS)
+  2. Si usas 2FA, asegúrate de usar contraseña de app ("Mail" en Google)
   3. Espera 10 minutos y prueba de nuevo
 
 ### "Timeout al enviar correo"
-- **Causa**: Problemas de conexión a Gmail SMTP
+- **Causa**: Problemas de conexión a Gmail SMTP o timeout muy corto
 - **Solución**:
   1. Verifica tu conexión a internet
   2. Espera unos minutos y prueba de nuevo
@@ -215,16 +223,27 @@ Response:
 ### Para Railway:
 1. Ve a tu proyecto en Railway Dashboard
 2. Variables → Add Variable
-3. Agrega estas variables:
+3. Agrega estas variables EXACTAMENTE:
 ```
 EMAIL_USER=infoepo316@gmail.com
-EMAIL_PASSWORD=tu_contraseña_app_google
+EMAIL_PASSWORD=qfvlvownmrwkpnwy
+MYSQL_HOST=trolley.proxy.rlwy.net
+MYSQL_USER=root
+MYSQL_PASSWORD=dbhaHVNLAIsggTWtgGQTvNQAezAbQUlD
+MYSQL_DATABASE=railway
+MYSQL_PORT=42796
 NEXT_PUBLIC_API_URL=https://tu-dominio.railway.app
 ```
 
+⚠️ **CRÍTICO**:
+- **La contraseña de correo NO tiene espacios** - Gmail la muestra con espacios, pero sin usar espacios
+- **Las variables DEBEN coincidir exactamente** con `.env.local`
+- **Después de agregar variables, Railway puede necesitar redeploy automático**
+- Si aún falla, ejecuta en Railway console: `echo $EMAIL_USER` para verificar
+
 ### Para Vercel:
 1. Ve a Settings → Environment Variables
-2. Agrega las mismas variables
+2. Agrega las mismas variables (incluyendo MYSQL)
 3. Redeploy después de crear las variables
 
 ---

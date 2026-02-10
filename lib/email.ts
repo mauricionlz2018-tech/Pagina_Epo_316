@@ -46,18 +46,21 @@ async function sendEmail(
     }
 
     // Crear transporte con configuración explícita para Gmail
+    // IMPORTANTE: Deshabilitar IPv6 para evitar ENETUNREACH
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 587, // TLS (más compatible que 465)
-      secure: false, // true para puerto 465, false para 587
+      port: 465, // Puerto TLS seguro (mejor compatibilidad IPv4)
+      secure: true, // Usar TLS/SSL
+      family: 4, // Forzar IPv4 - CRÍTICO para evitar ENETUNREACH
       auth: {
         user: emailUser,
         pass: emailPassword,
       },
-      connectionTimeout: 10000, // 10 segundos
+      connectionTimeout: 10000,
       socketTimeout: 10000,
-      logger: true, // Mostrar logs de nodemailer
-      debug: true,
+      greetingTimeout: 10000,
+      logger: true,
+      debug: false, // Reducir ruido de logs
     });
 
     // Verificar conexión antes de enviar
