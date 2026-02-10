@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface EmailPayload {
@@ -20,47 +20,50 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validar que las credenciales estén configuradas
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-      console.error('Credenciales de email no configuradas');
+    // Validar que la clave API esté configurada
+    if (!process.env.RESEND_API_KEY) {
+      console.error('Clave API de Resend no configurada');
       return NextResponse.json(
-        { error: 'Servicio de correo no configurado' },
+        { error: 'Clave API de correo no configurada (RESEND_API_KEY)' },
         { status: 500 }
       );
     }
 
-    // Configurar transporte SMTP con Gmail
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
+    // Inicializar Resend dentro del handler para evitar errores de build
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    // Enviar email
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+    // Enviar email con Resend
+    const { data, error } = await resend.emails.send({
+      from: process.env.EMAIL_FROM || 'info@resend.dev', // Usa el email configurado o dominio de prueba
       to: Array.isArray(to) ? to : [to],
       subject,
       html,
-      ...(replyTo && { replyTo }),
+      ...(replyTo && { reply_to: replyTo }),
     });
 
-    console.log('[Nodemailer] Correo enviado exitosamente:', {
+    if (error) {
+      console.error('[Resend] Error al enviar correo:', error);
+      return NextResponse.json({
+        success: false,
+        error: 'Error al enviar el correo',
+        detail: error.message,
+      }, { status: 500 });
+    }
+
+    console.log('[Resend] Correo enviado exitosamente:', {
       to,
       subject,
-      messageId: info.messageId,
+      messageId: data?.id,
     });
 
     return NextResponse.json({
       success: true,
       message: 'Correo enviado exitosamente',
-      messageId: info.messageId,
+      messageId: data?.id,
     });
   } catch (error: any) {
-    console.error('[Nodemailer] Error completo al enviar correo:', JSON.stringify(error, null, 2));
-    console.error('[Nodemailer] Stack trace:', error.stack);
+    console.error('[Resend] Error completo al enviar correo:', JSON.stringify(error, null, 2));
+    console.error('[Resend] Stack trace:', error.stack);
     return NextResponse.json(
       {
         success: false,
