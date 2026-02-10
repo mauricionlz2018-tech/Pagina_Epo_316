@@ -113,7 +113,8 @@ export async function POST(request: NextRequest) {
         );
         console.log('[Contact] Correo a admisiones enviado');
       } catch (secondError) {
-        console.error('[Contact] Error enviando a admisiones (secundario):', secondError.message);
+        const errorMsg = secondError instanceof Error ? secondError.message : String(secondError);
+        console.error('[Contact] Error enviando a admisiones (secundario):', errorMsg);
         // No fallar por esto, el correo a info ya se envió
       }
 
@@ -123,7 +124,8 @@ export async function POST(request: NextRequest) {
         '✓ Hemos recibido tu mensaje - EPO 316',
         htmlParaSolicitante
       ).catch(err => {
-        console.error('[Contact] Error enviando confirmación:', err.message);
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        console.error('[Contact] Error enviando confirmación:', errorMsg);
         // No bloquea el flujo
       });
 
@@ -137,18 +139,21 @@ export async function POST(request: NextRequest) {
         success: true,
         message: 'Mensaje enviado exitosamente. Te hemos enviado una confirmación a tu correo electrónico.',
       });
-    } catch (emailError: any) {
+    } catch (emailError) {
+      const errorMsg = emailError instanceof Error ? emailError.message : String(emailError);
+      const errorCode = emailError instanceof Error && 'code' in emailError ? String(emailError.code) : 'UNKNOWN';
       console.error('[Contact] Error al enviar correos:', {
-        message: emailError.message,
-        code: emailError.code,
+        message: errorMsg,
+        code: errorCode,
       });
       return NextResponse.json(
-        { error: 'Error al enviar correo: ' + (emailError.message || 'Error desconocido') },
+        { error: 'Error al enviar correo: ' + (errorMsg || 'Error desconocido') },
         { status: 500 }
       );
     }
-  } catch (error: any) {
-    console.error('[Contact] Error general:', error);
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error('[Contact] Error general:', errorMsg);
     return NextResponse.json(
       { error: 'Error al procesar tu solicitud' },
       { status: 500 }

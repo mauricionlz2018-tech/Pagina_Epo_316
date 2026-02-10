@@ -45,33 +45,14 @@ async function sendEmail(
       throw new Error('Credenciales de correo inválidas (espacios detectados)');
     }
 
-    // Crear transporte con configuración explícita para Gmail
-    // IMPORTANTE: Deshabilitar IPv6 para evitar ENETUNREACH
+    // Crear transporte - Simplificado para nodemailer v8+
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465, // Puerto TLS seguro (mejor compatibilidad IPv4)
-      secure: true, // Usar TLS/SSL
-      family: 4, // Forzar IPv4 - CRÍTICO para evitar ENETUNREACH
+      service: 'gmail',
       auth: {
         user: emailUser,
         pass: emailPassword,
       },
-      connectionTimeout: 10000,
-      socketTimeout: 10000,
-      greetingTimeout: 10000,
-      logger: true,
-      debug: false, // Reducir ruido de logs
     });
-
-    // Verificar conexión antes de enviar
-    console.log('[Email] Verificando conexión a SMTP...');
-    try {
-      await transporter.verify();
-      console.log('[Email] Conexión verificada correctamente');
-    } catch (verifyError: any) {
-      console.error('[Email] Error verificando conexión SMTP:', verifyError.message);
-      // Continuar de todas formas, a veces verify falla pero sendMail funciona
-    }
 
     // Enviar correos de uno en uno para mejor control de errores
     const resultados = [];
