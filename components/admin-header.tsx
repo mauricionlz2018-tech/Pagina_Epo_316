@@ -60,7 +60,7 @@ export default function AdminHeader({ userRole }: AdminHeaderProps) {
         return [
           ...commonItems,
           { href: '/admin/estudiantes', label: 'Estudiantes', icon: Users },
-          { href: '/admin/boletas', label: 'Boletas', icon: FileText },
+          { href: '/admin/secretaria/boletas', label: 'Boletas', icon: FileText },
           { href: '/admin/secretaria/documentos', label: 'Documentos', icon: FileText },
           { href: '/admin/secretaria/eventos', label: 'Eventos', icon: Calendar },
         ];
