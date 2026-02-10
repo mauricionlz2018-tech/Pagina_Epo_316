@@ -3,14 +3,22 @@ import { NextRequest, NextResponse } from 'next/server';
 
 /**
  * Configura el transporte de correo
- * Usa Gmail SMTP por defecto
+ * Usa Gmail SMTP con opciones de conexión robustas
  */
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true, // true para 465, false para otros puertos
   auth: {
     user: process.env.EMAIL_USER || 'infoepo316@gmail.com',
     pass: process.env.EMAIL_PASSWORD || '',
   },
+  tls: {
+    rejectUnauthorized: false, // Evita errores de certificado en cloud
+  },
+  connectionTimeout: 10000, // Aumenta el tiempo de espera
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
 });
 
 interface EmailPayload {
@@ -63,12 +71,14 @@ export async function POST(request: NextRequest) {
       messageId: info.messageId,
     });
   } catch (error: any) {
-    console.error('[Email] Error al enviar correo:', error);
+    console.error('[Email] Error completo al enviar correo:', JSON.stringify(error, null, 2));
+    console.error('[Email] Stack trace:', error.stack);
     return NextResponse.json(
       {
         success: false,
         error: 'Error al enviar el correo',
         detail: error.message,
+        fullError: JSON.stringify(error, null, 2),
       },
       { status: 500 }
     );
