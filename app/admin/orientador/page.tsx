@@ -79,7 +79,7 @@ export default function OrientadorPanel() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-6 rounded-xl">
+      <div className="bg-linear-to-r from-purple-600 to-purple-800 text-white p-6 rounded-xl">
         <h1 className="text-2xl md:text-3xl font-bold mb-2">Panel del Orientador</h1>
         <p className="text-purple-100">Apoyo educativo y orientación estudiantil</p>
       </div>
@@ -88,7 +88,7 @@ export default function OrientadorPanel() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {menuItems.map((item, idx) => (
           <Link key={idx} href={item.href}>
-            <Card className={`p-6 bg-gradient-to-br ${item.color} text-white rounded-xl cursor-pointer hover:shadow-lg transition`}>
+            <Card className={`p-6 bg-linear-to-br ${item.color} text-white rounded-xl cursor-pointer hover:shadow-lg transition`}>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm opacity-90">{item.title}</p>
@@ -108,7 +108,7 @@ export default function OrientadorPanel() {
           <button onClick={() => window.location.href = '/admin/calificaciones'} className="w-full">
             <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
               <div className="flex items-start gap-3 md:gap-4">
-                <div className="p-2 md:p-3 bg-gradient-to-br from-red-500 to-red-600 rounded-lg text-white flex-shrink-0">
+                <div className="p-2 md:p-3 bg-linear-to-br from-red-500 to-red-600 rounded-lg text-white shrink-0">
                   <AlertTriangle size={20} className="md:w-6 md:h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -123,7 +123,7 @@ export default function OrientadorPanel() {
           <button onClick={() => window.location.href = '/admin/orientador/casos'} className="w-full">
             <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
               <div className="flex items-start gap-3 md:gap-4">
-                <div className="p-2 md:p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg text-white flex-shrink-0">
+                <div className="p-2 md:p-3 bg-linear-to-br from-blue-500 to-blue-600 rounded-lg text-white shrink-0">
                   <Users size={20} className="md:w-6 md:h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -138,7 +138,7 @@ export default function OrientadorPanel() {
           <button onClick={() => window.location.href = '/admin/orientador/casos'} className="w-full">
             <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
               <div className="flex items-start gap-3 md:gap-4">
-                <div className="p-2 md:p-3 bg-gradient-to-br from-green-500 to-green-600 rounded-lg text-white flex-shrink-0">
+                <div className="p-2 md:p-3 bg-linear-to-br from-green-500 to-green-600 rounded-lg text-white shrink-0">
                   <TrendingUp size={20} className="md:w-6 md:h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -153,7 +153,7 @@ export default function OrientadorPanel() {
       </div>
 
       {/* Info Card */}
-      <Card className="p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-gray-200">
+      <Card className="p-6 bg-linear-to-r from-gray-50 to-gray-100 border-gray-200">
         <h3 className="font-bold text-lg mb-3">Indicadores de Orientación</h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
@@ -177,3 +177,4 @@ export default function OrientadorPanel() {
     </div>
   );
 }
+

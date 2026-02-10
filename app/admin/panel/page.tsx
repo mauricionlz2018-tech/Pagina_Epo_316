@@ -77,7 +77,7 @@ export default function AdminPanel() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {menuItems.map((item, idx) => (
           <Link key={idx} href={item.href}>
-            <Card className={`p-6 bg-gradient-to-br ${item.color} text-white rounded-xl cursor-pointer hover:shadow-lg transition`}>
+            <Card className={`p-6 bg-linear-to-br ${item.color} text-white rounded-xl cursor-pointer hover:shadow-lg transition`}>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm opacity-90">{item.title}</p>
@@ -98,7 +98,7 @@ export default function AdminPanel() {
             <Link key={idx} href={item.href}>
               <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer h-full">
                 <div className="flex items-start gap-3 md:gap-4">
-                  <div className={`p-2 md:p-3 bg-gradient-to-br ${item.color} rounded-lg text-white flex-shrink-0`}>
+                  <div className={`p-2 md:p-3 bg-linear-to-br ${item.color} rounded-lg text-white shrink-0`}>
                     <item.icon size={20} className="md:w-6 md:h-6" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -114,7 +114,7 @@ export default function AdminPanel() {
       </div>
 
       {/* Info Card */}
-      <Card className="p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-gray-200">
+      <Card className="p-6 bg-linear-to-r from-gray-50 to-gray-100 border-gray-200">
         <h3 className="font-bold text-lg mb-3 flex items-center gap-2"><TrendingUp size={20} /> Resumen General</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
@@ -134,3 +134,4 @@ export default function AdminPanel() {
     </div>
   );
 }
+

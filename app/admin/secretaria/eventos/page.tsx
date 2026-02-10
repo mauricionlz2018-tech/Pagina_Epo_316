@@ -324,28 +324,28 @@ export default function EventosPage() {
 
       {/* ESTADÍSTICAS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-orange-500 to-orange-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <Calendar size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Total Eventos</div>
           </div>
           <div className="text-3xl font-bold">{stats.total}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-sky-500 to-sky-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-sky-500 to-sky-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <CalendarCheck size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Programados</div>
           </div>
           <div className="text-3xl font-bold">{stats.programados}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <CheckCircle size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Realizados</div>
           </div>
           <div className="text-3xl font-bold">{stats.realizados}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-rose-500 to-rose-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-rose-500 to-rose-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <CalendarX size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Cancelados</div>

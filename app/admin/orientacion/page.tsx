@@ -38,14 +38,14 @@ export default function OrientacionPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-6 rounded-xl">
+      <div className="bg-linear-to-r from-purple-600 to-purple-800 text-white p-6 rounded-xl">
         <h1 className="text-2xl md:text-3xl font-bold mb-2">Orientación Educativa</h1>
         <p className="text-purple-100">Apoyo y seguimiento estudiantil</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-purple-500 to-purple-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Casos Activos</p>
@@ -55,7 +55,7 @@ export default function OrientacionPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-red-500 to-red-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-red-500 to-red-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Prioridad Alta</p>
@@ -65,7 +65,7 @@ export default function OrientacionPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Estudiantes Asesorados</p>
@@ -75,7 +75,7 @@ export default function OrientacionPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-green-500 to-green-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-green-500 to-green-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Casos Resueltos</p>
@@ -115,3 +115,4 @@ export default function OrientacionPage() {
     </div>
   );
 }
+

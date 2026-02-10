@@ -475,7 +475,7 @@ export default function CalificacionesPage() {
       </Dialog>
 
       {/* PASO 1: SELECCIONAR GRADO */}
-      <Card className="p-4 md:p-6 bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg">
+      <Card className="p-4 md:p-6 bg-linear-to-r from-blue-600 to-indigo-700 text-white shadow-lg">
         <h3 className="font-bold text-lg md:text-xl mb-4 flex items-center gap-2">
           <BookOpen size={20} className="md:w-6 md:h-6" />
           Paso 1: Selecciona el Grado
@@ -576,7 +576,7 @@ export default function CalificacionesPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+                <thead className="bg-linear-to-r from-blue-600 to-indigo-700 text-white">
                   <tr>
                     <th className="px-4 py-3 text-left font-semibold">Estudiante</th>
                     <th className="px-4 py-3 text-left font-semibold">Materia</th>

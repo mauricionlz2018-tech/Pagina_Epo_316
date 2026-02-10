@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-primary/10 to-secondary/10 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Card */}
         <div className="bg-card border border-border rounded-xl shadow-lg p-8">
@@ -78,7 +78,7 @@ export default function AdminLoginPage() {
           {/* Error Alert */}
           {error && (
             <div className="mb-6 p-4 bg-destructive/10 border border-destructive/20 rounded-lg flex gap-3">
-              <AlertCircle className="text-destructive flex-shrink-0 mt-0.5" size={20} />
+              <AlertCircle className="text-destructive shrink-0 mt-0.5" size={20} />
               <p className="text-sm text-destructive">{error}</p>
             </div>
           )}
@@ -167,3 +167,4 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+

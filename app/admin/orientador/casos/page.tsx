@@ -342,28 +342,28 @@ export default function CasosOrientacionPage() {
 
       {/* ESTADÍSTICAS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-indigo-500 to-indigo-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <FileText size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Casos Totales</div>
           </div>
           <div className="text-3xl font-bold">{stats.total}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-sky-500 to-sky-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-sky-500 to-sky-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Casos Activos</div>
           </div>
           <div className="text-3xl font-bold">{stats.activos}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-rose-500 to-rose-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-rose-500 to-rose-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <AlertTriangle size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Prioridad Alta</div>
           </div>
           <div className="text-3xl font-bold">{stats.alta}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <CheckCircle size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Resueltos</div>

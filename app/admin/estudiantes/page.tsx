@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Trash2, Edit2, Plus, X, Download, Search, User, AlertCircle, CheckCircle2, PencilSquare, GraduationCap } from 'lucide-react';
+import { Trash2, Edit2, Plus, X, Download, Search, User, AlertCircle, CheckCircle2, PenSquare, GraduationCap } from 'lucide-react';
 import { BoletaGenerator } from '@/components/boleta-generator';
 
 interface Estudiante {
@@ -253,13 +253,13 @@ export default function EstudiantesPage() {
       {/* MENSAJES */}
       {error && (
         <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg text-red-700 flex items-center gap-3">
-          <AlertCircle size={24} className="flex-shrink-0" />
+          <AlertCircle size={24} className="shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
         <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg text-green-700 flex items-center gap-3">
-          <CheckCircle2 size={24} className="flex-shrink-0" />
+          <CheckCircle2 size={24} className="shrink-0" />
           <span>{success}</span>
         </div>
       )}
@@ -269,7 +269,7 @@ export default function EstudiantesPage() {
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold flex items-center gap-2">
-              {editingId ? <><PencilSquare size={24} /> Editar Estudiante</> : <><Plus size={24} /> Nuevo Estudiante</>}
+              {editingId ? <><PenSquare size={24} /> Editar Estudiante</> : <><Plus size={24} /> Nuevo Estudiante</>}
             </DialogTitle>
           </DialogHeader>
 
@@ -465,23 +465,23 @@ export default function EstudiantesPage() {
 
       {/* ESTADÍSTICAS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+        <Card className="p-4 bg-linear-to-br from-blue-500 to-blue-600 text-white">
           <div className="text-sm opacity-90">Total Estudiantes</div>
           <div className="text-3xl font-bold mt-2">{estudiantes.length}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-green-500 to-green-600 text-white">
+        <Card className="p-4 bg-linear-to-br from-green-500 to-green-600 text-white">
           <div className="text-sm opacity-90">1° Grado</div>
           <div className="text-3xl font-bold mt-2">
             {estudiantes.filter(e => e.grado === '1ro').length}
           </div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+        <Card className="p-4 bg-linear-to-br from-purple-500 to-purple-600 text-white">
           <div className="text-sm opacity-90">2° Grado</div>
           <div className="text-3xl font-bold mt-2">
             {estudiantes.filter(e => e.grado === '2do').length}
           </div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+        <Card className="p-4 bg-linear-to-br from-orange-500 to-orange-600 text-white">
           <div className="text-sm opacity-90">3° Grado</div>
           <div className="text-3xl font-bold mt-2">
             {estudiantes.filter(e => e.grado === '3ro').length}
@@ -507,7 +507,7 @@ export default function EstudiantesPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                <thead className="bg-linear-to-r from-blue-600 to-blue-700 text-white">
                   <tr>
                     <th className="px-4 py-3 text-left font-semibold">Nombre</th>
                     <th className="px-4 py-3 text-left font-semibold">Inscripción</th>

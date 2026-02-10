@@ -39,14 +39,14 @@ export default function EvaluacionesPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-orange-600 to-orange-800 text-white p-6 rounded-xl">
+      <div className="bg-linear-to-r from-orange-600 to-orange-800 text-white p-6 rounded-xl">
         <h1 className="text-2xl md:text-3xl font-bold mb-2">Evaluaciones</h1>
         <p className="text-orange-100">Gestión de exámenes y actividades evaluativas</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-orange-500 to-orange-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Evaluaciones Totales</p>
@@ -56,7 +56,7 @@ export default function EvaluacionesPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Pendientes</p>
@@ -66,7 +66,7 @@ export default function EvaluacionesPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-green-500 to-green-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-green-500 to-green-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Estudiantes Evaluados</p>
@@ -76,7 +76,7 @@ export default function EvaluacionesPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-purple-500 to-purple-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Calificadas</p>
@@ -116,3 +116,4 @@ export default function EvaluacionesPage() {
     </div>
   );
 }
+

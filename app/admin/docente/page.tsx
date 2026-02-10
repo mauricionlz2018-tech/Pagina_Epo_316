@@ -71,7 +71,7 @@ export default function DocentePanel() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-emerald-600 to-emerald-800 text-white p-6 rounded-xl">
+      <div className="bg-linear-to-r from-emerald-600 to-emerald-800 text-white p-6 rounded-xl">
         <h1 className="text-2xl md:text-3xl font-bold mb-2">Panel del Docente</h1>
         <p className="text-emerald-100">Gestión académica y evaluación estudiantil</p>
       </div>
@@ -80,7 +80,7 @@ export default function DocentePanel() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {menuItems.map((item, idx) => (
           <Link key={idx} href={item.href}>
-            <Card className={`p-6 bg-gradient-to-br ${item.color} text-white rounded-xl cursor-pointer hover:shadow-lg transition`}>
+            <Card className={`p-6 bg-linear-to-br ${item.color} text-white rounded-xl cursor-pointer hover:shadow-lg transition`}>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm opacity-90">{item.title}</p>
@@ -99,39 +99,39 @@ export default function DocentePanel() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
             <div className="flex items-start gap-3 md:gap-4">
-              <div className="p-2 md:p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg text-white flex-shrink-0">
+              <div className="p-2 md:p-3 bg-linear-to-br from-blue-500 to-blue-600 rounded-lg text-white shrink-0">
                 <ClipboardList size={20} className="md:w-6 md:h-6" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="font-bold text-base md:text-lg">Planificación de Clases</h3>
                 <p className="text-gray-600 text-xs md:text-sm mt-1">Organizar contenido semanal</p>
-                <div className="text-blue-600 font-semibold text-xs md:text-sm mt-3">Planificar →</div>
+                <div className="text-blue-600 font-semibold text-xs md:text-sm mt-3">Planificar</div>
               </div>
             </div>
           </Card>
 
           <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
             <div className="flex items-start gap-3 md:gap-4">
-              <div className="p-2 md:p-3 bg-gradient-to-br from-green-500 to-green-600 rounded-lg text-white flex-shrink-0">
+              <div className="p-2 md:p-3 bg-linear-to-br from-green-500 to-green-600 rounded-lg text-white shrink-0">
                 <Award size={20} className="md:w-6 md:h-6" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="font-bold text-base md:text-lg">Retroalimentación</h3>
                 <p className="text-gray-600 text-xs md:text-sm mt-1">Comentarios y correcciones</p>
-                <div className="text-green-600 font-semibold text-xs md:text-sm mt-3">Revisar →</div>
+                <div className="text-green-600 font-semibold text-xs md:text-sm mt-3">Revisar</div>
               </div>
             </div>
           </Card>
 
           <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
             <div className="flex items-start gap-3 md:gap-4">
-              <div className="p-2 md:p-3 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg text-white flex-shrink-0">
+              <div className="p-2 md:p-3 bg-linear-to-br from-purple-500 to-purple-600 rounded-lg text-white shrink-0">
                 <BarChart3 size={20} className="md:w-6 md:h-6" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="font-bold text-base md:text-lg">Análisis de Rendimiento</h3>
                 <p className="text-gray-600 text-xs md:text-sm mt-1">Evaluar progreso grupal</p>
-                <div className="text-purple-600 font-semibold text-xs md:text-sm mt-3">Analizar →</div>
+                <div className="text-purple-600 font-semibold text-xs md:text-sm mt-3">Analizar</div>
               </div>
             </div>
           </Card>
@@ -139,7 +139,7 @@ export default function DocentePanel() {
       </div>
 
       {/* Info Card */}
-      <Card className="p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-gray-200">
+      <Card className="p-6 bg-linear-to-r from-gray-50 to-gray-100 border-gray-200">
         <h3 className="font-bold text-lg mb-3">Indicadores Académicos</h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
@@ -163,3 +163,4 @@ export default function DocentePanel() {
     </div>
   );
 }
+

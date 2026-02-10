@@ -93,6 +93,46 @@ export async function POST(request: NextRequest) {
             ]
         );
 
+        // Obtener datos del estudiante y profesor para la notificación
+        const [estudianteData] = await pool.query<RowDataPacket[]>(
+            `SELECT nombre FROM estudiantes WHERE id = ?`,
+            [estudiante_id]
+        );
+        const [profesorData] = await pool.query<RowDataPacket[]>(
+            `SELECT nombre FROM usuarios WHERE id = ? AND rol = 'docente'`,
+            [profesor_id]
+        );
+
+        const estudianteName = estudianteData?.[0]?.nombre || 'Estudiante desconocido';
+        const profesorName = profesorData?.[0]?.nombre || 'Docente desconocido';
+
+        // Enviar notificación a superiores
+        try {
+            await fetch(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000' + '/api/admin/notifications/grades', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: result.insertId,
+                    estudiante_id,
+                    estudiante_nombre: estudianteName,
+                    materia,
+                    grado,
+                    grupo,
+                    profesor_id,
+                    profesor_nombre: profesorName,
+                    calificacion_parcial_1,
+                    calificacion_parcial_2,
+                    calificacion_parcial_3,
+                    inasistencias_parcial_1,
+                    inasistencias_parcial_2,
+                    inasistencias_parcial_3,
+                    tipo: 'crear',
+                }),
+            }).catch(err => console.error('[Calificaciones] Error notificando:', err));
+        } catch (notificationError) {
+            console.error('[Calificaciones] Error al enviar notificación:', notificationError);
+        }
+
         return NextResponse.json({
             message: 'Calificación creada exitosamente',
             id: result.insertId
@@ -151,6 +191,46 @@ export async function PUT(request: NextRequest) {
                 id, profesor_id
             ]
         );
+
+        // Obtener datos del estudiante y profesor para la notificación
+        const [estudianteData] = await pool.query<RowDataPacket[]>(
+            `SELECT nombre FROM estudiantes WHERE id = ?`,
+            [body.estudiante_id]
+        );
+        const [profesorData] = await pool.query<RowDataPacket[]>(
+            `SELECT nombre FROM usuarios WHERE id = ? AND rol = 'docente'`,
+            [profesor_id]
+        );
+
+        const estudianteName = estudianteData?.[0]?.nombre || 'Estudiante desconocido';
+        const profesorName = profesorData?.[0]?.nombre || 'Docente desconocido';
+
+        // Enviar notificación a superiores
+        try {
+            await fetch(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000' + '/api/admin/notifications/grades', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id,
+                    estudiante_id: body.estudiante_id,
+                    estudiante_nombre: estudianteName,
+                    materia,
+                    grado,
+                    grupo,
+                    profesor_id,
+                    profesor_nombre: profesorName,
+                    calificacion_parcial_1,
+                    calificacion_parcial_2,
+                    calificacion_parcial_3,
+                    inasistencias_parcial_1,
+                    inasistencias_parcial_2,
+                    inasistencias_parcial_3,
+                    tipo: 'actualizar',
+                }),
+            }).catch(err => console.error('[Calificaciones] Error notificando:', err));
+        } catch (notificationError) {
+            console.error('[Calificaciones] Error al enviar notificación:', notificationError);
+        }
 
         return NextResponse.json({ message: 'Calificación actualizada exitosamente' });
     } catch (error: any) {

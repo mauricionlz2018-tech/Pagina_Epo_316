@@ -598,7 +598,7 @@ export default function DocenteCalificacionesPage() {
       </Dialog>
 
       {/* PASO 1: SELECCIONAR MATERIA */}
-      <Card className="p-4 md:p-6 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-lg">
+      <Card className="p-4 md:p-6 bg-linear-to-r from-emerald-600 to-emerald-700 text-white shadow-lg">
         <h3 className="font-bold text-lg md:text-xl mb-4 flex items-center gap-2">
           <BookOpen size={20} className="md:w-6 md:h-6" />
           Paso 1: Selecciona tu Materia
@@ -625,7 +625,7 @@ export default function DocenteCalificacionesPage() {
 
       {/* PASO 2: SELECCIONAR ESTUDIANTE */}
       {materiaSeleccionada && (
-        <Card className="p-4 md:p-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg">
+        <Card className="p-4 md:p-6 bg-linear-to-r from-blue-600 to-blue-700 text-white shadow-lg">
           <h3 className="font-bold text-lg md:text-xl mb-4 flex items-center gap-2">
             <Users size={20} className="md:w-6 md:h-6" />
             Paso 2: Selecciona el Estudiante (Opcional)
@@ -754,3 +754,4 @@ export default function DocenteCalificacionesPage() {
     </div>
   );
 }
+

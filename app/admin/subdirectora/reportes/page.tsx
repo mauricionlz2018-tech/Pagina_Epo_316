@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Trash2, Edit2, Plus, FileText, Download, TrendingUp, AlertCircle, CheckCircle2, PencilSquare, X } from 'lucide-react';
+import { Trash2, Edit2, Plus, FileText, Download, TrendingUp, AlertCircle, CheckCircle2, PenSquare, X } from 'lucide-react';
 
 interface Reporte {
   id: number;
@@ -160,13 +160,13 @@ export default function ReportesPage() {
       {/* MENSAJES */}
       {error && (
         <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg text-red-700 flex items-center gap-3">
-          <AlertCircle size={24} className="flex-shrink-0" />
+          <AlertCircle size={24} className="shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
         <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg text-green-700 flex items-center gap-3">
-          <CheckCircle2 size={24} className="flex-shrink-0" />
+          <CheckCircle2 size={24} className="shrink-0" />
           <span>{success}</span>
         </div>
       )}
@@ -176,7 +176,7 @@ export default function ReportesPage() {
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold flex items-center gap-2">
-              {editingId ? <><PencilSquare size={24} /> Editar Reporte</> : <><Plus size={24} /> Nuevo Reporte</>}
+              {editingId ? <><PenSquare size={24} /> Editar Reporte</> : <><Plus size={24} /> Nuevo Reporte</>}
             </DialogTitle>
           </DialogHeader>
 
@@ -256,19 +256,19 @@ export default function ReportesPage() {
 
       {/* ESTADÍSTICAS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white">
+        <Card className="p-4 bg-linear-to-br from-indigo-500 to-indigo-600 text-white">
           <div className="text-sm opacity-90">Total Reportes</div>
           <div className="text-3xl font-bold mt-2">{stats.total}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+        <Card className="p-4 bg-linear-to-br from-blue-500 to-blue-600 text-white">
           <div className="text-sm opacity-90">Académicos</div>
           <div className="text-3xl font-bold mt-2">{stats.academicos}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+        <Card className="p-4 bg-linear-to-br from-purple-500 to-purple-600 text-white">
           <div className="text-sm opacity-90">Administrativos</div>
           <div className="text-3xl font-bold mt-2">{stats.administrativos}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-green-500 to-green-600 text-white">
+        <Card className="p-4 bg-linear-to-br from-green-500 to-green-600 text-white">
           <div className="text-sm opacity-90">Financieros</div>
           <div className="text-3xl font-bold mt-2">{stats.financieros}</div>
         </Card>
@@ -379,3 +379,4 @@ export default function ReportesPage() {
     </div>
   );
 }
+

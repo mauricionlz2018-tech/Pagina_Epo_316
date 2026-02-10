@@ -38,14 +38,14 @@ export default function ReportesPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-green-600 to-green-800 text-white p-6 rounded-xl">
+      <div className="bg-linear-to-r from-green-600 to-green-800 text-white p-6 rounded-xl">
         <h1 className="text-2xl md:text-3xl font-bold mb-2">Reportes de Rendimiento</h1>
         <p className="text-green-100">Análisis y reportes detallados</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="p-6 bg-gradient-to-br from-green-500 to-green-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-green-500 to-green-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Reportes Totales</p>
@@ -55,7 +55,7 @@ export default function ReportesPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Generados</p>
@@ -65,7 +65,7 @@ export default function ReportesPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-purple-500 to-purple-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Estudiantes Analizados</p>
@@ -75,7 +75,7 @@ export default function ReportesPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+        <Card className="p-6 bg-linear-to-br from-orange-500 to-orange-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Tendencias Identificadas</p>
@@ -115,3 +115,4 @@ export default function ReportesPage() {
     </div>
   );
 }
+

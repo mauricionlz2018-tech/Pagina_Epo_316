@@ -15,17 +15,43 @@ export default function ContactPage() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('[v0] Form submitted:', formData);
-    setSubmitted(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setTimeout(() => setSubmitted(false), 3000);
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/admin/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Ocurrió un error al enviar tu mensaje');
+        return;
+      }
+
+      setSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err: any) {
+      setError('Error de conexión. Por favor intenta de nuevo.');
+      console.error('Error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,8 +100,8 @@ export default function ContactPage() {
                   <Mail className="text-primary mt-1 flex-shrink-0" size={24} />
                   <div>
                     <h3 className="font-bold mb-1">Correo Electrónico</h3>
-                    <p className="text-muted-foreground">info@epo316.gmail.com</p>
-                    <p className="text-muted-foreground">admisiones@epo316.gmail.com</p>
+                    <p className="text-muted-foreground">infoepo316@gmail.com</p>
+                    <p className="text-muted-foreground">admisionesepo316@gmail.com</p>
                   </div>
                 </div>
               </div>
@@ -100,9 +126,15 @@ export default function ContactPage() {
             <div>
               <h2 className="text-3xl font-bold mb-8">Envíanos un Mensaje</h2>
 
-              {submitted && (
+            {submitted && (
                 <div className="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg text-green-800">
-                  Mensaje enviado correctamente. Nos pondremos en contacto pronto.
+                  ✓ Mensaje enviado correctamente. Te hemos enviado una confirmación a tu correo. Nos pondremos en contacto pronto.
+                </div>
+              )}
+
+              {error && (
+                <div className="mb-6 p-4 bg-red-100 border border-red-300 rounded-lg text-red-800">
+                  Error: {error}
                 </div>
               )}
 
@@ -165,10 +197,20 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                  disabled={loading}
+                  className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send size={20} />
-                  Enviar Mensaje
+                  {loading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={20} />
+                      Enviar Mensaje
+                    </>
+                  )}
                 </button>
               </form>
             </div>

@@ -319,28 +319,28 @@ export default function DocumentosPage() {
 
       {/* ESTADÍSTICAS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-gradient-to-br from-teal-500 to-teal-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-teal-500 to-teal-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <File size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Total Documentos</div>
           </div>
           <div className="text-3xl font-bold">{stats.total}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-amber-500 to-amber-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <Clock size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Pendientes</div>
           </div>
           <div className="text-3xl font-bold">{stats.pendientes}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-sky-500 to-sky-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-sky-500 to-sky-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <FileText size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Procesados</div>
           </div>
           <div className="text-3xl font-bold">{stats.procesados}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
+        <Card className="p-4 bg-linear-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <CheckCircle size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Entregados</div>
