@@ -322,6 +322,31 @@ CREATE TABLE `seguimiento_estudiantes` (
   CONSTRAINT `seguimiento_ibfk_2` FOREIGN KEY (`orientador_id`) REFERENCES `orientador` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de seguimiento de estudiantes';
 
+-- --------------------------------------------------------
+-- Tabla: reportes_administrativos
+-- --------------------------------------------------------
+CREATE TABLE `reportes_administrativos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) NOT NULL COMMENT 'Título del reporte',
+  `tipo_reporte` varchar(100) NOT NULL COMMENT 'Tipo de reporte (Académico, Administrativo, Financiero, Recursos Humanos, Infraestructura)',
+  `descripcion` text DEFAULT NULL COMMENT 'Descripción del reporte',
+  `datos_json` text DEFAULT NULL COMMENT 'Datos adicionales en JSON',
+  `estado` varchar(50) DEFAULT 'Generado' COMMENT 'Estado del reporte',
+  `fecha_generacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_tipo_reporte` (`tipo_reporte`),
+  KEY `idx_estado` (`estado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de reportes administrativos';
+
+-- Datos iniciales para reportes_administrativos
+INSERT INTO `reportes_administrativos` (`titulo`, `tipo_reporte`, `descripcion`, `datos_json`, `estado`) VALUES
+('Reporte de Rendimiento Académico 2025', 'Académico', 'Analisis del rendimiento académico del ciclo escolar 2024-2025, incluyendo promedios por grado y materia.', '{\"total_estudiantes\": 450, \"promedio_general\": 8.3, \"mejor_materia\": \"Matemáticas\", \"peor_materia\": \"Química\"}', 'Generado'),
+('Informe Financiero Anual 2025', 'Financiero', 'Estado financiero del año 2025, incluyendo ingresos, gastos y balance general.', '{\"ingresos\": 1500000, \"gastos\": 1200000, \"superavit\": 300000}', 'Generado'),
+('Evaluación de Infraestructura', 'Infraestructura', 'Reporte sobre el estado de las instalaciones escolares, auditorio, laboratorios y áreas deportivas.', '{\"salones_actualizados\": 12, \"laboratorios_funcionales\": 4, \"auditorio_capacidad\": 200}', 'Generado'),
+('Estadísticas de Asistencia 2025', 'Administrativo', 'Análisis de la asistencia de estudiantes y profesores durante el ciclo escolar 2024-2025.', '{\"asistencia_estudiantes\": 95, \"asistencia_profesores\": 98, \"dias_festivos\": 12}', 'Generado'),
+('Evaluación de Personal Docente', 'Recursos Humanos', 'Evaluación del desempeño y satisfacción de los docentes durante el año.', '{\"total_profesores\": 30, \"satisfaccion_docente\": 85, \"turnover\": 10}', 'Generado');
+
 -- =====================================================
 -- RESUMEN DE CREDENCIALES DE ACCESO
 -- =====================================================

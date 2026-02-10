@@ -169,8 +169,8 @@ export default function CasosOrientacionPage() {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Casos de Orientación</h1>
-          <p className="text-gray-600 mt-1 text-sm md:text-base">Gestiona los casos de orientación estudiantil</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Casos de Orientación</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1 text-sm md:text-base">Gestiona los casos de orientación estudiantil</p>
         </div>
         <Button
           onClick={() => {
@@ -196,13 +196,13 @@ export default function CasosOrientacionPage() {
 
       {/* MENSAJES */}
       {error && (
-        <div className="p-4 bg-red-50 border-l-4 border-red-400 rounded-lg text-red-800 flex items-center gap-3">
+        <div className="p-4 bg-red-50 dark:bg-red-900 border-l-4 border-red-400 rounded-lg text-red-800 dark:text-red-100 flex items-center gap-3">
           <AlertCircle size={24} className="text-red-500" />
           <span>{error}</span>
         </div>
       )}
       {success && (
-        <div className="p-4 bg-emerald-50 border-l-4 border-emerald-400 rounded-lg text-emerald-800 flex items-center gap-3">
+        <div className="p-4 bg-emerald-50 dark:bg-emerald-900 border-l-4 border-emerald-400 rounded-lg text-emerald-800 dark:text-emerald-100 flex items-center gap-3">
           <CheckCircle size={24} className="text-emerald-500" />
           <span>{success}</span>
         </div>
@@ -212,7 +212,7 @@ export default function CasosOrientacionPage() {
       <Dialog open={showForm} onOpenChange={setShowForm}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold flex items-center gap-2 text-gray-800">
+            <DialogTitle className="text-2xl font-bold flex items-center gap-2 text-gray-800 dark:text-white">
               {editingId ? (
                 <>
                   <Edit2 size={24} className="text-indigo-600" />
@@ -228,22 +228,22 @@ export default function CasosOrientacionPage() {
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-            <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
-              <h3 className="font-semibold text-lg mb-4 flex items-center gap-2 text-gray-800">
+            <div className="bg-indigo-50 dark:bg-indigo-900 border border-indigo-100 dark:border-indigo-800 p-4 rounded-lg">
+              <h3 className="font-semibold text-lg mb-4 flex items-center gap-2 text-gray-800 dark:text-white">
                 <FileText size={20} className="text-indigo-600" />
                 Información del Caso
               </h3>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
                     Estudiante <span className="text-rose-500">*</span>
                   </label>
                   <select
                     required
                     value={formData.estudiante_id}
                     onChange={(e) => setFormData({ ...formData, estudiante_id: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                   >
                     <option value="">Selecciona un estudiante...</option>
                     {estudiantes.map(est => (
@@ -255,13 +255,13 @@ export default function CasosOrientacionPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
                     Tipo de Caso <span className="text-rose-500">*</span>
                   </label>
                   <select
                     value={formData.tipo_caso}
                     onChange={(e) => setFormData({ ...formData, tipo_caso: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                   >
                     <option value="Académico">Académico</option>
                     <option value="Personal">Personal</option>
@@ -272,7 +272,7 @@ export default function CasosOrientacionPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
                     Descripción
                   </label>
                   <textarea
@@ -280,19 +280,19 @@ export default function CasosOrientacionPage() {
                     onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
                     placeholder="Describe el caso..."
                     rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
                       Prioridad
                     </label>
                     <select
                       value={formData.prioridad}
                       onChange={(e) => setFormData({ ...formData, prioridad: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                     >
                       <option value="Baja">Baja</option>
                       <option value="Media">Media</option>
@@ -301,13 +301,13 @@ export default function CasosOrientacionPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-2 text-gray-700">
+                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
                       Estado
                     </label>
                     <select
                       value={formData.estado}
                       onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                     >
                       <option value="Nuevo">Nuevo</option>
                       <option value="En seguimiento">En seguimiento</option>
@@ -342,28 +342,28 @@ export default function CasosOrientacionPage() {
 
       {/* ESTADÍSTICAS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-linear-to-br from-indigo-500 to-indigo-600 text-white shadow-md">
+        <Card className="p-4 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <FileText size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Casos Totales</div>
           </div>
           <div className="text-3xl font-bold">{stats.total}</div>
         </Card>
-        <Card className="p-4 bg-linear-to-br from-sky-500 to-sky-600 text-white shadow-md">
+        <Card className="p-4 bg-gradient-to-br from-sky-500 to-sky-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Casos Activos</div>
           </div>
           <div className="text-3xl font-bold">{stats.activos}</div>
         </Card>
-        <Card className="p-4 bg-linear-to-br from-rose-500 to-rose-600 text-white shadow-md">
+        <Card className="p-4 bg-gradient-to-br from-rose-500 to-rose-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <AlertTriangle size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Prioridad Alta</div>
           </div>
           <div className="text-3xl font-bold">{stats.alta}</div>
         </Card>
-        <Card className="p-4 bg-linear-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
+        <Card className="p-4 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md">
           <div className="flex items-center gap-2 mb-2">
             <CheckCircle size={20} className="opacity-90" />
             <div className="text-sm opacity-90">Resueltos</div>
@@ -373,16 +373,16 @@ export default function CasosOrientacionPage() {
       </div>
 
       {/* FILTROS */}
-      <Card className="p-6 bg-white shadow-md">
+      <Card className="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-700">
+            <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
               Filtrar por Estado
             </label>
             <select
               value={filtroEstado}
               onChange={(e) => setFiltroEstado(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
               <option value="">Todos los estados</option>
               <option value="Nuevo">Nuevo</option>
@@ -392,13 +392,13 @@ export default function CasosOrientacionPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-700">
+            <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
               Filtrar por Prioridad
             </label>
             <select
               value={filtroPrioridad}
               onChange={(e) => setFiltroPrioridad(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
               <option value="">Todas las prioridades</option>
               <option value="Baja">Baja</option>
@@ -412,7 +412,7 @@ export default function CasosOrientacionPage() {
       {/* TABLA */}
       {loading ? (
         <Card className="p-8">
-          <div className="text-center text-gray-500">
+          <div className="text-center text-gray-500 dark:text-gray-400">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
             Cargando casos...
           </div>
@@ -420,58 +420,58 @@ export default function CasosOrientacionPage() {
       ) : (
         <Card className="overflow-hidden shadow-md">
           {casosFiltrados.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-gray-500 dark:text-gray-400">
               No hay casos registrados
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-slate-100">
+                <thead className="bg-slate-100 dark:bg-gray-700">
                   <tr>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Estudiante</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Tipo</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Prioridad</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Estado</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Fecha</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Acciones</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Estudiante</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Tipo</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Prioridad</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Estado</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Fecha</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   {casosFiltrados.map((caso) => (
-                    <tr key={caso.id} className="border-t hover:bg-slate-50 transition">
-                      <td className="px-4 py-3 font-medium text-gray-800">{caso.estudiante_nombre}</td>
-                      <td className="px-4 py-3 text-gray-700">{caso.tipo_caso}</td>
+                    <tr key={caso.id} className="border-t hover:bg-slate-50 dark:hover:bg-gray-700 transition">
+                      <td className="px-4 py-3 font-medium text-gray-800 dark:text-white">{caso.estudiante_nombre}</td>
+                      <td className="px-4 py-3 text-gray-700 dark:text-gray-400">{caso.tipo_caso}</td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 rounded text-xs font-semibold ${
-                          caso.prioridad === 'Alta' ? 'bg-rose-100 text-rose-700' :
-                          caso.prioridad === 'Media' ? 'bg-amber-100 text-amber-700' :
-                          'bg-emerald-100 text-emerald-700'
+                          caso.prioridad === 'Alta' ? 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-100' :
+                          caso.prioridad === 'Media' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-100' :
+                          'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-100'
                         }`}>
                           {caso.prioridad}
                         </span>
                       </td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 rounded text-xs font-semibold ${
-                          caso.estado === 'Resuelto' ? 'bg-emerald-100 text-emerald-700' :
-                          caso.estado === 'En seguimiento' ? 'bg-sky-100 text-sky-700' :
-                          'bg-slate-100 text-slate-700'
+                          caso.estado === 'Resuelto' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-100' :
+                          caso.estado === 'En seguimiento' ? 'bg-sky-100 text-sky-700 dark:bg-sky-900 dark:text-sky-100' :
+                          'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-100'
                         }`}>
                           {caso.estado}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-sm text-gray-600">
+                      <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                         {new Date(caso.fecha_creacion).toLocaleDateString('es-MX')}
                       </td>
                       <td className="px-4 py-3 flex gap-2">
                         <button
                           onClick={() => handleEdit(caso)}
-                          className="text-sky-600 hover:text-sky-800 p-2 hover:bg-sky-50 rounded transition"
+                          className="text-sky-600 hover:text-sky-800 dark:text-sky-400 dark:hover:text-sky-300 p-2 hover:bg-sky-50 dark:hover:bg-sky-900/30 rounded transition"
                         >
                           <Edit2 size={18} />
                         </button>
                         <button
                           onClick={() => handleDelete(caso.id)}
-                          className="text-rose-600 hover:text-rose-800 p-2 hover:bg-rose-50 rounded transition"
+                          className="text-rose-600 hover:text-rose-800 dark:text-rose-400 dark:hover:text-rose-300 p-2 hover:bg-rose-50 dark:hover:bg-rose-900/30 rounded transition"
                         >
                           <Trash2 size={18} />
                         </button>

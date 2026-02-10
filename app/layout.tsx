@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import Chatbot from '@/components/chatbot'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
@@ -31,11 +30,10 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem={false}
+          enableSystem={true}
           disableTransitionOnChange
         >
           {children}
-          <Chatbot />
           <Analytics />
         </ThemeProvider>
       </body>

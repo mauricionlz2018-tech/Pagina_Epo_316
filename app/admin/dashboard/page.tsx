@@ -97,19 +97,19 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
       {/* Sidebar */}
       <aside
         className={`${
           sidebarOpen ? 'w-64' : 'w-20'
-        } bg-primary text-primary-foreground transition-all duration-300 fixed h-full z-40 flex flex-col`}
+        } bg-gray-800 dark:bg-gray-800 text-white transition-all duration-300 fixed h-full z-40 flex flex-col`}
       >
         {/* Logo */}
-        <div className="p-4 border-b border-secondary flex items-center justify-between">
+        <div className="p-4 border-b border-gray-700 flex items-center justify-between">
           {sidebarOpen && <span className="font-bold text-lg">EPO 316</span>}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-1 hover:bg-secondary rounded transition-colors"
+            className="p-1 hover:bg-gray-700 rounded transition-colors"
           >
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -123,7 +123,7 @@ export default function AdminDashboard() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-secondary hover:text-secondary-foreground transition-colors"
+                className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors"
                 title={item.label}
               >
                 <Icon size={20} />
@@ -134,10 +134,10 @@ export default function AdminDashboard() {
         </nav>
 
         {/* Logout */}
-        <div className="p-4 border-t border-secondary">
+        <div className="p-4 border-t border-gray-700">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-secondary hover:text-secondary-foreground transition-colors"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors"
             title="Cerrar sesión"
           >
             <LogOut size={20} />
@@ -149,10 +149,10 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className={`${sidebarOpen ? 'ml-64' : 'ml-20'} flex-1 overflow-auto transition-all duration-300`}>
         {/* Top Bar */}
-        <div className="bg-card border-b border-border p-6">
+        <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold">Panel Administrativo</h1>
-            <Link href="/" className="text-primary hover:underline">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Panel Administrativo</h1>
+            <Link href="/" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold">
               Ver sitio público
             </Link>
           </div>
@@ -163,8 +163,8 @@ export default function AdminDashboard() {
           {loading ? (
             <div className="flex items-center justify-center h-96">
               <div className="text-center">
-                <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-muted-foreground">Cargando datos...</p>
+                <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-gray-500 dark:text-gray-400">Cargando datos...</p>
               </div>
             </div>
           ) : (
@@ -172,70 +172,70 @@ export default function AdminDashboard() {
               {/* Stats Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 {/* Students Stat */}
-                <div className="bg-card border border-border rounded-xl p-6">
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-muted-foreground text-sm mb-1">Total de Estudiantes</p>
-                      <p className="text-3xl font-bold text-primary">{stats.totalStudents}</p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">Total de Estudiantes</p>
+                      <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stats.totalStudents}</p>
                     </div>
-                    <Users className="text-primary/20" size={40} />
+                    <Users className="text-blue-600/20 dark:text-blue-400/20" size={40} />
                   </div>
                 </div>
 
                 {/* Classes Stat */}
-                <div className="bg-card border border-border rounded-xl p-6">
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-muted-foreground text-sm mb-1">Clases/Grupos</p>
-                      <p className="text-3xl font-bold text-primary">{stats.totalClasses}</p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">Clases/Grupos</p>
+                      <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stats.totalClasses}</p>
                     </div>
-                    <BookOpen className="text-primary/20" size={40} />
+                    <BookOpen className="text-blue-600/20 dark:text-blue-400/20" size={40} />
                   </div>
                 </div>
 
                 {/* Announcements Stat */}
-                <div className="bg-card border border-border rounded-xl p-6">
+                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-muted-foreground text-sm mb-1">Noticias Activas</p>
-                      <p className="text-3xl font-bold text-primary">{stats.totalAnnouncements}</p>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm mb-1">Noticias Activas</p>
+                      <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stats.totalAnnouncements}</p>
                     </div>
-                    <AlertCircle className="text-primary/20" size={40} />
+                    <AlertCircle className="text-blue-600/20 dark:text-blue-400/20" size={40} />
                   </div>
                 </div>
               </div>
 
               {/* Quick Actions */}
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h2 className="text-xl font-bold mb-4">Acciones Rápidas</h2>
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Acciones Rápidas</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Link
                     href="/admin/students/add"
-                    className="p-4 border border-border rounded-lg hover:bg-secondary/10 transition-colors text-center"
+                    className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center"
                   >
-                    <Users className="mx-auto mb-2 text-primary" size={24} />
-                    <p className="font-semibold">Agregar Estudiante</p>
+                    <Users className="mx-auto mb-2 text-blue-600 dark:text-blue-400" size={24} />
+                    <p className="font-semibold text-gray-900 dark:text-white">Agregar Estudiante</p>
                   </Link>
                   <Link
                     href="/admin/announcements/add"
-                    className="p-4 border border-border rounded-lg hover:bg-secondary/10 transition-colors text-center"
+                    className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center"
                   >
-                    <AlertCircle className="mx-auto mb-2 text-primary" size={24} />
-                    <p className="font-semibold">Nueva Noticia</p>
+                    <AlertCircle className="mx-auto mb-2 text-blue-600 dark:text-blue-400" size={24} />
+                    <p className="font-semibold text-gray-900 dark:text-white">Nueva Noticia</p>
                   </Link>
                   <Link
                     href="/admin/grades"
-                    className="p-4 border border-border rounded-lg hover:bg-secondary/10 transition-colors text-center"
+                    className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center"
                   >
-                    <BarChart3 className="mx-auto mb-2 text-primary" size={24} />
-                    <p className="font-semibold">Gestionar Calificaciones</p>
+                    <BarChart3 className="mx-auto mb-2 text-blue-600 dark:text-blue-400" size={24} />
+                    <p className="font-semibold text-gray-900 dark:text-white">Gestionar Calificaciones</p>
                   </Link>
                   <Link
                     href="/admin/programs"
-                    className="p-4 border border-border rounded-lg hover:bg-secondary/10 transition-colors text-center"
+                    className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center"
                   >
-                    <BookOpen className="mx-auto mb-2 text-primary" size={24} />
-                    <p className="font-semibold">Programas Académicos</p>
+                    <BookOpen className="mx-auto mb-2 text-blue-600 dark:text-blue-400" size={24} />
+                    <p className="font-semibold text-gray-900 dark:text-white">Programas Académicos</p>
                   </Link>
                 </div>
               </div>
@@ -246,4 +246,3 @@ export default function AdminDashboard() {
     </div>
   );
 }
-

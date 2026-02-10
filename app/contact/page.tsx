@@ -1,10 +1,9 @@
 'use client';
 
 import React from "react"
-
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
 import { useState } from 'react';
 
 export default function ContactPage() {
@@ -58,102 +57,129 @@ export default function ContactPage() {
     <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
 
-      {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold">Contacto</h1>
-          <p className="text-lg opacity-90 mt-2">Ponte en contacto con nosotros</p>
+      {/* Hero Section */}
+      <section className="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-40 left-10 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+            Ponte en <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 bg-clip-text text-transparent">contacto.</span>
+          </h1>
+          <p className="text-xl text-blue-50 max-w-2xl mx-auto">
+            Nos encantaría escucharte. Contáctanos para cualquier pregunta o información.
+          </p>
         </div>
       </section>
 
       {/* Content */}
-      <section className="py-16 md:py-24 flex-1">
+      <section className="py-16 md:py-24 flex-1 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Info */}
-            <div className="space-y-8">
-              <h2 className="text-3xl font-bold">Información de Contacto</h2>
+            <div className="space-y-8 animate-slide-up">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white">Información de contacto.</h2>
 
               <div className="space-y-6">
-                <div className="flex gap-4 items-start">
-                  <MapPin className="text-primary mt-1 flex-shrink-0" size={24} />
-                  <div>
-                    <h3 className="font-bold mb-1">Ubicación</h3>
-                    <p className="text-muted-foreground">
-                      Escuela Preparatoria Oficial Núm. 316
-                      <br />
-                      San José del Rincón, Estado de México, México
-                    </p>
+                <div className="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-blue-500/50">
+                  <div className="flex gap-4 items-start">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <MapPin className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-1 text-gray-900 dark:text-white">Ubicación</h3>
+                      <p className="text-gray-600 dark:text-gray-400">
+                        Escuela Preparatoria Oficial Núm. 316
+                        <br />
+                        San José del Rincón, Estado de México, México
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex gap-4 items-start">
-                  <Phone className="text-primary mt-1 flex-shrink-0" size={24} />
-                  <div>
-                    <h3 className="font-bold mb-1">Teléfono</h3>
-                    <p className="text-muted-foreground">+52 (555) 123-4567</p>
-                    <p className="text-muted-foreground text-sm mt-1">Lunes a Viernes, 8:00 AM - 3:00 PM</p>
+                <div className="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-blue-500/50">
+                  <div className="flex gap-4 items-start">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <Phone className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-1 text-gray-900 dark:text-white">Teléfono</h3>
+                      <p className="text-gray-600 dark:text-gray-400">+52 (555) 123-4567</p>
+                      <p className="text-gray-500 dark:text-gray-500 text-sm mt-1">Lunes a viernes, 8:00 AM - 3:00 PM.</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex gap-4 items-start">
-                  <Mail className="text-primary mt-1 flex-shrink-0" size={24} />
-                  <div>
-                    <h3 className="font-bold mb-1">Correo Electrónico</h3>
-                    <p className="text-muted-foreground">infoepo316@gmail.com</p>
-                    <p className="text-muted-foreground">admisionesepo316@gmail.com</p>
+                <div className="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-700 hover:border-blue-500/50">
+                  <div className="flex gap-4 items-start">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <Mail className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-1 text-gray-900 dark:text-white">Correo electrónico</h3>
+                      <p className="text-gray-600 dark:text-gray-400">infoepo316@gmail.com</p>
+                      <p className="text-gray-600 dark:text-gray-400">admisionesepo316@gmail.com</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Hours */}
-              <div className="bg-primary/10 border border-primary/20 rounded-xl p-6">
-                <h3 className="font-bold mb-4">Horario de Atención</h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span>Lunes a Viernes:</span>
-                    <span>8:00 AM - 3:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sabado y Domingo:</span>
-                    <span>Cerrado</span>
+                <div className="group bg-gradient-to-br from-blue-50/50 to-cyan-50/30 dark:from-slate-900/50 dark:to-slate-800/30 border border-blue-100 dark:border-slate-700 rounded-2xl p-6 hover:shadow-lg transition-all duration-300">
+                  <div className="flex gap-4 items-start">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <Clock className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-3 text-gray-900 dark:text-white">Horario de atención.</h3>
+                      <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="flex justify-between">
+                          <span>Lunes a viernes:</span>
+                          <span className="font-semibold">8:00 AM - 3:00 PM</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Sábado y domingo:</span>
+                          <span className="font-semibold">Cerrado</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Contact Form */}
-            <div>
-              <h2 className="text-3xl font-bold mb-8">Envíanos un Mensaje</h2>
+            <div className="animate-slide-up delay-100">
+              <h2 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white">Envíanos un mensaje.</h2>
 
-            {submitted && (
-                <div className="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg text-green-800">
+              {submitted && (
+                <div className="mb-6 p-4 bg-emerald-100 dark:bg-emerald-900/30 border border-emerald-300 dark:border-emerald-700 rounded-xl text-emerald-800 dark:text-emerald-200 animate-slide-down">
                   ✓ Mensaje enviado correctamente. Te hemos enviado una confirmación a tu correo. Nos pondremos en contacto pronto.
                 </div>
               )}
 
               {error && (
-                <div className="mb-6 p-4 bg-red-100 border border-red-300 rounded-lg text-red-800">
+                <div className="mb-6 p-4 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700 rounded-xl text-red-800 dark:text-red-200 animate-slide-down">
                   Error: {error}
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-6 bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Nombre</label>
+                  <label className="block text-sm font-semibold mb-3 text-gray-900 dark:text-white">Tu nombre</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Tu nombre"
+                    placeholder="Juan Pérez"
                     required
-                    className="w-full border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50 bg-background"
+                    className="w-full border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 bg-gray-50 dark:bg-slate-700 dark:text-white transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Correo Electrónico</label>
+                  <label className="block text-sm font-semibold mb-3 text-gray-900 dark:text-white">Tu correo electrónico</label>
                   <input
                     type="email"
                     name="email"
@@ -161,18 +187,18 @@ export default function ContactPage() {
                     onChange={handleChange}
                     placeholder="tu@email.com"
                     required
-                    className="w-full border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50 bg-background"
+                    className="w-full border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 bg-gray-50 dark:bg-slate-700 dark:text-white transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Asunto</label>
+                  <label className="block text-sm font-semibold mb-3 text-gray-900 dark:text-white">Asunto</label>
                   <select
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50 bg-background"
+                    className="w-full border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 bg-gray-50 dark:bg-slate-700 dark:text-white transition-all"
                   >
                     <option value="">Selecciona un asunto</option>
                     <option value="admisiones">Admisiones</option>
@@ -183,32 +209,32 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Mensaje</label>
+                  <label className="block text-sm font-semibold mb-3 text-gray-900 dark:text-white">Mensaje</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tu mensaje..."
+                    placeholder="Tu mensaje aquí..."
                     rows={5}
                     required
-                    className="w-full border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50 bg-background"
+                    className="w-full border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 bg-gray-50 dark:bg-slate-700 dark:text-white transition-all resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 rounded-xl font-bold hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                       Enviando...
                     </>
                   ) : (
                     <>
                       <Send size={20} />
-                      Enviar Mensaje
+                      Enviar mensaje
                     </>
                   )}
                 </button>

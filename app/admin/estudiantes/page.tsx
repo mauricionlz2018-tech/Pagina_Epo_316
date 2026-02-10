@@ -432,7 +432,7 @@ export default function EstudiantesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-semibold mb-2 text-gray-700">
-              🔍 Buscar Estudiante
+              Buscar Estudiante
             </label>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />

@@ -317,13 +317,13 @@ export default function BoletasPage() {
                       <tr key={idx} className={idx % 2 === 0 ? 'bg-muted/50' : ''}>
                         <td className="border p-2 font-semibold">{cal.materia}</td>
                         <td className="border p-2 text-center">
-                          {cal.calificacion_1 ? cal.calificacion_1.toFixed(2) : '-'}
+                          {cal.calificacion_1 != null ? Number(cal.calificacion_1).toFixed(2) : '-'}
                         </td>
                         <td className="border p-2 text-center">
-                          {cal.calificacion_2 ? cal.calificacion_2.toFixed(2) : '-'}
+                          {cal.calificacion_2 != null ? Number(cal.calificacion_2).toFixed(2) : '-'}
                         </td>
                         <td className="border p-2 text-center">
-                          {cal.calificacion_3 ? cal.calificacion_3.toFixed(2) : '-'}
+                          {cal.calificacion_3 != null ? Number(cal.calificacion_3).toFixed(2) : '-'}
                         </td>
                         <td className="border p-2 text-center font-bold">
                           {calcularPromedio([

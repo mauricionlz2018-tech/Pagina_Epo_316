@@ -67,8 +67,8 @@ export default function OrientacionPage() {
                 { title: 'Tutoría', desc: 'Programa de tutoría personalizada para acompañamiento académico y personal.' },
               ].map((program, idx) => (
                 <div key={program.title} className="group bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-100 dark:border-slate-700 hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-slide-up" style={{ animationDelay: `${(idx + 1) * 100}ms` }}>
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-white font-bold text-lg">{idx + 1}</span>
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+                    {idx + 1}
                   </div>
                   <h3 className="font-bold text-lg mb-3 text-gray-900 dark:text-white">{program.title}</h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{program.desc}</p>

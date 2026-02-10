@@ -5,11 +5,13 @@ import Image from 'next/image';
 import { Menu, X, ChevronDown, Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
 import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
 
   const menuItems = [
     { label: 'Inicio', href: '/' },
@@ -45,6 +47,13 @@ export default function Navigation() {
     { label: 'Ubicación', href: '/location' },
   ];
 
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/';
+    }
+    return pathname.startsWith(href);
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-lg animate-fade-in">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,7 +77,11 @@ export default function Navigation() {
               <div key={item.href} className="relative group">
                 <Link
                   href={item.href}
-                  className="hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded transition-smooth flex items-center gap-1"
+                  className={`px-3 py-2 rounded transition-smooth flex items-center gap-1 font-semibold ${
+                    isActive(item.href)
+                      ? 'bg-accent text-accent-foreground border-b-4 border-cyan-300'
+                      : 'hover:bg-accent hover:text-accent-foreground'
+                  }`}
                 >
                   {item.label}
                   {item.submenu && <ChevronDown size={16} />}
@@ -121,13 +134,17 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden pb-4">
+          <div className="md:hidden pb-4 animate-slide-down">
             {menuItems.map((item) => (
               <div key={item.href}>
                 <div className="flex items-center justify-between">
                   <Link
                       href={item.href}
-                      className="block flex-1 px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-smooth"
+                      className={`block flex-1 px-3 py-2 rounded transition-smooth font-semibold ${
+                        isActive(item.href)
+                          ? 'bg-accent text-accent-foreground border-l-4 border-cyan-300'
+                          : 'hover:bg-accent hover:text-accent-foreground'
+                      }`}
                       onClick={() => setIsOpen(false)}
                     >
                       {item.label}
@@ -137,19 +154,19 @@ export default function Navigation() {
                       onClick={() => setOpenSubmenu(openSubmenu === item.label ? null : item.label)}
                       className="px-3 py-2"
                     >
-                      <ChevronDown size={16} className={openSubmenu === item.label ? 'rotate-180' : ''} />
+                      <ChevronDown size={16} className={openSubmenu === item.label ? 'rotate-180 transition-transform' : 'transition-transform'} />
                     </button>
                   )}
                 </div>
                 
                 {/* Mobile Submenu */}
                 {item.submenu && openSubmenu === item.label && (
-                  <div className="pl-4 bg-gray-50">
+                  <div className="pl-4 bg-primary/10 dark:bg-primary/20 animate-slide-down">
                     {item.submenu.map((subitem) => (
                       <Link
                         key={subitem.href}
                         href={subitem.href}
-                        className="block px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-smooth text-sm text-gray-800"
+                        className="block px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-smooth text-sm"
                         onClick={() => setIsOpen(false)}
                       >
                         {subitem.label}
@@ -159,6 +176,19 @@ export default function Navigation() {
                 )}
               </div>
             ))}
+            <div className="flex items-center justify-between px-3 py-2 mt-2 border-t border-primary/20">
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="flex items-center gap-2 px-3 py-2 rounded hover:bg-accent hover:text-accent-foreground transition-smooth flex-1"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? (
+                  <><Sun size={18} /> Modo Claro</>
+                ) : (
+                  <><Moon size={18} /> Modo Nocturno</>
+                )}
+              </button>
+            </div>
             <Link
               href="/admin/login"
               className="block px-4 py-2 mt-2 rounded bg-secondary text-secondary-foreground hover:opacity-90 hover:scale-105 transition-smooth"

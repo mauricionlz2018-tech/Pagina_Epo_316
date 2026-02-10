@@ -30,14 +30,14 @@ export default function MateriasPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-linear-to-r from-blue-600 to-blue-800 text-white p-6 rounded-xl">
+      <div className="bg-gradient-to-r from-blue-700 to-blue-900 text-white p-6 rounded-xl">
         <h1 className="text-2xl md:text-3xl font-bold mb-2">Materias Asignadas</h1>
         <p className="text-blue-100">Gestión de cursos y asignaturas</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white">
+        <Card className="p-6 bg-gradient-to-br from-blue-600 to-blue-700 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Materias Activas</p>
@@ -47,7 +47,7 @@ export default function MateriasPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-linear-to-br from-green-500 to-green-600 text-white">
+        <Card className="p-6 bg-gradient-to-br from-green-600 to-green-700 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Estudiantes Totales</p>
@@ -57,7 +57,7 @@ export default function MateriasPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-linear-to-br from-purple-500 to-purple-600 text-white">
+        <Card className="p-6 bg-gradient-to-br from-purple-600 to-purple-700 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Grupos</p>
@@ -67,7 +67,7 @@ export default function MateriasPage() {
           </div>
         </Card>
 
-        <Card className="p-6 bg-linear-to-br from-orange-500 to-orange-600 text-white">
+        <Card className="p-6 bg-gradient-to-br from-orange-600 to-orange-700 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm opacity-90">Evaluaciones</p>
@@ -79,17 +79,17 @@ export default function MateriasPage() {
       </div>
 
       {/* Materias List */}
-      <Card className="p-6">
-        <h2 className="text-xl font-bold mb-4">Mis Materias</h2>
+      <Card className="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Mis Materias</h2>
         <div className="space-y-4">
           {materias.map((materia: any) => (
-            <div key={materia.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+            <div key={materia.id} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
               <div>
-                <h3 className="font-semibold">{materia.nombre}</h3>
-                <p className="text-sm text-gray-600">{materia.grado} {materia.grupo} - {materia.estudiantes} estudiantes</p>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{materia.nombre}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{materia.grado} {materia.grupo} - {materia.estudiantes} estudiantes</p>
               </div>
               <div className="text-right">
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                   Ver Detalles
                 </button>
               </div>
@@ -100,4 +100,3 @@ export default function MateriasPage() {
     </div>
   );
 }
-

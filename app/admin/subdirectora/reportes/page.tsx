@@ -134,8 +134,8 @@ export default function ReportesPage() {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Reportes Administrativos</h1>
-          <p className="text-gray-500 mt-1 text-sm md:text-base">Genera y gestiona reportes ejecutivos</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Reportes Administrativos</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm md:text-base">Genera y gestiona reportes ejecutivos</p>
         </div>
         <Button
           onClick={() => {
@@ -159,13 +159,13 @@ export default function ReportesPage() {
 
       {/* MENSAJES */}
       {error && (
-        <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-lg text-red-700 flex items-center gap-3">
+        <div className="p-4 bg-red-50 dark:bg-red-900 border-l-4 border-red-500 rounded-lg text-red-700 dark:text-red-100 flex items-center gap-3">
           <AlertCircle size={24} className="shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
-        <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-lg text-green-700 flex items-center gap-3">
+        <div className="p-4 bg-green-50 dark:bg-green-900 border-l-4 border-green-500 rounded-lg text-green-700 dark:text-green-100 flex items-center gap-3">
           <CheckCircle2 size={24} className="shrink-0" />
           <span>{success}</span>
         </div>
@@ -181,7 +181,7 @@ export default function ReportesPage() {
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-            <div className="bg-indigo-50 p-4 rounded-lg">
+            <div className="bg-indigo-50 dark:bg-indigo-900 border border-indigo-100 dark:border-indigo-800 p-4 rounded-lg">
               <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
                 <FileText size={20} className="text-indigo-600" />
                 Información del Reporte
@@ -189,7 +189,7 @@ export default function ReportesPage() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
                     Título <span className="text-red-500">*</span>
                   </label>
                   <Input
@@ -197,18 +197,18 @@ export default function ReportesPage() {
                     value={formData.titulo}
                     onChange={(e) => setFormData({ ...formData, titulo: e.target.value })}
                     placeholder="Ej: Reporte de Rendimiento Académico 2025"
-                    className="text-lg"
+                    className="text-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
                     Tipo de Reporte <span className="text-red-500">*</span>
                   </label>
                   <select
                     value={formData.tipo_reporte}
                     onChange={(e) => setFormData({ ...formData, tipo_reporte: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                   >
                     <option value="Académico">Académico</option>
                     <option value="Administrativo">Administrativo</option>
@@ -219,7 +219,7 @@ export default function ReportesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
+                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
                     Descripción
                   </label>
                   <textarea
@@ -227,7 +227,7 @@ export default function ReportesPage() {
                     onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
                     placeholder="Detalles y análisis del reporte..."
                     rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                   />
                 </div>
               </div>
@@ -256,34 +256,34 @@ export default function ReportesPage() {
 
       {/* ESTADÍSTICAS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="p-4 bg-linear-to-br from-indigo-500 to-indigo-600 text-white">
+        <Card className="p-4 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white">
           <div className="text-sm opacity-90">Total Reportes</div>
           <div className="text-3xl font-bold mt-2">{stats.total}</div>
         </Card>
-        <Card className="p-4 bg-linear-to-br from-blue-500 to-blue-600 text-white">
+        <Card className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
           <div className="text-sm opacity-90">Académicos</div>
           <div className="text-3xl font-bold mt-2">{stats.academicos}</div>
         </Card>
-        <Card className="p-4 bg-linear-to-br from-purple-500 to-purple-600 text-white">
+        <Card className="p-4 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
           <div className="text-sm opacity-90">Administrativos</div>
           <div className="text-3xl font-bold mt-2">{stats.administrativos}</div>
         </Card>
-        <Card className="p-4 bg-linear-to-br from-green-500 to-green-600 text-white">
+        <Card className="p-4 bg-gradient-to-br from-green-500 to-green-600 text-white">
           <div className="text-sm opacity-90">Financieros</div>
           <div className="text-3xl font-bold mt-2">{stats.financieros}</div>
         </Card>
       </div>
 
       {/* FILTROS */}
-      <Card className="p-6 bg-white shadow-md">
+      <Card className="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
         <div>
-          <label className="block text-sm font-semibold mb-2 text-gray-700">
+          <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
             Filtrar por Tipo
           </label>
           <select
             value={filtroTipo}
             onChange={(e) => setFiltroTipo(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
           >
             <option value="">Todos los tipos</option>
             <option value="Académico">Académico</option>
@@ -298,7 +298,7 @@ export default function ReportesPage() {
       {/* TABLA */}
       {loading ? (
         <Card className="p-8">
-          <div className="text-center text-gray-500">
+          <div className="text-center text-gray-500 dark:text-gray-400">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
             Cargando reportes...
           </div>
@@ -306,35 +306,35 @@ export default function ReportesPage() {
       ) : (
         <Card className="overflow-hidden shadow-md">
           {reportesFiltrados.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-gray-500 dark:text-gray-400">
               No hay reportes registrados
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-200">
+                <thead className="bg-gray-200 dark:bg-gray-700">
                   <tr>
-                    <th className="px-4 py-3 text-left font-semibold">Título</th>
-                    <th className="px-4 py-3 text-left font-semibold">Tipo</th>
-                    <th className="px-4 py-3 text-left font-semibold">Fecha Generación</th>
-                    <th className="px-4 py-3 text-left font-semibold">Estado</th>
-                    <th className="px-4 py-3 text-left font-semibold">Acciones</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Título</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Tipo</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Fecha Generación</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Estado</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   {reportesFiltrados.map((reporte) => (
-                    <tr key={reporte.id} className="border-t hover:bg-gray-50 transition">
-                      <td className="px-4 py-3 font-medium">{reporte.titulo}</td>
+                    <tr key={reporte.id} className="border-t hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                      <td className="px-4 py-3 font-medium text-gray-800 dark:text-white">{reporte.titulo}</td>
                       <td className="px-4 py-3">
-                        <span className="px-2 py-1 rounded text-xs font-semibold bg-blue-100 text-blue-700">
+                        <span className="px-2 py-1 rounded text-xs font-semibold bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-100">
                           {reporte.tipo_reporte}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-sm text-gray-600">
+                      <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                         {new Date(reporte.fecha_generacion).toLocaleDateString('es-MX')}
                       </td>
                       <td className="px-4 py-3">
-                        <span className="px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-700">
+                        <span className="px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-100">
                           {reporte.estado}
                         </span>
                       </td>
@@ -350,20 +350,20 @@ export default function ReportesPage() {
                             element.click();
                             document.body.removeChild(element);
                           }}
-                          className="text-green-600 hover:text-green-800 p-2 hover:bg-green-50 rounded transition"
+                          className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 p-2 hover:bg-green-50 dark:hover:bg-green-900/30 rounded transition"
                           title="Descargar"
                         >
                           <Download size={18} />
                         </button>
                         <button
                           onClick={() => handleEdit(reporte)}
-                          className="text-blue-600 hover:text-blue-800 p-2 hover:bg-blue-50 rounded transition"
+                          className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 p-2 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded transition"
                         >
                           <Edit2 size={18} />
                         </button>
                         <button
                           onClick={() => handleDelete(reporte.id)}
-                          className="text-red-600 hover:text-red-800 p-2 hover:bg-red-50 rounded transition"
+                          className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 p-2 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition"
                         >
                           <Trash2 size={18} />
                         </button>
@@ -379,4 +379,3 @@ export default function ReportesPage() {
     </div>
   );
 }
-

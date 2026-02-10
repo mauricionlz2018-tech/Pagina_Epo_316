@@ -49,7 +49,7 @@ export default function SecretariaPanel() {
       description: 'Administrar datos estudiantiles',
       icon: Users,
       href: '/admin/estudiantes',
-      color: 'from-blue-500 to-blue-600',
+      color: 'from-blue-600 to-blue-700',
       count: stats.estudiantes,
     },
     {
@@ -57,7 +57,7 @@ export default function SecretariaPanel() {
       description: 'Generar reportes de calificaciones',
       icon: FileCheck,
       href: '/admin/secretaria/boletas',
-      color: 'from-green-500 to-green-600',
+      color: 'from-green-600 to-green-700',
       count: stats.boletas,
     },
     {
@@ -65,7 +65,7 @@ export default function SecretariaPanel() {
       description: 'Gestionar certificados y constancias',
       icon: FileText,
       href: '/admin/secretaria/documentos',
-      color: 'from-purple-500 to-purple-600',
+      color: 'from-purple-600 to-purple-700',
       count: stats.documentos,
     },
     {
@@ -73,7 +73,7 @@ export default function SecretariaPanel() {
       description: 'Organizar actividades institucionales',
       icon: Calendar,
       href: '/admin/secretaria/eventos',
-      color: 'from-orange-500 to-orange-600',
+      color: 'from-orange-600 to-orange-700',
       count: stats.eventos,
     },
   ];
@@ -81,8 +81,8 @@ export default function SecretariaPanel() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-linear-to-r from-teal-600 to-teal-800 text-white p-6 rounded-xl">
-        <h1 className="text-2xl md:text-3xl font-bold mb-2">Panel de la Secretaria</h1>
+      <div className="bg-gradient-to-r from-teal-700 to-teal-900 text-white p-6 rounded-xl">
+        <h1 className="text-2xl md:text-3xl font-bold mb-2">Panel de la Secretaría</h1>
         <p className="text-teal-100">Gestión administrativa y soporte estudiantil</p>
       </div>
 
@@ -90,7 +90,7 @@ export default function SecretariaPanel() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {menuItems.map((item, idx) => (
           <Link key={idx} href={item.href}>
-            <Card className={`p-6 bg-linear-to-br ${item.color} text-white rounded-xl cursor-pointer hover:shadow-lg transition`}>
+            <Card className={`p-6 bg-gradient-to-br ${item.color} text-white rounded-xl cursor-pointer hover:shadow-lg transition`}>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm opacity-90">{item.title}</p>
@@ -105,16 +105,16 @@ export default function SecretariaPanel() {
 
       {/* Administrative Tasks */}
       <div>
-        <h2 className="text-xl md:text-2xl font-bold mb-4">Tareas Administrativas</h2>
+        <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-white">Tareas Administrativas</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           <button onClick={() => window.location.href = '/admin/estudiantes'} className="w-full">
-            <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
+            <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
               <div className="flex items-start gap-3 md:gap-4">
-                <div className="p-2 md:p-3 bg-linear-to-br from-blue-500 to-blue-600 rounded-lg text-white shrink-0">
+                <div className="p-2 md:p-3 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg text-white shrink-0">
                   <ClipboardList size={20} className="md:w-6 md:h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-base md:text-lg">Inscripciones</h3>
+                  <h3 className="font-bold text-base md:text-lg text-gray-900 dark:text-white">Inscripciones</h3>
                   <p className="text-gray-600 text-xs md:text-sm mt-1">Procesar nuevas matrículas</p>
                   <div className="text-blue-600 font-semibold text-xs md:text-sm mt-3">Gestionar</div>
                 </div>
@@ -123,13 +123,13 @@ export default function SecretariaPanel() {
           </button>
 
           <button onClick={() => window.location.href = '/admin/secretaria/documentos'} className="w-full">
-            <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
+            <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
               <div className="flex items-start gap-3 md:gap-4">
-                <div className="p-2 md:p-3 bg-linear-to-br from-green-500 to-green-600 rounded-lg text-white shrink-0">
+                <div className="p-2 md:p-3 bg-gradient-to-br from-green-600 to-green-700 rounded-lg text-white shrink-0">
                   <FileCheck size={20} className="md:w-6 md:h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-base md:text-lg">Certificaciones</h3>
+                  <h3 className="font-bold text-base md:text-lg text-gray-900 dark:text-white">Certificaciones</h3>
                   <p className="text-gray-600 text-xs md:text-sm mt-1">Emitir documentos oficiales</p>
                   <div className="text-green-600 font-semibold text-xs md:text-sm mt-3">Generar</div>
                 </div>
@@ -138,13 +138,13 @@ export default function SecretariaPanel() {
           </button>
 
           <button onClick={() => window.location.href = '/admin/secretaria/eventos'} className="w-full">
-            <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer">
+            <Card className="p-4 md:p-6 hover:shadow-lg transition cursor-pointer bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
               <div className="flex items-start gap-3 md:gap-4">
-                <div className="p-2 md:p-3 bg-linear-to-br from-purple-500 to-purple-600 rounded-lg text-white shrink-0">
+                <div className="p-2 md:p-3 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg text-white shrink-0">
                   <Calendar size={20} className="md:w-6 md:h-6" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-base md:text-lg">Agenda Institucional</h3>
+                  <h3 className="font-bold text-base md:text-lg text-gray-900 dark:text-white">Agenda Institucional</h3>
                   <p className="text-gray-600 text-xs md:text-sm mt-1">Coordinar eventos y reuniones</p>
                   <div className="text-purple-600 font-semibold text-xs md:text-sm mt-3">Organizar</div>
                 </div>
@@ -155,8 +155,8 @@ export default function SecretariaPanel() {
       </div>
 
       {/* Info Card */}
-      <Card className="p-6 bg-linear-to-r from-gray-50 to-gray-100 border-gray-200">
-        <h3 className="font-bold text-lg mb-3">Indicadores Administrativos</h3>
+      <Card className="p-6 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        <h3 className="font-bold text-lg mb-3 text-gray-900 dark:text-white">Indicadores Administrativos</h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
             <p className="text-gray-600 text-sm">Estudiantes Registrados</p>
@@ -179,4 +179,3 @@ export default function SecretariaPanel() {
     </div>
   );
 }
-

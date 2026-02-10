@@ -11,9 +11,9 @@ interface BoletaData {
   ciclo_escolar: string;
   calificaciones: Array<{
     materia: string;
-    calificacion_1: number;
-    calificacion_2: number;
-    calificacion_3: number;
+    calificacion_1: number | null;
+    calificacion_2: number | null;
+    calificacion_3: number | null;
     inasistencias_1: number;
     inasistencias_2: number;
     inasistencias_3: number;
