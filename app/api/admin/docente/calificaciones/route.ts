@@ -17,11 +17,13 @@ export async function GET(request: NextRequest) {
             );
         }
 
+        // Filtrar calificaciones por las materias asignadas al profesor
+        // Esto asegura que el profesor vea calificaciones de sus materias asignadas
         let query = `
-            SELECT c.* 
+            SELECT DISTINCT c.* 
             FROM calificaciones c
             INNER JOIN materias m ON m.nombre = c.materia
-            WHERE m.profesor_id = ?
+            WHERE m.profesor_id = ? AND m.activo = 1
         `;
         const params: any[] = [profesor_id];
 
@@ -199,7 +201,6 @@ export async function PUT(request: NextRequest) {
 
         // Enviar notificación a superiores
         notifyGradesChange({
-            id,
             estudiante_id: body.estudiante_id,
             estudiante_nombre: estudianteName,
             materia,
