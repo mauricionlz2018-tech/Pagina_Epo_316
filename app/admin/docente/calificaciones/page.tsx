@@ -95,17 +95,16 @@ export default function DocenteCalificacionesPage() {
       setLoading(true);
       setError('');
 
-      // Obtener profesor_id desde la sesión (simulado con localStorage)
+      // Obtener profesor_id desde localStorage (configurado en login)
       const storedProfesorId = localStorage.getItem('profesor_id');
       if (!storedProfesorId) {
-        // Para demo, usar profesor_id = 1 (Roberto García)
-        localStorage.setItem('profesor_id', '1');
-        setProfesorId('1');
-      } else {
-        setProfesorId(storedProfesorId);
+        setError('Error: No se encontró tu ID de profesor. Por favor inicia sesión nuevamente.');
+        setLoading(false);
+        return;
       }
 
-      const pId = storedProfesorId || '1';
+      setProfesorId(storedProfesorId);
+      const pId = storedProfesorId;
 
       // Cargar materias del docente
       const resMaterias = await fetch(`/api/admin/docente/materias?profesor_id=${pId}`);

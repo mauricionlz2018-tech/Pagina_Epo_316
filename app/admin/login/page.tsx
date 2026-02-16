@@ -45,6 +45,11 @@ export default function AdminLoginPage() {
       localStorage.setItem('admin_token', data.token);
       localStorage.setItem('user_role', data.usuario.rol);
 
+      // Si es docente, guardar profesor_id
+      if (data.usuario.rol === 'docente') {
+        localStorage.setItem('profesor_id', String(data.usuario.id));
+      }
+
       // Map 'administrador' to 'director' for routing
       const roleForRoute = data.usuario.rol === 'administrador' ? 'director' : data.usuario.rol;
       router.push(`/admin/${roleForRoute}`);
