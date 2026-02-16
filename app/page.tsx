@@ -63,8 +63,8 @@ export default function Home() {
       icon: Award,
     },
     {
-      title: 'Infraestructura Moderna',
-      description: 'Laboratorios, biblioteca digital y espacios diseñados para el aprendizaje',
+      title: 'Infraestructura',
+      description: 'Area de computo, biblioteca digital y espacios diseñados para el aprendizaje',
       icon: Rocket,
     },
   ];

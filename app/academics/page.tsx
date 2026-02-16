@@ -115,7 +115,7 @@ export default function AcademicsPage() {
     {
       title: 'Opción de Ciencias',
       icon: <Target size={24} />,
-      description: 'Especialización en ciencias naturales y exactas para carreras STEM',
+      description: 'Especialización en ciencias naturales y exactas para carreras',
       color: 'from-blue-500 to-cyan-500'
     },
     {
