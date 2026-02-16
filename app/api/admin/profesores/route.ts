@@ -24,23 +24,34 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { nombre, correo, telefono, especialidad, materias_asignadas, contraseña } = body;
 
-    // Crear usuario primero
-    const [userResult] = await pool.query<ResultSetHeader>(
-      'INSERT INTO usuarios (correo, contraseña, rol, nombre, activo) VALUES (?, ?, ?, ?, ?)',
-      [correo, contraseña || 'profesor123', 'profesor', nombre, 1]
-    );
-
-    const usuario_id = userResult.insertId;
-
-    // Crear profesor
+    // Crear profesor directamente en la tabla profesores
     const [result] = await pool.query<ResultSetHeader>(
-      'INSERT INTO profesores (usuario_id, nombre, correo, telefono, especialidad, materias_asignadas) VALUES (?, ?, ?, ?, ?, ?)',
-      [usuario_id, nombre, correo, telefono, especialidad, materias_asignadas]
+      'INSERT INTO profesores (nombre, correo, telefono, especialidad, materias_asignadas, contraseña, activo) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [nombre, correo, telefono, especialidad, materias_asignadas, contraseña || 'profesor123', 1]
     );
+
+    const profesor_id = result.insertId;
+
+    // Asignar materias al profesor en la tabla materias
+    if (materias_asignadas && materias_asignadas.trim()) {
+      // Parsear las materias (separadas por coma)
+      const materias = materias_asignadas
+        .split(',')
+        .map((m: string) => m.trim())
+        .filter((m: string) => m.length > 0);
+
+      // Asignar cada materia al profesor
+      for (const materia of materias) {
+        await pool.query(
+          'UPDATE materias SET profesor_id = ? WHERE nombre = ? AND activo = 1',
+          [profesor_id, materia]
+        );
+      }
+    }
 
     return NextResponse.json({
       message: 'Profesor creado exitosamente',
-      id: result.insertId
+      id: profesor_id
     });
   } catch (error: any) {
     console.error('Error al crear profesor:', error);
@@ -57,6 +68,30 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { id, nombre, correo, telefono, especialidad, materias_asignadas, activo } = body;
 
+    // Primero, desasignar todas las materias actuales del profesor
+    await pool.query(
+      'UPDATE materias SET profesor_id = NULL WHERE profesor_id = ?',
+      [id]
+    );
+
+    // Si hay materias asignadas, asignarlas
+    if (materias_asignadas && materias_asignadas.trim()) {
+      // Parsear las materias (separadas por coma)
+      const materias = materias_asignadas
+        .split(',')
+        .map((m: string) => m.trim())
+        .filter((m: string) => m.length > 0);
+
+      // Asignar cada materia al profesor
+      for (const materia of materias) {
+        await pool.query(
+          'UPDATE materias SET profesor_id = ? WHERE nombre = ? AND activo = 1',
+          [id, materia]
+        );
+      }
+    }
+
+    // Actualizar datos del profesor en tabla profesores
     await pool.query(
       'UPDATE profesores SET nombre = ?, correo = ?, telefono = ?, especialidad = ?, materias_asignadas = ?, activo = ? WHERE id = ?',
       [nombre, correo, telefono, especialidad, materias_asignadas, activo, id]
@@ -91,19 +126,14 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    // Obtener usuario_id antes de eliminar
-    const [profesor] = await pool.query<RowDataPacket[]>(
-      'SELECT usuario_id FROM profesores WHERE id = ?',
+    // Desasignar todas las materias del profesor
+    await pool.query(
+      'UPDATE materias SET profesor_id = NULL WHERE profesor_id = ?',
       [id]
     );
 
     // Eliminar profesor
     await pool.query('DELETE FROM profesores WHERE id = ?', [id]);
-
-    // Eliminar usuario asociado
-    if (profesor[0]?.usuario_id) {
-      await pool.query('DELETE FROM usuarios WHERE id = ?', [profesor[0].usuario_id]);
-    }
 
     return NextResponse.json({ message: 'Profesor eliminado exitosamente' });
   } catch (error: any) {
